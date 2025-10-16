@@ -372,12 +372,12 @@ form button:hover {
 @media (max-width: 480px) {
   .lightbox-controls {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .lightbox-controls button {
     font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+    padding: 0.3rem 0.7rem;
     width: 80%;
   }
 
