@@ -11,7 +11,8 @@
 /* Fundo e layout geral */
 body {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  /*background: linear-gradient(to right, #f5f7fa, #c3cfe2);*/
+    background: linear-gradient(to right, #e0f2f1, #e3f2fd, #ede7f6); /* exemplo oceano suave */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +23,7 @@ body {
 
 /* Container principal */
 .container {
-  background: white;
+  background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -206,6 +207,20 @@ form button:hover {
 .catalogo-link:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
+}
+
+.insta-link i,
+.whatsapp-link i,
+.catalogo-link i {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.services button i {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  vertical-align: middle;
 }
 
 /* Animações */
