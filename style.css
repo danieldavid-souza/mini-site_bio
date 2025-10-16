@@ -368,3 +368,20 @@ form button:hover {
     max-width: 600px;
   }
 }
+
+@media (max-width: 480px) {
+  .lightbox-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lightbox-controls button {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    width: 80%;
+  }
+
+  .lightbox-wrapper img {
+    max-height: 60vh;
+  }
+}
