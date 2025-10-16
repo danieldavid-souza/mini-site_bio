@@ -58,3 +58,53 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
   e.preventDefault();
   document.getElementById("formMessage").textContent = "Mensagem enviada! Entraremos em contato.";
 });
+
+function openLightbox(index) {
+  const overlay = document.createElement('div');
+  overlay.classList.add('lightbox-overlay');
+  overlay.setAttribute('id', 'lightbox');
+  overlay.setAttribute('tabindex', '0');
+
+  // Container interno para imagem e botões
+  const content = document.createElement('div');
+  content.style.display = 'flex';
+  content.style.flexDirection = 'column';
+  content.style.alignItems = 'center';
+
+  // Imagem ampliada
+  const img = document.createElement('img');
+  img.src = images[index].getAttribute('href');
+  img.classList.add('lightbox-image');
+  content.appendChild(img);
+
+  // Botões de navegação
+  const controls = document.createElement('div');
+  controls.classList.add('lightbox-controls');
+
+  const prevBtn = document.createElement('button');
+  prevBtn.textContent = '◀ Anterior';
+  prevBtn.onclick = () => navigateLightbox(-1);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '✖ Fechar';
+  closeBtn.onclick = closeLightbox;
+
+  const nextBtn = document.createElement('button');
+  nextBtn.textContent = 'Próxima ▶';
+  nextBtn.onclick = () => navigateLightbox(1);
+
+  controls.appendChild(prevBtn);
+  controls.appendChild(closeBtn);
+  controls.appendChild(nextBtn);
+  content.appendChild(controls);
+
+  overlay.appendChild(content);
+  document.body.appendChild(overlay);
+  overlay.focus();
+
+  overlay.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'Escape') closeLightbox();
+  });
+}

@@ -11,8 +11,7 @@
 /* Fundo e layout geral */
 body {
   font-family: 'Roboto', sans-serif;
-  /*background: linear-gradient(to right, #f5f7fa, #c3cfe2);*/
-    background: linear-gradient(to right, #e0f2f1, #e3f2fd, #ede7f6); /* exemplo oceano suave */
+  background: linear-gradient(to right, #e0f2f1, #e3f2fd, #ede7f6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,6 +95,12 @@ h2 {
 .services button:hover {
   background-color: #023e8a;
   transform: scale(1.05);
+}
+
+.services button i {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  vertical-align: middle;
 }
 
 /* Caixa de informações */
@@ -217,10 +222,60 @@ form button:hover {
   vertical-align: middle;
 }
 
-.services button i {
-  margin-right: 0.5rem;
-  font-size: 1.1rem;
-  vertical-align: middle;
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  flex-direction: column;
+  animation: fadeInBody 0.3s ease-in;
+}
+
+.lightbox-overlay img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.lightbox-controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.lightbox-controls button {
+  background: #ffffff;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.lightbox-controls button:hover {
+  background: #ddd;
+}
+
+.lightbox-image {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.lightbox-image:not(:hover) {
+  opacity: 0.95;
 }
 
 /* Animações */
@@ -279,10 +334,28 @@ form button:hover {
   .catalog img {
     width: 80px;
   }
+
+  .lightbox-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lightbox-controls button {
+    width: 80%;
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 768px) {
   h1 {
     font-size: 2.5rem;
+  }
+
+  .catalog img {
+    width: 120px;
+  }
+
+  .container {
+    max-width: 600px;
   }
 }
