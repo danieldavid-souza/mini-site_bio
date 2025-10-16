@@ -17,6 +17,7 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 1rem;
+  animation: fadeInBody 1s ease-in;
 }
 
 /* Container principal */
@@ -28,6 +29,7 @@ body {
   max-width: 400px;
   width: 100%;
   text-align: center;
+  animation: fadeInUp 1s ease-out;
 }
 
 /* Logo */
@@ -35,6 +37,7 @@ body {
   width: 100px;
   border-radius: 50%;
   margin-bottom: 1rem;
+  animation: zoomIn 0.8s ease-out;
 }
 
 /* Título principal */
@@ -46,6 +49,9 @@ h1 {
   animation: fadeInDown 1s ease-out;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
   word-break: break-word;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Subtítulos */
@@ -61,6 +67,7 @@ h2 {
   font-size: 1rem;
   margin-bottom: 1.5rem;
   color: #333;
+  animation: fadeInUp 1s ease-out;
 }
 
 /* Botões de serviço */
@@ -81,11 +88,13 @@ h2 {
   color: white;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .services button:hover {
   background-color: #023e8a;
+  transform: scale(1.05);
 }
 
 /* Caixa de informações */
@@ -93,6 +102,7 @@ h2 {
   margin-top: 1rem;
   font-size: 0.95rem;
   color: #333;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 /* Catálogo de imagens */
@@ -108,6 +118,12 @@ h2 {
   width: 100px;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  animation: zoomIn 0.8s ease-out;
+}
+
+.catalog img:hover {
+  transform: scale(1.1);
 }
 
 /* Formulário de contato */
@@ -116,6 +132,7 @@ form {
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 1rem;
+  animation: fadeInUp 1s ease-out;
 }
 
 form input,
@@ -125,6 +142,13 @@ form textarea {
   border-radius: 6px;
   font-size: 1rem;
   width: 100%;
+  transition: box-shadow 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+  box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
+  outline: none;
 }
 
 form button {
@@ -134,22 +158,26 @@ form button {
   padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 form button:hover {
   background-color: #023e8a;
+  transform: scale(1.05);
 }
 
 /* Mensagem de envio */
 #formMessage {
   margin-top: 0.5rem;
   color: green;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 /* Links */
 .insta-link,
-.whatsapp-link {
+.whatsapp-link,
+.catalogo-link {
   display: block;
   margin-top: 1rem;
   text-decoration: none;
@@ -157,6 +185,8 @@ form button:hover {
   padding: 0.5rem;
   border-radius: 6px;
   color: white;
+  transition: background 0.3s, transform 0.3s;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .insta-link {
@@ -165,6 +195,17 @@ form button:hover {
 
 .whatsapp-link {
   background-color: #25d366;
+}
+
+.catalogo-link {
+  background-color: #ff6f00;
+}
+
+.insta-link:hover,
+.whatsapp-link:hover,
+.catalogo-link:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 /* Animações */
@@ -190,10 +231,30 @@ form button:hover {
   }
 }
 
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Responsividade extra */
 @media (max-width: 400px) {
   h1 {
-    font-size: 5vw;
+    font-size: 8vw;
   }
 
   .services button {
@@ -207,6 +268,6 @@ form button:hover {
 
 @media (min-width: 768px) {
   h1 {
-    font-size: 1.7rem;
+    font-size: 2.5rem;
   }
 }
