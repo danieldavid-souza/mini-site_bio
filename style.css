@@ -371,17 +371,21 @@ form button:hover {
 
 @media (max-width: 480px) {
   .lightbox-controls {
-    flex-direction: column;
-    gap: 0.4rem;
+    flex-direction: row; /* mantém os botões lado a lado */
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
   }
 
   .lightbox-controls button {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.7rem;
-    width: 80%;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    min-width: 90px;
+    flex: 1 1 auto;
   }
 
   .lightbox-wrapper img {
     max-height: 60vh;
   }
 }
+
