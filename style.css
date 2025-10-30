@@ -1,5 +1,5 @@
-/* Importação de fontes personalizadas */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap');
+/* Importação de fontes */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@400;700&display=swap');
 
 /* Reset básico */
 * {
@@ -8,7 +8,7 @@
   padding: 0;
 }
 
-/* Fundo e layout geral */
+/* Corpo da página */
 body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(to right, #e0f2f1, #e3f2fd, #ede7f6);
@@ -26,27 +26,31 @@ body {
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  max-width: 400px;
+  max-width: 800px;
   width: 100%;
   text-align: center;
+  margin: 0 auto;
   animation: fadeInUp 1s ease-out;
 }
 
-/* Logo */
+/* Logos */
 .logo {
   width: 100px;
+  max-width: 100%;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
   animation: zoomIn 0.8s ease-out;
 }
 
 /* Título principal */
 h1 {
-  font-family: 'Pacifico', cursive;
+  font-family: 'Playfair Display', serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
   font-size: clamp(1.5rem, 6vw, 2.5rem);
   color: #0077b6;
   margin-bottom: 1rem;
-  animation: fadeInDown 1s ease-out;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
   word-break: break-word;
   max-width: 90%;
@@ -54,7 +58,7 @@ h1 {
   margin-right: auto;
 }
 
-/* Subtítulos */
+/* Subtítulo */
 h2 {
   font-size: 1.4rem;
   color: #023e8a;
@@ -62,7 +66,7 @@ h2 {
   animation: fadeInUp 1s ease-out;
 }
 
-/* Parágrafo de descrição */
+/* Descrição */
 .description {
   font-size: 1rem;
   margin-bottom: 1.5rem;
@@ -80,8 +84,8 @@ h2 {
 }
 
 .services button {
-  flex: 1 1 40%;
-  min-width: 120px;
+  flex: 1 1 45%;
+  min-width: 140px;
   padding: 0.5rem;
   border: none;
   background-color: #0077b6;
@@ -111,138 +115,202 @@ h2 {
   animation: fadeInUp 0.8s ease-out;
 }
 
+/* Grupo de botões sociais */
+.social-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Botões sociais padronizados */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.3s, filter 0.3s;
+  font-size: 0.95rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.social-link i {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+/* Cores específicas */
+.insta-link { background-color: #833ab4; }
+.face-link { background-color: #1877F2; }
+.whatsapp-link { background-color: #25d366; }
+.catalogo-link { background-color: #ff6f00; }
+
+.social-link:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
 /* Catálogo de imagens */
 .catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+  justify-items: center;
+}
+
+.catalog a {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .catalog img {
-  width: 100px;
+  width: 100%;
+  max-width: 120px;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   transition: transform 0.3s;
   animation: zoomIn 0.8s ease-out;
+  display: block;
 }
 
 .catalog img:hover {
   transform: scale(1.1);
 }
 
-/* Formulário de contato */
-form {
+.warning-message {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  font-size: 0.95rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  margin-top: 1rem;
-  animation: fadeInUp 1s ease-out;
+  animation: pulseWarning 1.5s infinite;
 }
 
-form input,
-form textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-  transition: box-shadow 0.3s;
+.warning-message i {
+  font-size: 1.2rem;
+  color: #856404;
 }
 
-form input:focus,
-form textarea:focus {
-  box-shadow: 0 0 5px rgba(0, 119, 182, 0.5);
-  outline: none;
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
 }
 
-form button {
-  background-color: #0077b6;
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-form button:hover {
-  background-color: #023e8a;
-  transform: scale(1.05);
-}
-
-/* Mensagem de envio */
-#formMessage {
-  margin-top: 0.5rem;
-  color: green;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-/* Links */
-.insta-link,
-.whatsapp-link,
-.catalogo-link {
-  display: block;
-  margin-top: 1rem;
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  padding: 0.5rem;
-  border-radius: 6px;
-  color: white;
-  transition: background 0.3s, transform 0.3s;
-  animation: fadeInUp 0.8s ease-out;
+  color: #333;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-.insta-link {
-  background-color: #833ab4;
+.social-link:hover {
+  background-color: #e0e0e0;
 }
 
-.whatsapp-link {
-  background-color: #25d366;
-}
-
-.catalogo-link {
-  background-color: #ff6f00;
-}
-
-.insta-link:hover,
-.whatsapp-link:hover,
-.catalogo-link:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-.insta-link i,
-.whatsapp-link i,
-.catalogo-link i {
-  margin-right: 0.5rem;
+.social-link i {
   font-size: 1.2rem;
-  vertical-align: middle;
 }
 
-/* Lightbox */
+/* Base para todos os botões */
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Instagram */
+.insta-link {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+/* Facebook */
+.face-link {
+  background-color: #1877F2;
+}
+
+/* WhatsApp */
+.whatsapp-link {
+  background-color: #25D366;
+}
+
+/* Catálogo */
+.catalogo-link {
+  background-color: #6c757d;
+}
+
+/* Hover para todos */
+.social-link:hover {
+  opacity: 0.9;
+}
+
 .lightbox-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
   flex-direction: column;
   animation: fadeInBody 0.3s ease-in;
 }
 
-.lightbox-overlay img {
+.lightbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-height: 100%;
+}
+
+.lightbox-image {
   max-width: 90%;
   max-height: 80%;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
 }
 
 .lightbox-controls {
@@ -250,6 +318,7 @@ form button:hover {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  z-index: 10000;
 }
 
 .lightbox-controls button {
@@ -262,7 +331,6 @@ form button:hover {
   cursor: pointer;
   transition: background 0.3s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 1000;
 }
 
 .lightbox-controls button:hover {
@@ -270,122 +338,76 @@ form button:hover {
 }
 
 .lightbox-image {
-  transition: opacity 0.3s ease-in-out;
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
 
-.lightbox-image:not(:hover) {
-  opacity: 0.95;
+.lightbox-image.fade-out {
+  opacity: 0;
 }
 
-.lightbox-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-height: 100%;
-  gap: 1rem;
+.lightbox-image {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.lightbox-image.fade-out {
+  opacity: 0;
+}
+
+/* Animação de pulso */
+@keyframes pulseWarning {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* Animações */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeInBody {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes fadeInBody {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Responsividade extra */
-@media (max-width: 400px) {
-  h1 {
-    font-size: 8vw;
-  }
-
+/* Responsividade */
+@media (max-width: 480px) {
   .services button {
     flex: 1 1 100%;
   }
 
-  .catalog img {
-    width: 80px;
-  }
-
-  .lightbox-controls {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .lightbox-controls button {
-    width: 80%;
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 768px) {
-  h1 {
-    font-size: 2.5rem;
+  .social-group {
+    grid-template-columns: 1fr;
   }
 
   .catalog img {
-    width: 120px;
-  }
-
-  .container {
-    max-width: 600px;
+    max-width: 80px;
   }
 }
 
 @media (max-width: 480px) {
-  .lightbox-controls {
-    flex-direction: row; /* mantém os botões lado a lado */
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
+  .catalog {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 
-  .lightbox-controls button {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-    min-width: 90px;
-    flex: 1 1 auto;
-  }
-
-  .lightbox-wrapper img {
-    max-height: 60vh;
+  .catalog img {
+    max-width: 80px;
   }
 }
-

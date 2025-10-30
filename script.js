@@ -1,10 +1,12 @@
-// Botões de serviço e WhatsApp
-const whatsappBtn = document.getElementById("whatsappBtn");
+const whatsappBtnCalixto = document.getElementById("whatsappBtnCalixto");
+const whatsappBtnLima = document.getElementById("whatsappBtnLima");
+const warning = document.getElementById("whatsappWarning");
 let selectedService = "";
 
+// Exibe descrição e atualiza links
 function showInfo(service) {
-  const infoBox = document.getElementById("info");
   selectedService = service;
+  const infoBox = document.getElementById("info");
 
   let content = "";
   switch (service) {
@@ -20,43 +22,67 @@ function showInfo(service) {
     case "manutencao":
       content = "Serviços de manutenção, formatação e upgrades para computadores e notebooks.";
       break;
-    default:
-      content = "";
   }
 
   infoBox.textContent = content;
-  updateWhatsAppLink();
+  updateWhatsAppLinks();
 }
 
-function updateWhatsAppLink() {
-  const phone = "5532991992905";
-  let message = "Olá! Vim pelo mini site e tenho interesse em ";
+// Gera links personalizados
+function updateWhatsAppLinks() {
+  const phoneCalixto = "5532991657472"; // Marli
+  const phoneLima = "5532991992905";    // Daniel
+
+  let messageCalixto = "";
+  let messageLima = "";
 
   switch (selectedService) {
     case "sublimacao":
-      message += "serviços de sublimação.";
-      break;
     case "personalizados":
-      message += "produtos personalizados.";
-      break;
     case "convites":
-      message += "convites digitais.";
+      messageCalixto = "Olá Marli! Vim pelo mini site e tenho interesse em serviços de sublimação e/ou personalizados! Você pode dar mais detalhes?";
+      messageLima = "Olá Daniel! Vim pelo mini site e tenho interesse em serviços de sublimação e/ou personalizados! Você pode dar mais detalhes?";
       break;
     case "manutencao":
-      message += "manutenção de computador ou notebook.";
+      messageCalixto = "Olá Marli! Vim pelo mini site e gostaria de saber se vocês também oferecem manutenção.";
+      messageLima = "Olá Daniel! Vim pelo mini site e tenho interesse em serviços de manutenção. Você pode dar mais detalhes?";
       break;
     default:
-      message += "seus serviços.";
+      messageCalixto = "";
+      messageLima = "";
   }
 
-  const encodedMessage = encodeURIComponent(message);
-  whatsappBtn.setAttribute("href", `https://wa.me/${phone}?text=${encodedMessage}`);
+  if (messageCalixto) {
+    const encodedCalixto = encodeURIComponent(messageCalixto);
+    whatsappBtnCalixto.href = `https://wa.me/${phoneCalixto}?text=${encodedCalixto}`;
+  }
+
+  if (messageLima) {
+    const encodedLima = encodeURIComponent(messageLima);
+    whatsappBtnLima.href = `https://wa.me/${phoneLima}?text=${encodedLima}`;
+  }
 }
 
-// Lightbox
+// Bloqueia clique se nenhum serviço for escolhido
+document.querySelectorAll('.whatsapp-link').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    if (!selectedService) {
+      e.preventDefault();
+      if (warning) {
+        warning.style.display = "flex";
+        warning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp. Clique em um botão com a descrição do serviço que você precisa de atendimento..`;
+        setTimeout(() => {
+          warning.style.display = "none";
+        }, 10000); //Tempo que a mensagem é exibida para o usuário (10 segundos)
+      }
+    }
+  });
+});
+
 const images = Array.from(document.querySelectorAll('.lightbox'));
 let currentIndex = 0;
 
+// Abre o lightbox ao clicar na imagem
 images.forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
@@ -66,6 +92,8 @@ images.forEach(link => {
 });
 
 function openLightbox(index) {
+  closeLightbox(); // Garante que não haja duplicação
+
   const overlay = document.createElement('div');
   overlay.classList.add('lightbox-overlay');
   overlay.setAttribute('id', 'lightbox');
@@ -75,6 +103,7 @@ function openLightbox(index) {
 
   const img = document.createElement('img');
   img.src = images[index].getAttribute('href');
+  img.alt = images[index].querySelector('img')?.alt || 'Imagem ampliada';
   img.classList.add('lightbox-image');
   wrapper.appendChild(img);
 
@@ -118,7 +147,13 @@ function navigateLightbox(direction) {
 
   const overlay = document.getElementById('lightbox');
   const img = overlay.querySelector('img');
-  img.src = images[currentIndex].getAttribute('href');
+
+  img.classList.add('fade-out');
+  setTimeout(() => {
+    img.src = images[currentIndex].getAttribute('href');
+    img.alt = images[currentIndex].querySelector('img')?.alt || 'Imagem ampliada';
+    img.classList.remove('fade-out');
+  }, 300);
 }
 
 // Navegação por teclado
@@ -142,3 +177,30 @@ document.addEventListener('wheel', e => {
     navigateLightbox(-1);
   }
 });
+
+// Navegação por toque (mobile)
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+  if (!document.getElementById('lightbox')) return;
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  if (!document.getElementById('lightbox')) return;
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const threshold = 50;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > threshold) {
+    if (diff > 0) {
+      navigateLightbox(1);
+    } else {
+      navigateLightbox(-1);
+    }
+  }
+}
