@@ -1,3 +1,4 @@
+// WhatsApp dinâmico
 const whatsappBtnCalixto = document.getElementById("whatsappBtnCalixto");
 const whatsappBtnLima = document.getElementById("whatsappBtnLima");
 const warning = document.getElementById("whatsappWarning");
@@ -30,8 +31,8 @@ function showInfo(service) {
 
 // Gera links personalizados
 function updateWhatsAppLinks() {
-  const phoneCalixto = "5532991657472"; // Marli
-  const phoneLima = "5532991992905";    // Daniel
+  const phoneCalixto = "5532991657472";
+  const phoneLima = "5532991992905";
 
   let messageCalixto = "";
   let messageLima = "";
@@ -47,19 +48,14 @@ function updateWhatsAppLinks() {
       messageCalixto = "Olá Marli! Vim pelo mini site e gostaria de saber se vocês também oferecem manutenção.";
       messageLima = "Olá Daniel! Vim pelo mini site e tenho interesse em serviços de manutenção. Você pode dar mais detalhes?";
       break;
-    default:
-      messageCalixto = "";
-      messageLima = "";
   }
 
-  if (messageCalixto) {
-    const encodedCalixto = encodeURIComponent(messageCalixto);
-    whatsappBtnCalixto.href = `https://wa.me/${phoneCalixto}?text=${encodedCalixto}`;
+  if (messageCalixto && whatsappBtnCalixto) {
+    whatsappBtnCalixto.href = `https://wa.me/${phoneCalixto}?text=${encodeURIComponent(messageCalixto)}`;
   }
 
-  if (messageLima) {
-    const encodedLima = encodeURIComponent(messageLima);
-    whatsappBtnLima.href = `https://wa.me/${phoneLima}?text=${encodedLima}`;
+  if (messageLima && whatsappBtnLima) {
+    whatsappBtnLima.href = `https://wa.me/${phoneLima}?text=${encodeURIComponent(messageLima)}`;
   }
 }
 
@@ -70,19 +66,19 @@ document.querySelectorAll('.whatsapp-link').forEach(btn => {
       e.preventDefault();
       if (warning) {
         warning.style.display = "flex";
-        warning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp. Clique em um botão com a descrição do serviço que você precisa de atendimento..`;
+        warning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp. Clique em um botão com a descrição do serviço que você precisa de atendimento.`;
         setTimeout(() => {
           warning.style.display = "none";
-        }, 10000); //Tempo que a mensagem é exibida para o usuário (10 segundos)
+        }, 10000);
       }
     }
   });
 });
 
+// Lightbox
 const images = Array.from(document.querySelectorAll('.lightbox'));
 let currentIndex = 0;
 
-// Abre o lightbox ao clicar na imagem
 images.forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
@@ -92,11 +88,11 @@ images.forEach(link => {
 });
 
 function openLightbox(index) {
-  closeLightbox(); // Garante que não haja duplicação
+  closeLightbox();
 
   const overlay = document.createElement('div');
   overlay.classList.add('lightbox-overlay');
-  overlay.setAttribute('id', 'lightbox');
+  overlay.id = 'lightbox';
 
   const wrapper = document.createElement('div');
   wrapper.classList.add('lightbox-wrapper');
@@ -141,9 +137,7 @@ function closeLightbox() {
 }
 
 function navigateLightbox(direction) {
-  currentIndex += direction;
-  if (currentIndex < 0) currentIndex = images.length - 1;
-  if (currentIndex >= images.length) currentIndex = 0;
+  currentIndex = (currentIndex + direction + images.length) % images.length;
 
   const overlay = document.getElementById('lightbox');
   const img = overlay.querySelector('img');
@@ -166,19 +160,15 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox();
 });
 
-// Navegação por rolagem do mouse
+// Navegação por rolagem
 document.addEventListener('wheel', e => {
   const overlay = document.getElementById('lightbox');
   if (!overlay) return;
 
-  if (e.deltaY > 0) {
-    navigateLightbox(1);
-  } else {
-    navigateLightbox(-1);
-  }
+  e.deltaY > 0 ? navigateLightbox(1) : navigateLightbox(-1);
 });
 
-// Navegação por toque (mobile)
+// Navegação por toque
 let touchStartX = 0;
 let touchEndX = 0;
 
@@ -197,10 +187,21 @@ function handleSwipe() {
   const threshold = 50;
   const diff = touchStartX - touchEndX;
   if (Math.abs(diff) > threshold) {
-    if (diff > 0) {
-      navigateLightbox(1);
-    } else {
-      navigateLightbox(-1);
-    }
+    diff > 0 ? navigateLightbox(1) : navigateLightbox(-1);
   }
 }
+
+// Botão "Voltar ao topo"
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+
+  if (!backToTopBtn) return;
+
+  window.addEventListener("scroll", () => {
+    backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});

@@ -3,103 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>Lima Calixto Personalizados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <img src="logo.png" alt="Logo Lima Calixto" class="logo" />
 
-    <img src="logo2.png" alt="Logo Lima Calixto" class="logo" />
-    <!--<h1>@limacalixtopersonalizados</h1>
-    <h1>@limalimamanutencaopc</h1>-->
-    <h1 class="description">
+  <div class="container fade-in">
+    <img src="logo.png" alt="Logo Lima Calixto" class="logo" loading="lazy" />
+    <img src="logo2.png" alt="Logo Lima Calixto" class="logo" loading="lazy" />
+
+    <h1 class="description fade-in">
       Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
     </h1>
 
-    <div class="services">
-      <button onclick="showInfo('sublimacao')">
-          <i class="fas fa-mug-hot"></i> Sublimação
-        </button>
-        <button onclick="showInfo('personalizados')">
-          <i class="fas fa-gift"></i> Personalizados
-        </button>
-        <button onclick="showInfo('convites')">
-          <i class="fas fa-envelope-open-text"></i> Convites Digitais
-        </button>
-        <button onclick="showInfo('manutencao')">
-          <i class="fas fa-tools"></i> Manutenção
-        </button>
+    <div class="services fade-in">
+      <button onclick="showInfo('sublimacao')"><i class="fas fa-mug-hot"></i> Sublimação</button>
+      <button onclick="showInfo('personalizados')"><i class="fas fa-gift"></i> Personalizados</button>
+      <button onclick="showInfo('convites')"><i class="fas fa-envelope-open-text"></i> Convites Digitais</button>
+      <button onclick="showInfo('manutencao')"><i class="fas fa-tools"></i> Manutenção</button>
     </div>
 
-    <div id="info" class="info-box"></div>
+    <div id="info" class="info-box fade-in"></div>
 
     <p id="whatsappWarning" class="warning-message" style="display: none;">
-      <i class="fas fa-exclamation-triangle"></i> ⚠️ Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp. Clique em um botão com a descrição do serviço que você precisa de atendimento..
+      <i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp.
     </p>
 
-  <div class="social-grid">
-  <a href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" class="social-link insta-link">
-    <i class="fab fa-instagram"></i> Instagram Lima Calixto
-  </a>
-
-  <a href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" class="social-link face-link">
-    <i class="fab fa-facebook"></i> Facebook Lima Calixto
-  </a>
-
-  <a href="https://www.instagram.com/limalimamanutencaopc" target="_blank" class="social-link insta-link">
-    <i class="fab fa-instagram"></i> Instagram Lima Lima 
-  </a>
-
-  <a href="https://www.facebook.com/limalimamanutencaopc" target="_blank" class="social-link face-link">
-    <i class="fab fa-facebook"></i> Facebook Lima Lima
-  </a>
-
-  <a id="whatsappBtnCalixto" href="#" target="_blank" class="social-link whatsapp-link">
-    <i class="fab fa-whatsapp"></i> WhatsApp Lima Calixto
-  </a>
-
-  <a id="whatsappBtnLima" href="#" target="_blank" class="social-link whatsapp-link">
-    <i class="fab fa-whatsapp"></i> WhatsApp Lima Lima
-  </a>
-
-  <a href="https://catalogo-lima-calixto-personalizados.netlify.app/" target="_blank" class="social-link catalogo-link">
-    <i class="fas fa-store"></i> Catálogo Online
-  </a>
-
-  <a href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" class="social-link catalogo-link">
-    <i class="fas fa-store"></i> Campanha de Natal
-  </a>
-</div>
-
-  <h2>📦 Catálogo</h2>
-    <div class="catalog">
-  <a href="caneca.jpg" class="lightbox" data-index="0">
-    <img src="caneca.jpg" alt="Caneca personalizada" />
-  </a>
-  <a href="camiseta.jpg" class="lightbox" data-index="1">
-    <img src="camiseta.jpg" alt="Camiseta estampada" />
-  </a>
-  <a href="convite.jpg" class="lightbox" data-index="2">
-    <img src="convite.jpg" alt="Convite digital" />
-  </a>
-    <a href="manutencaopc.png" class="lightbox" data-index="3">
-    <img src="manutencaopc.png" alt="Manutenção de computador e notebook" />
-  </a>
+    <div class="social-grid fade-in">
+      <a href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" class="social-link insta-link">
+        <i class="fab fa-instagram"></i> Instagram Lima Calixto
+      </a>
+      <a href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" class="social-link face-link">
+        <i class="fab fa-facebook"></i> Facebook Lima Calixto
+      </a>
+      <a href="https://www.instagram.com/limalimamanutencaopc" target="_blank" class="social-link insta-link">
+        <i class="fab fa-instagram"></i> Instagram Lima Lima 
+      </a>
+      <a href="https://www.facebook.com/limalimamanutencaopc" target="_blank" class="social-link face-link">
+        <i class="fab fa-facebook"></i> Facebook Lima Lima
+      </a>
+      <a id="whatsappBtnCalixto" href="#" target="_blank" class="social-link whatsapp-link">
+        <i class="fab fa-whatsapp"></i> WhatsApp Marli
+      </a>
+      <a id="whatsappBtnLima" href="#" target="_blank" class="social-link whatsapp-link">
+        <i class="fab fa-whatsapp"></i> WhatsApp Daniel
+      </a>
+      <a href="https://catalogo-lima-calixto-personalizados.netlify.app/" target="_blank" class="social-link catalogo-link">
+        <i class="fas fa-store"></i> Catálogo Online
+      </a>
+      <a href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" class="social-link catalogo-link">
+        <i class="fas fa-store"></i> Campanha de Natal
+      </a>
     </div>
-</div>
 
-    <!--<h2>📋 Solicite um orçamento</h2>
-    <form id="contactForm">
-    <input type="text" placeholder="Seu nome" required />
-    <input type="email" placeholder="Seu e-mail" required />
-    <textarea placeholder="Descreva o que você precisa..." required></textarea>
-    <button type="submit">Enviar</button>
-    </form>
-    <p id="formMessage"></p>
-  </div>-->
+    <h2 class="fade-in">📦 Mini Catálogo Online</h2>
+    <div class="catalog fade-in">
+      <a href="caneca.jpg" class="lightbox" data-index="0">
+        <img src="caneca.jpg" alt="Caneca personalizada" loading="lazy" />
+      </a>
+      <a href="camiseta.jpg" class="lightbox" data-index="1">
+        <img src="camiseta.jpg" alt="Camiseta estampada" loading="lazy" />
+      </a>
+      <a href="convite.jpg" class="lightbox" data-index="2">
+        <img src="convite.jpg" alt="Convite digital" loading="lazy" />
+      </a>
+      <a href="manutencaopc.png" class="lightbox" data-index="3">
+        <img src="manutencaopc.png" alt="Manutenção de computador e notebook" loading="lazy" />
+      </a>
+    </div>
+
+    <div class="share-card fade-in">
+      <a href="https://links-limacalixtopersonalizados.netlify.app/" target="_blank">
+        <i class="fas fa-id-card"></i> Compartilhar Mini Site
+      </a>
+    </div>
+  </div>
+
+  <!-- Botão fixo fora da .container -->
+  <button id="backToTop" title="Voltar ao topo">⬆</button>
+
+
+  <div style="height: 2000px;"></div>
 
   <script src="script.js" defer></script>
 </body>
