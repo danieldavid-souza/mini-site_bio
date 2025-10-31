@@ -168,29 +168,6 @@ document.addEventListener('wheel', e => {
   e.deltaY > 0 ? navigateLightbox(1) : navigateLightbox(-1);
 });
 
-// Navegação por toque
-let touchStartX = 0;
-let touchEndX = 0;
-
-document.addEventListener('touchstart', e => {
-  if (!document.getElementById('lightbox')) return;
-  touchStartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', e => {
-  if (!document.getElementById('lightbox')) return;
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  const threshold = 50;
-  const diff = touchStartX - touchEndX;
-  if (Math.abs(diff) > threshold) {
-    diff > 0 ? navigateLightbox(1) : navigateLightbox(-1);
-  }
-}
-
 // Botão "Voltar ao topo"
 document.addEventListener("DOMContentLoaded", () => {
   const backToTopBtn = document.getElementById("backToTop");
@@ -205,3 +182,29 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
+
+const shareBtn = document.getElementById("shareBtn");
+const shareThanks = document.getElementById("shareThanks");
+
+if (shareBtn && navigator.share) {
+  shareBtn.addEventListener("click", () => {
+    navigator.share({
+      title: "Lima Calixto Personalizados",
+      text: "Confira nosso mini site com serviços de sublimação, personalizados e manutenção!",
+      url: "https://links-limacalixtopersonalizados.netlify.app/"
+    }).then(() => {
+      if (shareThanks) {
+        shareThanks.style.display = "block";
+        setTimeout(() => {
+          shareThanks.style.display = "none";
+        }, 5000);
+      }
+    }).catch((error) => {
+      console.error("Erro ao compartilhar:", error);
+    });
+  });
+} else if (shareBtn) {
+  shareBtn.addEventListener("click", () => {
+    alert("Seu navegador não suporta compartilhamento direto. Copie o link: https://links-limacalixtopersonalizados.netlify.app/");
+  });
+}

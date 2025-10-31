@@ -182,29 +182,26 @@ h2 {
 }
 
 /* Botão compartilhar mini site */
-.share-card {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-}
-
-.share-card a {
+.share-card button {
   background-color: #ff6f00;
   color: #fff;
   padding: 0.75rem 1.2rem;
   border-radius: 8px;
-  text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  border: none;
+  cursor: pointer;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.share-card a:hover {
+.share-card button:hover {
   background-color: #e65c00;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Catálogo de imagens */
@@ -238,6 +235,15 @@ h2 {
   transform: scale(1.1);
 }
 
+.social-link {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 /* Botão voltar ao topo */
 #backToTop {
   position: fixed;
@@ -258,6 +264,20 @@ h2 {
 
 #backToTop:hover {
   background-color: #023e8a;
+}
+
+.share-thanks {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #28a745;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 10000;
+  animation: fadeInUp 0.5s ease-out;
 }
 
 /* Lightbox */

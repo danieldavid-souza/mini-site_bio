@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Lima Calixto Personalizados">
+<meta property="og:description" content="Sublimação, personalizados, convites digitais e manutenção de computadores.">
+<meta property="og:image" content="https://seusite.com/imagem-de-preview.jpg">
+<meta property="og:url" content="https://seusite.com">
+<meta name="description" content="Serviços de sublimação, personalizados, convites digitais e manutenção de computadores em Juiz de Fora.">
+<meta name="keywords" content="sublimação, personalizados, convites digitais, manutenção, Juiz de Fora">
   <title>Lima Calixto Personalizados</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -75,17 +82,19 @@
     </div>
 
     <div class="share-card fade-in">
-      <a href="https://links-limacalixtopersonalizados.netlify.app/" target="_blank">
-        <i class="fas fa-id-card"></i> Compartilhar Mini Site
-      </a>
-    </div>
+        <button id="shareBtn">
+          <i class="fas fa-id-card"></i> Compartilhar Mini Site
+        </button>
+      </div>
   </div>
+
+   <!-- Agradecimento ao usuário -->
+  <div id="shareThanks" class="share-thanks" style="display: none;">
+  ✅ Obrigado por compartilhar o mini site!
+</div>
 
   <!-- Botão fixo fora da .container -->
   <button id="backToTop" title="Voltar ao topo">⬆</button>
-
-
-  <div style="height: 2000px;"></div>
 
   <script src="script.js" defer></script>
 </body>
