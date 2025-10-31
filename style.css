@@ -234,6 +234,22 @@ h2 {
   background-color: #0088cc;
 }
 
+.botao-campanha {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem;
+  background-color: #fbc02d;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.botao-campanha:hover {
+  background-color: #f9a825;
+}
+
 /* Catálogo de imagens */
 .catalog {
   display: grid;
