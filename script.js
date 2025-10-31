@@ -183,28 +183,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const shareBtn = document.getElementById("shareBtn");
-const shareThanks = document.getElementById("shareThanks");
+const shareToggle = document.getElementById("shareToggle");
+const shareOptions = document.getElementById("shareOptions");
+const shareWhatsApp = document.getElementById("shareWhatsApp");
+const shareTelegram = document.getElementById("shareTelegram");
 
-if (shareBtn && navigator.share) {
-  shareBtn.addEventListener("click", () => {
-    navigator.share({
-      title: "Lima Calixto Personalizados",
-      text: "Confira nosso mini site com serviços de sublimação, personalizados e manutenção!",
-      url: "https://links-limacalixtopersonalizados.netlify.app/"
-    }).then(() => {
-      if (shareThanks) {
-        shareThanks.style.display = "block";
-        setTimeout(() => {
-          shareThanks.style.display = "none";
-        }, 5000);
-      }
-    }).catch((error) => {
-      console.error("Erro ao compartilhar:", error);
-    });
+if (shareToggle && shareOptions) {
+  shareToggle.addEventListener("click", () => {
+    shareOptions.style.display = shareOptions.style.display === "none" ? "flex" : "none";
   });
-} else if (shareBtn) {
-  shareBtn.addEventListener("click", () => {
-    alert("Seu navegador não suporta compartilhamento direto. Copie o link: https://links-limacalixtopersonalizados.netlify.app/");
-  });
+
+  const shareText = encodeURIComponent("Confira nosso mini site com serviços incríveis!");
+  const shareUrl = encodeURIComponent("https://links-limacalixtopersonalizados.netlify.app/");
+
+  shareWhatsApp.href = `https://wa.me/?text=${shareText}%20${shareUrl}`;
+  shareTelegram.href = `https://t.me/share/url?url=${shareUrl}&text=${shareText}`;
 }
