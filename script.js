@@ -1,4 +1,5 @@
-// WhatsApp dinâmico
+// ==== seu código original ====
+// WhatsApp dinâmico (mantive sua lógica para os botões principais)
 const whatsappBtnCalixto = document.getElementById("whatsappBtnCalixto");
 const whatsappBtnLima = document.getElementById("whatsappBtnLima");
 const warning = document.getElementById("whatsappWarning");
@@ -29,7 +30,7 @@ function showInfo(service) {
   updateWhatsAppLinks();
 }
 
-// Gera links personalizados
+// Gera links personalizados (para os botões principais)
 function updateWhatsAppLinks() {
   const phoneCalixto = "5532991657472";
   const phoneLima = "5532991992905";
@@ -59,7 +60,7 @@ function updateWhatsAppLinks() {
   }
 }
 
-// Bloqueia clique se nenhum serviço for escolhido
+// Bloqueia clique se nenhum serviço for escolhido (para botões de topo)
 document.querySelectorAll('.whatsapp-link').forEach(btn => {
   btn.addEventListener('click', function (e) {
     if (!selectedService) {
@@ -75,7 +76,7 @@ document.querySelectorAll('.whatsapp-link').forEach(btn => {
   });
 });
 
-// Lightbox
+// ==== Lightbox e navegação (seu código, reaproveitado) ====
 const images = Array.from(document.querySelectorAll('.lightbox'));
 let currentIndex = 0;
 
@@ -150,7 +151,7 @@ function navigateLightbox(direction) {
   }, 300);
 }
 
-// Navegação por teclado
+// teclado & rodagem
 document.addEventListener('keydown', e => {
   const overlay = document.getElementById('lightbox');
   if (!overlay) return;
@@ -159,8 +160,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') navigateLightbox(-1);
   if (e.key === 'Escape') closeLightbox();
 });
-
-// Navegação por rolagem
 document.addEventListener('wheel', e => {
   const overlay = document.getElementById('lightbox');
   if (!overlay) return;
@@ -183,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Compartilhamento (seu código)
 const shareToggle = document.getElementById("shareToggle");
 const shareOptions = document.getElementById("shareOptions");
 const shareWhatsApp = document.getElementById("shareWhatsApp");
@@ -199,3 +199,28 @@ if (shareToggle && shareOptions) {
   shareWhatsApp.href = `https://wa.me/?text=${shareText}%20${shareUrl}`;
   shareTelegram.href = `https://t.me/share/url?url=${shareUrl}&text=${shareText}`;
 }
+
+// ==== NOVO: Handlers dos botões dentro dos cards ====
+// Botões "Ver" dos cards abrem lightbox (reaproveita a função openLightbox)
+document.querySelectorAll('.card-view').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const idx = parseInt(btn.getAttribute('data-index'));
+    if (!isNaN(idx)) openLightbox(idx);
+  });
+});
+
+// Botões "Solicitar" dos cards abrem WhatsApp para o telefone definido no data-phone
+document.querySelectorAll('.card-wp').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const phone = btn.getAttribute('data-phone'); // ex: 5532991657472
+    const rawMsg = btn.getAttribute('data-msg') || 'Tenho interesse neste produto.';
+    const msg = encodeURIComponent(rawMsg);
+    if (phone) {
+      const url = `https://wa.me/${phone}?text=${msg}`;
+      window.open(url, '_blank');
+    } else {
+      // fallback: mostrar aviso se quiser
+      alert('Número de contato não configurado para este produto.');
+    }
+  });
+});

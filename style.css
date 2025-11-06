@@ -438,3 +438,108 @@ h2 {
     max-width: 80px;
   }
 }
+
+/* (mantive seu CSS original e acrescentei o bloco abaixo) */
+/* --- (TODAS AS SUAS REGRAS ORIGINAIS) --- */
+/* ... (assuma que todo o conteúdo original de style.css permanece) */
+
+/* NOVOS ESTILOS (cards + botões dentro do catálogo) */
+.catalog { 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+  justify-items: center;
+}
+
+.product-card {
+  width: 100%;
+  max-width: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.10);
+}
+
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  font-size: 1rem;
+  color: #0b3b5e;
+  margin: 10px 0 6px 0;
+  text-align: center;
+}
+
+.product-card .prod-desc {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+/* ações do card: botões em colunas, centralizados */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* botões do card (gradientes e sem sublinhado) */
+.card-actions .card-view,
+.card-actions .card-wp {
+  width: calc(100% - 16px);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* Ver = azul gradiente */
+.card-actions .card-view {
+  background: linear-gradient(90deg,#06a3ff,#1273c8);
+  box-shadow: 0 8px 20px rgba(9,115,200,0.12);
+}
+.card-actions .card-view:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(9,115,200,0.16); }
+
+/* Solicitar = verde (ou rosa? mantive verde para WhatsApp) */
+.card-actions .card-wp {
+  background: linear-gradient(90deg,#25D366,#1ebf56);
+  box-shadow: 0 8px 20px rgba(37,211,102,0.12);
+}
+.card-actions .card-wp:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(37,211,102,0.16); }
+
+/* responsividade específica */
+@media (max-width: 520px) {
+  .product-card { max-width: 100%; padding: 10px; }
+  .product-card img { height: 140px; }
+  .card-actions .card-view,
+  .card-actions .card-wp { width: calc(100% - 8px); }
+}

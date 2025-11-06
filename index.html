@@ -1,112 +1,646 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta property="og:title" content="Lima Calixto Personalizados">
-<meta property="og:description" content="Sublimação, personalizados, convites digitais e manutenção de computadores.">
-<meta property="og:image" content="https://seusite.com/imagem-de-preview.jpg">
-<meta property="og:url" content="https://seusite.com">
-<meta name="description" content="Serviços de sublimação, personalizados, convites digitais e manutenção de computadores em Juiz de Fora.">
-<meta name="keywords" content="sublimação, personalizados, convites digitais, manutenção, Juiz de Fora">
-  <title>Lima Calixto Personalizados</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lima Calixto • Lima Lima — Mini Site</title>
+  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores.">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --bg:#eef7fb; --card:#ffffff; --blue:#1273c8; --blue-dark:#0b63a4;
+      --instagram-start:#f58529; --instagram-end:#515bd4; --facebook:#1877f2;
+      --whatsapp:#25D366; --muted:#7f8a98; --accent:#f97316;
+      --gap:14px; --maxw:1200px;
+      --anim-duration:.56s; --anim-ease:cubic-bezier(.2,.9,.3,1);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0;font-family:Roboto,system-ui,Arial;background:var(--bg);color:#072033;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .wrap{width:100%;max-width:var(--maxw);margin:28px auto;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.99));border-radius:16px;box-shadow:0 18px 40px rgba(9,24,38,0.06)}
+
+    /* animations */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .anim{opacity:0;transform:translateY(8px);animation-fill-mode:forwards;animation-name:fadeUp;animation-duration:var(--anim-duration);animation-timing-function:var(--anim-ease)}
+    .hover-lift{transition:transform .22s var(--anim-ease),box-shadow .22s var(--anim-ease),filter .22s var(--anim-ease)}
+    .hover-lift:hover{transform:translateY(-6px) scale(1.02)}
+
+    header{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px}
+    .logos{display:flex;align-items:center;gap:18px;justify-content:center}
+    .logos img{height:74px;max-width:240px;object-fit:contain;transition:transform .5s var(--anim-ease)}
+    .brand-line{text-align:center;color:#0b3b5e;font-weight:700;margin-top:6px;font-size:15px}
+
+    /* Services (animated gradient + hover) */
+    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:900px;width:100%;margin:8px auto}
+    .service-btn{
+      display:inline-flex;align-items:center;gap:10px;justify-content:center;padding:12px;border-radius:12px;border:none;
+      background:linear-gradient(90deg,var(--blue),var(--blue-dark));
+      color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(18,115,200,0.12);text-decoration:none;
+      background-size:200% 100%; background-position:0% 50%; transition:background-position .6s var(--anim-ease), transform .22s var(--anim-ease), box-shadow .22s;
+    }
+    .service-btn:hover{ background-position:100% 50%; box-shadow:0 18px 40px rgba(12,63,115,0.14); transform:translateY(-6px) scale(1.02); }
+    .service-btn i{width:18px;text-align:center}
+
+    .info-box{max-width:900px;margin:8px auto;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(250,250,250,0.8));box-shadow:0 6px 14px rgba(9,24,38,0.04);color:#0c3b5e}
+
+    .warning-message{max-width:900px;margin:8px auto;padding:10px;border-radius:10px;background:#fff3cd;color:#7a4b00;display:flex;align-items:center;gap:10px;box-shadow:0 6px 12px rgba(0,0,0,0.03)}
+
+    /* Social grid (top) */
+    .social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1100px;margin:14px auto}
+    .social-link{
+      display:flex;align-items:center;gap:10px;justify-content:center;padding:10px;border-radius:10px;text-decoration:none;color:#fff;font-weight:700;
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
+      transform:translateZ(0);
+      background-size:200% 100%;
+      transition:transform .22s var(--anim-ease), box-shadow .22s var(--anim-ease), background-position .6s var(--anim-ease), filter .22s;
+    }
+    .social-link:hover{ transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.12); filter:brightness(1.03); background-position:100% 50%; }
+
+    .insta-link{background:linear-gradient(90deg,var(--instagram-start),#dd2a7b,var(--instagram-end))}
+    .face-link{background:linear-gradient(90deg,var(--facebook), #1458d8)}
+    .whatsapp-link{background:linear-gradient(90deg,var(--whatsapp),#1ebf56); color:#042d16}
+    .catalogo-link{background:linear-gradient(90deg,#6b7280,#9ca3af)}
+
+    .catalog-title{display:flex;align-items:center;gap:10px;margin-top:22px;color:#0b3b5e;font-weight:800;justify-content:center}
+
+    /* product grid */
+    .catalog{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:18px;margin-top:12px;padding:8px}
+    .product-card{background:var(--card);border-radius:var(--radius);padding:14px;text-align:center;box-shadow:0 8px 20px rgba(12,38,63,0.06);display:flex;flex-direction:column;min-height:360px;transition:transform .32s var(--anim-ease),box-shadow .32s var(--anim-ease)}
+    .product-card:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(12,38,63,0.12)}
+    .product-card img{width:100%;height:auto;max-height:220px;object-fit:contain;border-radius:10px;background:#f7f9fb;padding:6px}
+    .product-card h3{margin:12px 0 8px 0;color:#0b3b5e;font-size:16px}
+    .prod-desc{margin:0;font-size:13px;color:var(--muted);line-height:1.35;text-align:left}
+
+    /* Buttons inside card: one-per-line, centralizadas; gradientes com icon */
+    .card-actions{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:auto;padding-top:12px}
+    .card-actions button{width:90%;max-width:320px;padding:12px;border-radius:10px;border:none;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;color:#fff;text-decoration:none; font-size:15px}
+    .card-view{
+      background:linear-gradient(90deg,#06a3ff,#1273c8);
+      box-shadow:0 10px 24px rgba(9,115,200,0.12);
+      transition:transform .22s var(--anim-ease), box-shadow .22s;
+    }
+    .card-view:hover{ transform:translateY(-4px) scale(1.01); box-shadow:0 18px 36px rgba(9,115,200,0.16); }
+
+    .card-wp{
+      background:linear-gradient(90deg,#25D366,#1ebf56);
+      box-shadow:0 10px 24px rgba(37,211,102,0.12);
+      color:#042d16;
+      transition:transform .22s var(--anim-ease), box-shadow .22s, filter .18s;
+    }
+    .card-wp:hover{ transform:translateY(-4px) scale(1.01); box-shadow:0 18px 36px rgba(37,211,102,0.16); filter:brightness(1.02); }
+
+    /* subtle animated icon bounce on hover for whatsapp icon */
+    .card-wp i.fa-whatsapp { transition: transform .22s var(--anim-ease); }
+    .card-wp:hover i.fa-whatsapp{ transform: translateY(-3px) scale(1.05); }
+
+    .share-card{display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px auto}
+    .share-card button{background:linear-gradient(90deg,var(--accent),#fb923c);color:#fff;padding:10px 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer}
+    .share-options{display:flex;gap:8px;margin-top:8px}
+
+    #backToTop{position:fixed;right:18px;bottom:18px;padding:10px 12px;border-radius:10px;border:none;background:#0b63a4;color:#fff;display:none;cursor:pointer;box-shadow:0 10px 20px rgba(12,38,63,0.12)}
+
+    /* footer */
+    .footer-wrap{margin-top:28px;background:linear-gradient(180deg,rgba(11,54,92,0.03),rgba(11,54,92,0.01));padding:22px;border-radius:12px;border:1px solid rgba(12,38,63,0.03)}
+    .footer-grid{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;max-width:1100px;margin:0 auto}
+    .footer-col{flex:1;min-width:200px}
+    .footer-follow .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; color:#fff; text-decoration:none; font-weight:700; }
+    .footer-follow .btn.insta { background: linear-gradient(90deg,var(--instagram-start),#dd2a7b,var(--instagram-end)); }
+    .footer-follow .btn.fb { background: linear-gradient(90deg,var(--facebook),#1458d8); }
+    .footer-contacts .wa-btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,#25D366,#1ebf56); color:#042d16; text-decoration:none; font-weight:800; margin-top:6px; }
+
+    /* footer catalog buttons (gradiente pedido) */
+    .footer-links { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+    .footer-links a.btn-cat{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; color:#fff; text-decoration:none; font-weight:800; box-shadow:0 10px 22px rgba(0,0,0,0.08); transition:transform .18s, box-shadow .18s; background-size:200% 100%; }
+    .btn-cat.catalog{ background: linear-gradient(90deg,#4f46e5,#06b6d4); }
+    .btn-cat.natal{ background: linear-gradient(90deg,#fb7185,#f97316); }
+    .btn-cat.gratidao{ background: linear-gradient(90deg,#0ea5a4,#06b6d4); }
+    .btn-cat:hover{ transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.12); background-position:100% 50%; }
+
+    /* lightbox */
+    .lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:9999}
+    .lightbox-wrapper{max-width:92%;max-height:92%;display:flex;flex-direction:column;gap:10px;align-items:center}
+    .lightbox-image{max-width:100%;max-height:80vh;border-radius:8px;box-shadow:0 12px 34px rgba(0,0,0,0.5)}
+    .lightbox-controls{display:flex;gap:8px}
+    .lightbox-controls button{padding:8px 10px;border-radius:8px;border:none;cursor:pointer;background:#fff}
+
+    /* modal form (full) */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:10000}
+    .modal{background:#fff;border-radius:12px;padding:18px;max-width:520px;width:94%;box-shadow:0 18px 46px rgba(9,24,38,0.5);animation:fadeUp .28s var(--anim-ease) both}
+    .modal h3{margin:0 0 8px 0;color:#0b3b5e}
+    .form-row{display:flex;gap:8px;margin-top:8px}
+    .form-row .col{flex:1}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:13px;color:#334155}
+    .field input,.field textarea, .field select{padding:8px;border-radius:8px;border:1px solid #e6eef6;font-size:14px}
+    .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+    .btn-primary{background:linear-gradient(90deg,#06a3ff,#1273c8);color:#fff;padding:10px 14px;border-radius:8px;border:none;font-weight:800}
+    .btn-ghost{background:transparent;border:1px solid rgba(12,38,63,0.08);padding:10px 12px;border-radius:8px;font-weight:700}
+
+    /* contact modal (single text + identification + extras) */
+    .contact-field textarea{width:100%;min-height:120px;padding:10px;border-radius:8px;border:1px solid #e6eef6;font-size:14px}
+    .contact-small{display:flex;gap:8px;margin-top:10px;align-items:center}
+    .contact-small input{flex:1;padding:8px;border-radius:8px;border:1px solid #e6eef6}
+
+    /* responsive */
+    @media (max-width:1100px){.catalog{grid-template-columns:repeat(3,1fr)}.social-grid{grid-template-columns:repeat(3,1fr)}.services{grid-template-columns:repeat(2,1fr)}.logos img{height:64px}}
+    @media (max-width:820px){.catalog{grid-template-columns:repeat(2,1fr)}.social-grid{grid-template-columns:repeat(2,1fr)}.services{grid-template-columns:repeat(2,1fr)}.logos img{height:56px}}
+    @media (max-width:520px){
+      .catalog{grid-template-columns:1fr;padding:6px}
+      .product-card{min-height:auto}
+      .product-card img{height:auto;max-height:none}
+      .card-actions button{width:100%}
+      .services{grid-template-columns:1fr}
+      .social-grid{grid-template-columns:1fr}
+      .logos img{height:48px}
+      .footer-grid{gap:12px}
+      .footer-links .btn-cat{width:48%}
+      .form-row{flex-direction:column}
+    }
+  </style>
 </head>
 <body>
+  <!-- imagens esperadas na mesma pasta:
+       caneca.jpg, camiseta.jpg, convite.jpg, calendario.jpg, Placa-de-Acrílico.jpg,
+       manutencaopc.png, azulejo.jpg, caneca-jateada.jpg, logo.png, logo2.png
+  -->
+  <div class="wrap" role="main">
+    <header>
+      <div class="logos anim" style="animation-delay:.06s">
+        <img src="logo.png" alt="Lima Calixto Personalizados" />
+        <img src="logo2.png" alt="Lima Lima Manutenção" />
+      </div>
 
-  <div class="container fade-in">
-    <img src="logo.png" alt="Logo Lima Calixto" class="logo" loading="lazy" />
-    <img src="logo2.png" alt="Logo Lima Calixto" class="logo" loading="lazy" />
+      <div class="brand-line anim" style="animation-delay:.12s">
+        Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
+      </div>
 
-    <h1 class="description fade-in">
-      Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
-    </h1>
+      <div class="services anim" role="navigation" aria-label="Serviços" style="animation-delay:.18s">
+        <a href="#sublimacao" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="sublimacao"><i class="fas fa-mug-hot"></i> Sublimação</a>
+        <a href="#personalizados" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="personalizados"><i class="fas fa-gift"></i> Personalizados</a>
+        <a href="#convites" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="convites"><i class="fas fa-envelope-open-text"></i> Convites Digitais</a>
+        <a href="#manutencao" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="manutencao"><i class="fas fa-tools"></i> Manutenção</a>
+      </div>
+    </header>
 
-    <div class="services fade-in">
-      <button onclick="showInfo('sublimacao')"><i class="fas fa-mug-hot"></i> Sublimação</button>
-      <button onclick="showInfo('personalizados')"><i class="fas fa-gift"></i> Personalizados</button>
-      <button onclick="showInfo('convites')"><i class="fas fa-envelope-open-text"></i> Convites Digitais</button>
-      <button onclick="showInfo('manutencao')"><i class="fas fa-tools"></i> Manutenção</button>
+    <div id="info" class="info-box anim" style="animation-delay:.26s">Selecione um serviço para ver mais detalhes.</div>
+
+    <p id="whatsappWarning" class="warning-message" style="display:none"></p>
+
+    <div class="social-grid" role="navigation" aria-label="Redes sociais">
+      <a class="social-link hover-lift anim insta-link" style="animation-delay:.32s" href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Calixto</a>
+      <a class="social-link hover-lift anim face-link" style="animation-delay:.36s" href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Calixto</a>
+      <a class="social-link hover-lift anim insta-link" style="animation-delay:.40s" href="https://www.instagram.com/limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Lima</a>
+      <a class="social-link hover-lift anim face-link" style="animation-delay:.44s" href="https://www.facebook.com/Limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Lima</a>
+
+      <a id="whatsappBtnCalixto" class="social-link hover-lift anim whatsapp-link" style="animation-delay:.48s" href="#" data-contact="marli" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Marli</a>
+      <a id="whatsappBtnLima" class="social-link hover-lift anim whatsapp-link" style="animation-delay:.52s" href="#" data-contact="daniel" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Daniel</a>
+
+      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.56s" href="https://catalogo-lima-calixto-personalizados.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-store"></i> Catálogo Online</a>
+      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.60s" href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" rel="noopener"><i class="fas fa-gift"></i> Campanha de Natal</a>
+      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.64s" href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" rel="noopener"><i class="fas fa-heart"></i> Campanha Gratidão</a>
     </div>
 
-    <div id="info" class="info-box fade-in"></div>
+    <div class="catalog-title anim" style="animation-delay:.68s"><i class="fa-solid fa-box"></i> <strong>Mini Catálogo Online</strong></div>
 
-    <p id="whatsappWarning" class="warning-message" style="display: none;">
-      <i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp.
-    </p>
-
-    <div class="social-grid fade-in">
-      <a href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" class="social-link insta-link">
-        <i class="fab fa-instagram"></i> Instagram Lima Calixto
-      </a>
-      <a href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" class="social-link face-link">
-        <i class="fab fa-facebook"></i> Facebook Lima Calixto
-      </a>
-      <a href="https://www.instagram.com/limalimamanutencaopc" target="_blank" class="social-link insta-link">
-        <i class="fab fa-instagram"></i> Instagram Lima Lima 
-      </a>
-      <a href="https://www.facebook.com/limalimamanutencaopc" target="_blank" class="social-link face-link">
-        <i class="fab fa-facebook"></i> Facebook Lima Lima
-      </a>
-      <a id="whatsappBtnCalixto" href="#" target="_blank" class="social-link whatsapp-link">
-        <i class="fab fa-whatsapp"></i> WhatsApp Marli
-      </a>
-      <a id="whatsappBtnLima" href="#" target="_blank" class="social-link whatsapp-link">
-        <i class="fab fa-whatsapp"></i> WhatsApp Daniel
-      </a>
-      <a href="https://catalogo-lima-calixto-personalizados.netlify.app/" target="_blank" class="social-link catalogo-link">
-        <i class="fas fa-store"></i> Catálogo Online
-      </a>
-      <a href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" class="social-link catalogo-link">
-        <i class="fas fa-store"></i> Campanha de Natal
-      </a>
-      <a href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" class="social-link catalogo-link">
-        <i class="fas fa-store"></i> Campanha Gratidão
-      </a>
-    </div>
-
-    <h2 class="fade-in">📦 Mini Catálogo Online</h2>
-    <div class="catalog fade-in">
-      <a href="caneca.jpg" class="lightbox" data-index="0">
-        <img src="caneca.jpg" alt="Caneca personalizada" loading="lazy" />
-      </a>
-      <a href="camiseta.jpg" class="lightbox" data-index="1">
-        <img src="camiseta.jpg" alt="Camiseta estampada" loading="lazy" />
-      </a>
-      <a href="convite.jpg" class="lightbox" data-index="2">
-        <img src="convite.jpg" alt="Convite digital" loading="lazy" />
-      </a>
-      <a href="manutencaopc.png" class="lightbox" data-index="3">
-        <img src="manutencaopc.png" alt="Manutenção de computador e notebook" loading="lazy" />
-      </a>
-    </div>
-
-    <!-- Botão Compartilhar -->
-    <div class="share-card fade-in">
-        <button id="shareToggle">
-          <i class="fas fa-share-alt"></i> Compartilhar Mini Site
-        </button>
-        <div id="shareOptions" class="share-options" style="display: none;">
-          <a href="#" id="shareWhatsApp" target="_blank">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-          </a>
-          <a href="#" id="shareTelegram" target="_blank">
-            <i class="fab fa-telegram"></i> Telegram
-          </a>
+    <div class="catalog" id="catalog" role="list" aria-label="Mini catálogo">
+      <!-- Product 0 -->
+      <div class="product-card anim" data-prod-index="0" style="animation-delay:.72s" role="listitem">
+        <a href="caneca.jpg" class="lightbox" data-index="0"><img src="caneca.jpg" alt="Caneca personalizada" /></a>
+        <h3>Caneca Personalizada de Porcelana 325ml</h3>
+        <p class="prod-desc">Caneca sublimada com decoração natalina em alta resolução — perfeita para lembranças e presentes.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="0"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Caneca 325ml" data-msg="Olá! Tenho interesse na Caneca Personalizada 325ml."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-   <!-- Agradecimento ao usuário -->
-  <div id="shareThanks" class="share-thanks" style="display: none;">
-  ✅ Obrigado por compartilhar o mini site!
-</div>
+      <!-- Product 1 -->
+      <div class="product-card anim" data-prod-index="1" style="animation-delay:.78s" role="listitem">
+        <a href="camiseta.jpg" class="lightbox" data-index="1"><img src="camiseta.jpg" alt="Camiseta estampada" /></a>
+        <h3>Camiseta Branca Personalizada</h3>
+        <p class="prod-desc">Camiseta 100% algodão com impressão personalizada — ideal para eventos, brindes e uniformes.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="1"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse em Camisetas Personalizadas."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
 
-  <!-- Botão fixo fora da .container -->
-  <button id="backToTop" title="Voltar ao topo">⬆</button>
+      <!-- Product 2 -->
+      <div class="product-card anim" data-prod-index="2" style="animation-delay:.84s" role="listitem">
+        <a href="convite.jpg" class="lightbox" data-index="2"><img src="convite.jpg" alt="Convite digital" /></a>
+        <h3>Convite Digital</h3>
+        <p class="prod-desc">Convite digital personalizável pronto para envio via WhatsApp e redes — rápido, prático e econômico.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="2"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Convite Digital" data-msg="Olá! Tenho interesse em Convites Digitais."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
 
-  <script src="script.js" defer></script>
+      <!-- Product 3 -->
+      <div class="product-card anim" data-prod-index="3" style="animation-delay:.90s" role="listitem">
+        <a href="calendario.jpg" class="lightbox" data-index="3"><img src="calendario.jpg" alt="Calendário triangular de mesa" /></a>
+        <h3>Calendário Triangular de Mesa</h3>
+        <p class="prod-desc">Calendário triangular de mesa personalizado em papel fotográfico couché com acabamento brilhante. Versão 12 meses ou 6 meses promocional.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="3"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Calendário Triangular" data-msg="Olá! Tenho interesse no Calendário Triangular de Mesa."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card anim" data-prod-index="4" style="animation-delay:.96s" role="listitem">
+        <a href="Placa-de-Acrílico.jpg" class="lightbox" data-index="4"><img src="Placa-de-Acrílico.jpg" alt="Plaquinha acrílica 15x10" /></a>
+        <h3>Plaquinha Acrílica 15×10 (Acrílico)</h3>
+        <p class="prod-desc">Plaquinha acrílica 15×10 cm com impressão UV direta sobre acrílico cristal. Acabamento polido e cantos arredondados — ideal para brindes e sinalização elegante.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="4"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Plaquinha Acrílica 15x10" data-msg="Olá! Tenho interesse na Plaquinha Acrílica 15x10."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card anim" data-prod-index="5" style="animation-delay:1.02s" role="listitem">
+        <a href="manutencaopc.png" class="lightbox" data-index="5"><img src="manutencaopc.png" alt="Manutenção de computador e notebook" /></a>
+        <h3>Manutenção de Computador e Notebook</h3>
+        <p class="prod-desc">Limpeza, formatação, reparos, upgrade e recuperação de dados — suporte técnico especializado.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="5"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991992905" data-prod="Serviço de Manutenção" data-msg="Olá! Preciso de assistência em manutenção de computador/notebook."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card anim" data-prod-index="6" style="animation-delay:1.08s" role="listitem">
+        <a href="azulejo.jpg" class="lightbox" data-index="6"><img src="azulejo.jpg" alt="Azulejo decorativo personalizado" /></a>
+        <h3>Azulejo Decorativo Personalizado</h3>
+        <p class="prod-desc">Azulejo cerâmico 15×15 cm com impressão direta e esmaltação protetora. Ideal para lembranças, decoração de ambientes e presentes — acabamento resistente e fácil de limpar.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="6"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Azulejo 15x15" data-msg="Olá! Tenho interesse no Azulejo 15x15."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card anim" data-prod-index="7" style="animation-delay:1.14s" role="listitem">
+        <a href="caneca-jateada.jpg" class="lightbox" data-index="7"><img src="caneca-jateada.jpg" alt="Caneca jateada personalizada" /></a>
+        <h3>Caneca Jateada (Frosted) Personalizada</h3>
+        <p class="prod-desc">Caneca jateada em vidro/cerâmica com acabamento acetinado (frosted). Impressão personalizada em alta definição — toque sofisticado e ideal para presentes corporativos e lembranças especiais.</p>
+        <div class="card-actions">
+          <button class="card-view hover-lift" data-index="7"><i class="fa-solid fa-eye"></i> Ver</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Caneca Jateada" data-msg="Olá! Tenho interesse na Caneca Jateada personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="share-card anim" style="animation-delay:1.20s">
+      <button id="shareToggle" class="hover-lift"><i class="fas fa-share-alt"></i> Compartilhar Mini Site</button>
+      <div id="shareOptions" class="share-options" style="display:none">
+        <a id="shareWhatsApp" href="#" target="_blank" style="background:#25D366;padding:8px 10px;border-radius:8px;color:#042d16;text-decoration:none" class="hover-lift"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a id="shareTelegram" href="#" target="_blank" style="background:#0088cc;padding:8px 10px;border-radius:8px;color:#fff;text-decoration:none" class="hover-lift"><i class="fab fa-telegram"></i> Telegram</a>
+      </div>
+    </div>
+
+    <div id="shareThanks" class="share-thanks" style="display:none;text-align:center;margin-top:6px;color:#16a34a">✅ Obrigado por compartilhar!</div>
+
+    <button id="backToTop" title="Voltar ao topo">⬆</button>
+
+    <!-- footer -->
+    <div class="footer-wrap anim" style="animation-delay:1.26s">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <h4>Lima Calixto • Lima Lima</h4>
+          <div>Especialistas em personalização e manutenção</div>
+          <div style="margin-top:8px">
+            <img src="logo.png" alt="Lima Calixto" style="height:40px;vertical-align:middle;margin-right:8px"/>
+            <img src="logo2.png" alt="Lima Lima" style="height:40px;vertical-align:middle"/>
+          </div>
+        </div>
+
+        <div class="footer-col footer-contacts">
+          <h4>Contato</h4>
+          <div style="margin-top:6px"><strong>Marli — Lima Calixto Personalizados</strong></div>
+          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-contact="marli" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <div style="margin-top:8px"><strong>Daniel — Lima Lima Manutenção</strong></div>
+          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-contact="daniel" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <div style="margin-top:10px;color:var(--muted)">Atendimento: Seg–Sex 9h–18h • Sáb (agendamento)</div>
+        </div>
+
+        <div class="footer-col footer-hours">
+          <h4>Local</h4>
+          <p style="margin:6px 0;color:var(--muted)">Juiz de Fora, MG — Atendemos região local e envios para todo o Brasil.</p>
+          <h4 style="margin-top:10px">Links úteis</h4>
+          <div class="footer-links">
+            <a class="btn-cat catalog hover-lift" href="https://catalogo-lima-calixto-personalizados.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-box-open"></i> Catálogo Online</a>
+            <a class="btn-cat natal hover-lift" href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" rel="noopener"><i class="fas fa-gift"></i> Campanha de Natal</a>
+            <a class="btn-cat gratidao hover-lift" href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" rel="noopener"><i class="fas fa-heart"></i> Campanha Gratidão</a>
+          </div>
+        </div>
+
+        <div class="footer-col footer-follow">
+          <h4>Siga-nos</h4>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <a class="btn insta hover-lift" href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram</a>
+            <a class="btn fb hover-lift" href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;border-top:1px solid rgba(12,38,63,0.04);padding-top:12px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap">
+        <div>© <strong>Lima Calixto Personalizados</strong> &amp; <strong>Lima Lima Manutenção</strong> — Todos os direitos reservados</div>
+        <div>Feito com ❤️ — Atualize imagens e links na pasta do site</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden hosts for modals -->
+  <div id="orderModal" style="display:none" aria-hidden="true"></div>
+  <div id="contactModalHost" style="display:none" aria-hidden="true"></div>
+
+  <script>
+    // helpers
+    function escapeHtml(str = '') { return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+    function escapeAttr(s=''){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // stagger animation
+      document.querySelectorAll('.anim').forEach((el,i)=> el.style.animationDelay = (0.06 + i*0.03) + 's');
+
+      // enhance service buttons: ensure anim + hover-lift
+      document.querySelectorAll('.service-btn').forEach(s=>{
+        s.classList.add('anim','hover-lift');
+        s.addEventListener('click', (ev)=>{
+          ev.preventDefault();
+          const service = s.getAttribute('data-service') || s.textContent.trim().toLowerCase();
+          if(service.includes('sublim')) showInfo('sublimacao');
+          else if(service.includes('personaliz')) showInfo('personalizados');
+          else if(service.includes('convite')) showInfo('convites');
+          else if(service.includes('manuten')) showInfo('manutencao');
+          else showInfo(service);
+        });
+        s.addEventListener('keydown', (k)=>{ if(k.key === 'Enter' || k.key === ' ') { k.preventDefault(); s.click(); } });
+      });
+
+      // set initial top whatsapp placeholders to '#'
+      document.querySelectorAll('.whatsapp-link').forEach(el => el.href = '#');
+
+      // init lightbox
+      initLightboxHandlers();
+
+      // card view
+      document.querySelectorAll('.card-view').forEach(btn=>{
+        btn.addEventListener('click', ()=> {
+          const idx = Number(btn.getAttribute('data-index'));
+          if(!Number.isNaN(idx)) openLightbox(idx);
+        });
+      });
+
+      // open order modal when card "Solicitar" clicked (full form)
+      document.querySelectorAll('.card-wp').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const phone = btn.getAttribute('data-phone') || '';
+          const prod  = btn.getAttribute('data-prod') || '';
+          const baseMsg= btn.getAttribute('data-msg') || '';
+          openOrderModal({ phone, prod, baseMsg });
+        });
+      });
+
+      // footer whatsapp & social top whatsapp open intelligent contact modal
+      document.querySelectorAll('#footerWaMarli, #footerWaDaniel, .social-grid .whatsapp-link').forEach(el=>{
+        el.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const contact = el.dataset.contact || el.getAttribute('data-contact') || (el.id && el.id.toLowerCase().includes('marli') ? 'marli' : 'daniel');
+          const phone = el.dataset.phone || el.getAttribute('data-phone') || '';
+          openContactModal({ contact: contact.toLowerCase(), phone: phone });
+        });
+      });
+
+      // share toggle
+      const shareToggle = document.getElementById('shareToggle');
+      if(shareToggle) shareToggle.addEventListener('click', ()=> {
+        const s = document.getElementById('shareOptions');
+        s.style.display = s.style.display === 'flex' ? 'none' : 'flex';
+      });
+      const shareText = encodeURIComponent('Olá! Confira nosso mini site — Sublimação, personalizados, convites digitais e manutenção.');
+      const shareUrl = encodeURIComponent(window.location.href);
+      const sw = document.getElementById('shareWhatsApp');
+      const st = document.getElementById('shareTelegram');
+      if(sw) sw.href = 'https://wa.me/?text=' + shareText + '%20' + shareUrl;
+      if(st) st.href = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareText;
+
+      // back to top
+      const back = document.getElementById('backToTop');
+      window.addEventListener('scroll', ()=> back.style.display = window.scrollY > 300 ? 'block' : 'none');
+      back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+    });
+
+    /* ---------- Lightbox (works for "Ver" and image anchor links) ---------- */
+    let lightLinks = [];
+    let currentIndex = 0;
+    function initLightboxHandlers(){
+      lightLinks = Array.from(document.querySelectorAll('.lightbox'));
+      // rebind (avoid duplicates)
+      lightLinks.forEach(a=> a.replaceWith(a.cloneNode(true)));
+      lightLinks = Array.from(document.querySelectorAll('.lightbox'));
+      lightLinks.forEach((a,i)=> {
+        a.setAttribute('data-index', i);
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          currentIndex = parseInt(this.dataset.index,10) || 0;
+          openLightbox(currentIndex);
+        });
+      });
+    }
+    function openLightbox(idx){
+      closeLightbox();
+      const overlay = document.createElement('div'); overlay.className='lightbox-overlay'; overlay.id='lightboxOverlay';
+      const wrapper = document.createElement('div'); wrapper.className='lightbox-wrapper';
+      const img = document.createElement('img'); img.className='lightbox-image';
+      idx = Math.max(0, Math.min(idx, lightLinks.length - 1));
+      img.src = lightLinks[idx]?.href || '';
+      img.alt = lightLinks[idx]?.querySelector('img')?.alt || 'Imagem';
+      const ctrls = document.createElement('div'); ctrls.className='lightbox-controls';
+      const prev = document.createElement('button'); prev.textContent='◀ Anterior'; prev.onclick=()=>navigateLightbox(-1);
+      const close = document.createElement('button'); close.textContent='✖ Fechar'; close.onclick=closeLightbox;
+      const next = document.createElement('button'); next.textContent='Próxima ▶'; next.onclick=()=>navigateLightbox(1);
+      ctrls.appendChild(prev); ctrls.appendChild(close); ctrls.appendChild(next);
+      wrapper.appendChild(img); wrapper.appendChild(ctrls); overlay.appendChild(wrapper); document.body.appendChild(overlay);
+      overlay.addEventListener('click', e => { if(e.target === overlay) closeLightbox(); });
+      document.addEventListener('keydown', handleKey);
+      currentIndex = idx;
+    }
+    function closeLightbox(){ const o = document.getElementById('lightboxOverlay'); if(o) o.remove(); document.removeEventListener('keydown', handleKey); }
+    function navigateLightbox(direction){
+      if(!lightLinks || lightLinks.length===0) return;
+      currentIndex = (currentIndex + direction + lightLinks.length) % lightLinks.length;
+      const overlay = document.getElementById('lightboxOverlay'); if(!overlay) return;
+      const img = overlay.querySelector('img.lightbox-image'); img.classList.add('fade-out');
+      setTimeout(()=> { img.src = lightLinks[currentIndex].href; img.alt = lightLinks[currentIndex].querySelector('img')?.alt || 'Imagem'; img.classList.remove('fade-out'); }, 180);
+    }
+    function handleKey(e){ if(!document.getElementById('lightboxOverlay')) return; if(e.key==='ArrowRight') navigateLightbox(1); if(e.key==='ArrowLeft') navigateLightbox(-1); if(e.key==='Escape') closeLightbox(); }
+
+    /* ---------- Order modal (full product form) ---------- */
+    function openOrderModal({ phone='', prod='', baseMsg='' } = {}){
+      const host = document.getElementById('orderModal');
+      host.innerHTML = `
+        <div class="modal-overlay" id="modalOverlayOrder" role="dialog" aria-modal="true" aria-label="Formulário de pedido">
+          <div class="modal anim" style="animation-delay:.02s">
+            <h3>Solicitar: ${escapeHtml(prod || 'Produto/Serviço')}</h3>
+            <div class="field">
+              <label>Mensagem inicial</label>
+              <input type="text" id="modalBaseMsg" value="${escapeAttr(baseMsg || '')}" />
+            </div>
+            <div class="form-row">
+              <div class="col field">
+                <label>Quantidade</label>
+                <input id="modalQty" placeholder="Ex: 10" />
+              </div>
+              <div class="col field">
+                <label>Cor / Design</label>
+                <input id="modalColor" placeholder="Ex: Vermelho / Foto da família" />
+              </div>
+            </div>
+            <div class="field" style="margin-top:8px">
+              <label>Prazo desejado</label>
+              <input id="modalWhen" placeholder="Ex: 7 dias / Urgente" />
+            </div>
+            <div class="field" style="margin-top:8px">
+              <label>Observações</label>
+              <textarea id="modalObs" rows="3" placeholder="Ex: Enviar para ... (opcional)"></textarea>
+            </div>
+            <div class="modal-actions">
+              <button class="btn-ghost" id="modalCancelOrder">Fechar</button>
+              <button class="btn-primary" id="modalSendOrder"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>
+            </div>
+          </div>
+        </div>
+      `;
+      host.style.display = 'block'; host.setAttribute('aria-hidden','false');
+
+      document.getElementById('modalCancelOrder').addEventListener('click', closeOrderModal);
+      document.getElementById('modalOverlayOrder').addEventListener('click', (e)=>{ if(e.target.id === 'modalOverlayOrder') closeOrderModal(); });
+      document.getElementById('modalSendOrder').addEventListener('click', ()=> {
+        const qty = document.getElementById('modalQty').value.trim() || '[ ]';
+        const color = document.getElementById('modalColor').value.trim() || '[ ]';
+        const when = document.getElementById('modalWhen').value.trim() || '[ ]';
+        const obs = document.getElementById('modalObs').value.trim() || '';
+        const base = document.getElementById('modalBaseMsg').value.trim() || '';
+
+        let message = base;
+        if(prod) message += (base ? ' ' : '') + prod + ' — ';
+        message += 'Quantidade: ' + qty + ' | Cor/Design: ' + color + ' | Prazo: ' + when;
+        if(obs) message += ' | Observações: ' + obs;
+
+        const dest = phone && phone.length >= 8 ? phone : '5532991657472';
+        const url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(message);
+        window.open(url,'_blank');
+        closeOrderModal();
+      });
+
+      setTimeout(()=> document.getElementById('modalQty').focus(), 80);
+    }
+    function closeOrderModal(){ const host = document.getElementById('orderModal'); host.innerHTML = ''; host.style.display='none'; host.setAttribute('aria-hidden','true'); }
+
+    /* ---------- Contact modal (intelligent, single textarea + identity + extras) ---------- */
+    function openContactModal({ contact='marli', phone='' } = {}){
+      let initial = '';
+      if(contact === 'marli'){
+        initial = 'Prezada Marli, bom dia/tarde/noite. Gostaria de solicitar informações sobre produtos e pedidos. Segue a descrição:';
+      } else if(contact === 'daniel'){
+        initial = 'Prezado Daniel, bom dia/tarde/noite. Preciso de suporte/atendimento em manutenção de equipamento. Segue a descrição:';
+      } else {
+        initial = 'Olá, gostaria de mais informações. Segue a descrição:';
+      }
+
+      const host = document.getElementById('contactModalHost');
+      host.innerHTML = `
+        <div class="modal-overlay" id="modalOverlayContact" role="dialog" aria-modal="true" aria-label="Contato via WhatsApp">
+          <div class="modal anim" style="animation-delay:.02s">
+            <h3>Contato: ${escapeHtml(contact === 'marli' ? 'Lima Calixto • Marli' : 'Lima Lima • Daniel')}</h3>
+            <div class="field contact-field">
+              <label>Mensagem</label>
+              <textarea id="contactMsg">${escapeHtml(initial + "\\n\\n- Descrição: [ ]")}</textarea>
+            </div>
+            <div class="contact-small">
+              <input id="contactName" placeholder="Seu nome (ex: Maria Silva) — opcional" />
+            </div>
+            <div class="field" style="margin-top:8px">
+              <label>Observações adicionais (opcional)</label>
+              <input id="contactExtra" placeholder="Ex: Melhor horário para contato, orçamento estimado etc." />
+            </div>
+            <div class="modal-actions">
+              <button class="btn-ghost" id="contactCancel">Fechar</button>
+              <button class="btn-primary" id="contactSend"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>
+            </div>
+          </div>
+        </div>
+      `;
+      host.style.display = 'block'; host.setAttribute('aria-hidden','false');
+
+      document.getElementById('contactCancel').addEventListener('click', closeContactModal);
+      document.getElementById('modalOverlayContact').addEventListener('click', (e)=>{ if(e.target.id === 'modalOverlayContact') closeContactModal(); });
+      document.getElementById('contactSend').addEventListener('click', ()=>{
+        const msg = document.getElementById('contactMsg').value.trim() || '';
+        const name = document.getElementById('contactName').value.trim();
+        const extra = document.getElementById('contactExtra').value.trim();
+        let final = msg;
+        if(name) final += ' | Nome: ' + name;
+        if(extra) final += ' | Observações: ' + extra;
+
+        const dest = phone && phone.length >= 8 ? phone : (contact === 'daniel' ? '5532991992905' : '5532991657472');
+        const url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(final);
+        window.open(url,'_blank');
+        closeContactModal();
+      });
+      setTimeout(()=> document.getElementById('contactMsg').focus(), 80);
+    }
+    function closeContactModal(){ const host = document.getElementById('contactModalHost'); host.innerHTML = ''; host.style.display='none'; host.setAttribute('aria-hidden','true'); }
+
+    /* ---------- Service info & top WhatsApp links (unchanged) ---------- */
+    let selectedService = '';
+    function showInfo(service){
+      selectedService = service;
+      const info = document.getElementById('info');
+      let text = '';
+      if(service === 'sublimacao') text = 'Sublimação: canecas, camisetas e peças com impressão térmica de alta qualidade — ideal para presentes e vendas.';
+      else if(service === 'personalizados') text = 'Personalizados: brindes, lembrancinhas, tags e itens sob medida para seu evento ou empresa.';
+      else if(service === 'convites') text = 'Convites digitais: layouts prontos e personalizáveis para envio via WhatsApp e redes sociais.';
+      else if(service === 'manutencao') text = 'Manutenção: limpeza, formatação, upgrades e diagnósticos para computadores e notebooks.';
+      else text = service;
+      info.textContent = text;
+      updateTopWhatsAppLinks(service);
+    }
+    function updateTopWhatsAppLinks(service){
+      const phoneC = '5532991657472', phoneD = '5532991992905';
+      let mC = '', mD = '';
+      if(service === 'manutencao'){
+        mC = 'Olá Marli! Gostaria de saber se vocês também fazem manutenção. Tipo do problema: [ ] | Modelo/Marca: [ ] | Prazo: [ ]';
+        mD = 'Olá Daniel! Preciso de assistência em manutenção de computador/notebook. Tipo do problema: [ ] | Modelo/Marca: [ ] | Prazo: [ ]';
+      } else {
+        mC = 'Olá Marli! Vim pelo mini site e tenho interesse nos serviços. Produto/serviço: [ ] | Quantidade: [ ] | Prazo: [ ]';
+        mD = 'Olá Daniel! Vim pelo mini site e gostaria de saber sobre estes serviços. Produto/serviço: [ ] | Quantidade: [ ] | Prazo: [ ]';
+      }
+      const elC = document.getElementById('whatsappBtnCalixto'); if(elC) elC.href = 'https://wa.me/' + phoneC + '?text=' + encodeURIComponent(mC);
+      const elD = document.getElementById('whatsappBtnLima'); if(elD) elD.href = 'https://wa.me/' + phoneD + '?text=' + encodeURIComponent(mD);
+    }
+
+    // protect top whatsapp links when no service selected
+    document.addEventListener('click', (e)=>{
+      if(e.target.closest && e.target.closest('.whatsapp-link')){
+        const el = e.target.closest('.whatsapp-link');
+        if(el && (el.getAttribute('href') === '#' || el.getAttribute('href') === null) && !selectedService){
+          e.preventDefault();
+          const w = document.getElementById('whatsappWarning');
+          if(w){ w.style.display = 'flex'; w.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp.'; setTimeout(()=> w.style.display='none',7000); }
+        }
+      }
+    });
+
+    // keyboard focus helper
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Tab') document.body.classList.add('show-focus');
+    });
+  </script>
 </body>
 </html>
