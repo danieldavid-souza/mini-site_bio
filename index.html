@@ -99,7 +99,22 @@
     .share-card button{background:linear-gradient(90deg,var(--accent),#fb923c);color:#fff;padding:10px 16px;border-radius:12px;border:none;font-weight:800;cursor:pointer}
     .share-options{display:flex;gap:8px;margin-top:8px}
 
-    #backToTop{position:fixed;right:18px;bottom:18px;padding:10px 12px;border-radius:10px;border:none;background:#0b63a4;color:#fff;display:none;cursor:pointer;box-shadow:0 10px 20px rgba(12,38,63,0.12)}
+   #backToTop{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      padding:10px 12px;
+      border-radius:10px;
+      border:none;
+      background:#0b63a4;
+      color:#fff;
+      display:none;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(12,38,63,0.12);
+      z-index:100000;               /* garante que fique acima do rodapé e overlays */
+      pointer-events:auto;         /* garante que receba cliques mesmo com layers complexos */
+      -webkit-tap-highlight-color: transparent;
+    }
 
     /* footer */
     .footer-wrap{margin-top:28px;background:linear-gradient(180deg,rgba(11,54,92,0.03),rgba(11,54,92,0.01));padding:22px;border-radius:12px;border:1px solid rgba(12,38,63,0.03)}
@@ -216,6 +231,7 @@
         </div>
       </div>
 
+      <!-- other products... (kept as in your version) -->
       <!-- Product 1 -->
       <div class="product-card anim" data-prod-index="1" style="animation-delay:.78s" role="listitem">
         <a href="camiseta.jpg" class="lightbox" data-index="1"><img src="camiseta.jpg" alt="Camiseta estampada" /></a>
@@ -359,288 +375,378 @@
   <div id="contactModalHost" style="display:none" aria-hidden="true"></div>
 
   <script>
-    // helpers
-    function escapeHtml(str = '') { return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
-    function escapeAttr(s=''){ return escapeHtml(s).replace(/"/g,'&quot;'); }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // stagger animation
-      document.querySelectorAll('.anim').forEach((el,i)=> el.style.animationDelay = (0.06 + i*0.03) + 's');
-
-      // enhance service buttons: ensure anim + hover-lift
-      document.querySelectorAll('.service-btn').forEach(s=>{
-        s.classList.add('anim','hover-lift');
-        s.addEventListener('click', (ev)=>{
-          ev.preventDefault();
-          const service = s.getAttribute('data-service') || s.textContent.trim().toLowerCase();
-          if(service.includes('sublim')) showInfo('sublimacao');
-          else if(service.includes('personaliz')) showInfo('personalizados');
-          else if(service.includes('convite')) showInfo('convites');
-          else if(service.includes('manuten')) showInfo('manutencao');
-          else showInfo(service);
-        });
-        s.addEventListener('keydown', (k)=>{ if(k.key === 'Enter' || k.key === ' ') { k.preventDefault(); s.click(); } });
+    /* -------------------------
+       Utilities (top-level)
+    ------------------------- */
+    function escapeHtml(str) {
+      if (str === undefined || str === null) return '';
+      return String(str).replace(/[&<>"']/g, function (s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]);
       });
+    }
+    function escapeAttr(s) {
+      return escapeHtml(s).replace(/"/g,'&quot;');
+    }
 
-      // set initial top whatsapp placeholders to '#'
-      document.querySelectorAll('.whatsapp-link').forEach(el => el.href = '#');
+    /* ---------- Lightbox (top-level functions) ---------- */
+    var lightLinks = [];
+    var currentIndex = 0;
 
-      // init lightbox
-      initLightboxHandlers();
-
-      // card view
-      document.querySelectorAll('.card-view').forEach(btn=>{
-        btn.addEventListener('click', ()=> {
-          const idx = Number(btn.getAttribute('data-index'));
-          if(!Number.isNaN(idx)) openLightbox(idx);
-        });
+    function initLightboxHandlers() {
+      lightLinks = Array.prototype.slice.call(document.querySelectorAll('.lightbox'));
+      // clone nodes to avoid double-binding issues
+      lightLinks.forEach(function(a){
+        var clone = a.cloneNode(true);
+        a.parentNode.replaceChild(clone, a);
       });
-
-      // open order modal when card "Solicitar" clicked (full form)
-      document.querySelectorAll('.card-wp').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const phone = btn.getAttribute('data-phone') || '';
-          const prod  = btn.getAttribute('data-prod') || '';
-          const baseMsg= btn.getAttribute('data-msg') || '';
-          openOrderModal({ phone, prod, baseMsg });
-        });
-      });
-
-      // footer whatsapp & social top whatsapp open intelligent contact modal
-      document.querySelectorAll('#footerWaMarli, #footerWaDaniel, .social-grid .whatsapp-link').forEach(el=>{
-        el.addEventListener('click', (e)=>{
-          e.preventDefault();
-          const contact = el.dataset.contact || el.getAttribute('data-contact') || (el.id && el.id.toLowerCase().includes('marli') ? 'marli' : 'daniel');
-          const phone = el.dataset.phone || el.getAttribute('data-phone') || '';
-          openContactModal({ contact: contact.toLowerCase(), phone: phone });
-        });
-      });
-
-      // share toggle
-      const shareToggle = document.getElementById('shareToggle');
-      if(shareToggle) shareToggle.addEventListener('click', ()=> {
-        const s = document.getElementById('shareOptions');
-        s.style.display = s.style.display === 'flex' ? 'none' : 'flex';
-      });
-      const shareText = encodeURIComponent('Olá! Confira nosso mini site — Sublimação, personalizados, convites digitais e manutenção.');
-      const shareUrl = encodeURIComponent(window.location.href);
-      const sw = document.getElementById('shareWhatsApp');
-      const st = document.getElementById('shareTelegram');
-      if(sw) sw.href = 'https://wa.me/?text=' + shareText + '%20' + shareUrl;
-      if(st) st.href = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareText;
-
-      // back to top
-      const back = document.getElementById('backToTop');
-      window.addEventListener('scroll', ()=> back.style.display = window.scrollY > 300 ? 'block' : 'none');
-      back.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
-    });
-
-    /* ---------- Lightbox (works for "Ver" and image anchor links) ---------- */
-    let lightLinks = [];
-    let currentIndex = 0;
-    function initLightboxHandlers(){
-      lightLinks = Array.from(document.querySelectorAll('.lightbox'));
-      // rebind (avoid duplicates)
-      lightLinks.forEach(a=> a.replaceWith(a.cloneNode(true)));
-      lightLinks = Array.from(document.querySelectorAll('.lightbox'));
-      lightLinks.forEach((a,i)=> {
+      lightLinks = Array.prototype.slice.call(document.querySelectorAll('.lightbox'));
+      lightLinks.forEach(function(a,i){
         a.setAttribute('data-index', i);
         a.addEventListener('click', function(e){
           e.preventDefault();
-          currentIndex = parseInt(this.dataset.index,10) || 0;
+          currentIndex = parseInt(this.getAttribute('data-index'), 10) || 0;
           openLightbox(currentIndex);
         });
       });
     }
-    function openLightbox(idx){
+
+    function openLightbox(idx) {
       closeLightbox();
-      const overlay = document.createElement('div'); overlay.className='lightbox-overlay'; overlay.id='lightboxOverlay';
-      const wrapper = document.createElement('div'); wrapper.className='lightbox-wrapper';
-      const img = document.createElement('img'); img.className='lightbox-image';
+      if (!lightLinks || lightLinks.length === 0) return;
       idx = Math.max(0, Math.min(idx, lightLinks.length - 1));
-      img.src = lightLinks[idx]?.href || '';
-      img.alt = lightLinks[idx]?.querySelector('img')?.alt || 'Imagem';
-      const ctrls = document.createElement('div'); ctrls.className='lightbox-controls';
-      const prev = document.createElement('button'); prev.textContent='◀ Anterior'; prev.onclick=()=>navigateLightbox(-1);
-      const close = document.createElement('button'); close.textContent='✖ Fechar'; close.onclick=closeLightbox;
-      const next = document.createElement('button'); next.textContent='Próxima ▶'; next.onclick=()=>navigateLightbox(1);
-      ctrls.appendChild(prev); ctrls.appendChild(close); ctrls.appendChild(next);
-      wrapper.appendChild(img); wrapper.appendChild(ctrls); overlay.appendChild(wrapper); document.body.appendChild(overlay);
-      overlay.addEventListener('click', e => { if(e.target === overlay) closeLightbox(); });
-      document.addEventListener('keydown', handleKey);
+      var href = lightLinks[idx] && lightLinks[idx].href ? lightLinks[idx].href : '';
+      var altText = '';
+      try {
+        var imgEl = lightLinks[idx] && lightLinks[idx].querySelector && lightLinks[idx].querySelector('img');
+        altText = imgEl && imgEl.alt ? imgEl.alt : 'Imagem';
+      } catch (e) { altText = 'Imagem'; }
+
+      var overlay = document.createElement('div'); overlay.className = 'lightbox-overlay'; overlay.id = 'lightboxOverlay';
+      var wrapper = document.createElement('div'); wrapper.className = 'lightbox-wrapper';
+      var img = document.createElement('img'); img.className = 'lightbox-image'; img.src = href; img.alt = altText;
+      var ctrls = document.createElement('div'); ctrls.className = 'lightbox-controls';
+      var prev = document.createElement('button'); prev.textContent = '◀ Anterior'; prev.type = 'button';
+      prev.addEventListener('click', function(){ navigateLightbox(-1); });
+      var closeBtn = document.createElement('button'); closeBtn.textContent = '✖ Fechar'; closeBtn.type = 'button';
+      closeBtn.addEventListener('click', closeLightbox);
+      var next = document.createElement('button'); next.textContent = 'Próxima ▶'; next.type = 'button';
+      next.addEventListener('click', function(){ navigateLightbox(1); });
+      ctrls.appendChild(prev); ctrls.appendChild(closeBtn); ctrls.appendChild(next);
+      wrapper.appendChild(img); wrapper.appendChild(ctrls); overlay.appendChild(wrapper);
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', function(e){ if (e.target === overlay) closeLightbox(); });
+      document.addEventListener('keydown', handleKey, false);
       currentIndex = idx;
     }
-    function closeLightbox(){ const o = document.getElementById('lightboxOverlay'); if(o) o.remove(); document.removeEventListener('keydown', handleKey); }
-    function navigateLightbox(direction){
-      if(!lightLinks || lightLinks.length===0) return;
+
+    function closeLightbox() {
+      var o = document.getElementById('lightboxOverlay');
+      if (o) o.parentNode.removeChild(o);
+      document.removeEventListener('keydown', handleKey, false);
+    }
+
+    function navigateLightbox(direction) {
+      if (!lightLinks || lightLinks.length === 0) return;
       currentIndex = (currentIndex + direction + lightLinks.length) % lightLinks.length;
-      const overlay = document.getElementById('lightboxOverlay'); if(!overlay) return;
-      const img = overlay.querySelector('img.lightbox-image'); img.classList.add('fade-out');
-      setTimeout(()=> { img.src = lightLinks[currentIndex].href; img.alt = lightLinks[currentIndex].querySelector('img')?.alt || 'Imagem'; img.classList.remove('fade-out'); }, 180);
+      var overlay = document.getElementById('lightboxOverlay');
+      if (!overlay) return;
+      var img = overlay.querySelector && overlay.querySelector('img.lightbox-image');
+      if (!img) return;
+      // small fade effect
+      img.style.opacity = '0.2';
+      setTimeout(function(){
+        img.src = (lightLinks[currentIndex] && lightLinks[currentIndex].href) ? lightLinks[currentIndex].href : '';
+        var maybeImg = lightLinks[currentIndex] && lightLinks[currentIndex].querySelector && lightLinks[currentIndex].querySelector('img');
+        img.alt = maybeImg && maybeImg.alt ? maybeImg.alt : 'Imagem';
+        img.style.opacity = '';
+      }, 180);
     }
-    function handleKey(e){ if(!document.getElementById('lightboxOverlay')) return; if(e.key==='ArrowRight') navigateLightbox(1); if(e.key==='ArrowLeft') navigateLightbox(-1); if(e.key==='Escape') closeLightbox(); }
 
-    /* ---------- Order modal (full product form) ---------- */
-    function openOrderModal({ phone='', prod='', baseMsg='' } = {}){
-      const host = document.getElementById('orderModal');
-      host.innerHTML = `
-        <div class="modal-overlay" id="modalOverlayOrder" role="dialog" aria-modal="true" aria-label="Formulário de pedido">
-          <div class="modal anim" style="animation-delay:.02s">
-            <h3>Solicitar: ${escapeHtml(prod || 'Produto/Serviço')}</h3>
-            <div class="field">
-              <label>Mensagem inicial</label>
-              <input type="text" id="modalBaseMsg" value="${escapeAttr(baseMsg || '')}" />
-            </div>
-            <div class="form-row">
-              <div class="col field">
-                <label>Quantidade</label>
-                <input id="modalQty" placeholder="Ex: 10" />
-              </div>
-              <div class="col field">
-                <label>Cor / Design</label>
-                <input id="modalColor" placeholder="Ex: Vermelho / Foto da família" />
-              </div>
-            </div>
-            <div class="field" style="margin-top:8px">
-              <label>Prazo desejado</label>
-              <input id="modalWhen" placeholder="Ex: 7 dias / Urgente" />
-            </div>
-            <div class="field" style="margin-top:8px">
-              <label>Observações</label>
-              <textarea id="modalObs" rows="3" placeholder="Ex: Enviar para ... (opcional)"></textarea>
-            </div>
-            <div class="modal-actions">
-              <button class="btn-ghost" id="modalCancelOrder">Fechar</button>
-              <button class="btn-primary" id="modalSendOrder"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>
-            </div>
-          </div>
-        </div>
-      `;
-      host.style.display = 'block'; host.setAttribute('aria-hidden','false');
-
-      document.getElementById('modalCancelOrder').addEventListener('click', closeOrderModal);
-      document.getElementById('modalOverlayOrder').addEventListener('click', (e)=>{ if(e.target.id === 'modalOverlayOrder') closeOrderModal(); });
-      document.getElementById('modalSendOrder').addEventListener('click', ()=> {
-        const qty = document.getElementById('modalQty').value.trim() || '[ ]';
-        const color = document.getElementById('modalColor').value.trim() || '[ ]';
-        const when = document.getElementById('modalWhen').value.trim() || '[ ]';
-        const obs = document.getElementById('modalObs').value.trim() || '';
-        const base = document.getElementById('modalBaseMsg').value.trim() || '';
-
-        let message = base;
-        if(prod) message += (base ? ' ' : '') + prod + ' — ';
-        message += 'Quantidade: ' + qty + ' | Cor/Design: ' + color + ' | Prazo: ' + when;
-        if(obs) message += ' | Observações: ' + obs;
-
-        const dest = phone && phone.length >= 8 ? phone : '5532991657472';
-        const url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(message);
-        window.open(url,'_blank');
-        closeOrderModal();
-      });
-
-      setTimeout(()=> document.getElementById('modalQty').focus(), 80);
+    function handleKey(e) {
+      var overlayExists = !!document.getElementById('lightboxOverlay');
+      if (!overlayExists) return;
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'Escape') closeLightbox();
     }
-    function closeOrderModal(){ const host = document.getElementById('orderModal'); host.innerHTML = ''; host.style.display='none'; host.setAttribute('aria-hidden','true'); }
 
-    /* ---------- Contact modal (intelligent, single textarea + identity + extras) ---------- */
-    function openContactModal({ contact='marli', phone='' } = {}){
-      let initial = '';
-      if(contact === 'marli'){
+    /* ---------- Modals (top-level open/close) ---------- */
+    function openOrderModal(opts) {
+      opts = opts || {};
+      var phone = opts.phone || '';
+      var prod = opts.prod || '';
+      var baseMsg = opts.baseMsg || '';
+
+      var host = document.getElementById('orderModal');
+      if (!host) return;
+      host.innerHTML = ''
+        + '<div class="modal-overlay" id="modalOverlayOrder" role="dialog" aria-modal="true" aria-label="Formulário de pedido">'
+        + '  <div class="modal anim" style="animation-delay:.02s">'
+        + '    <h3>Solicitar: ' + escapeHtml(prod || 'Produto/Serviço') + '</h3>'
+        + '    <div class="field"><label>Mensagem inicial</label><input type="text" id="modalBaseMsg" value="' + escapeAttr(baseMsg || '') + '" /></div>'
+        + '    <div class="form-row">'
+        + '      <div class="col field"><label>Quantidade</label><input id="modalQty" placeholder="Ex: 10" /></div>'
+        + '      <div class="col field"><label>Cor / Design</label><input id="modalColor" placeholder="Ex: Vermelho / Foto da família" /></div>'
+        + '    </div>'
+        + '    <div class="field" style="margin-top:8px"><label>Prazo desejado</label><input id="modalWhen" placeholder="Ex: 7 dias / Urgente" /></div>'
+        + '    <div class="field" style="margin-top:8px"><label>Observações</label><textarea id="modalObs" rows="3" placeholder="Ex: Enviar para ... (opcional)"></textarea></div>'
+        + '    <div class="modal-actions">'
+        + '      <button class="btn-ghost" id="modalCancelOrder" type="button">Fechar</button>'
+        + '      <button class="btn-primary" id="modalSendOrder" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>'
+        + '    </div>'
+        + '  </div>'
+        + '</div>';
+      host.style.display = 'block';
+      host.setAttribute('aria-hidden', 'false');
+
+      var cancel = document.getElementById('modalCancelOrder');
+      if (cancel) cancel.addEventListener('click', closeOrderModal, false);
+      var overlay = document.getElementById('modalOverlayOrder');
+      if (overlay) overlay.addEventListener('click', function(e){ if (e.target && e.target.id === 'modalOverlayOrder') closeOrderModal(); }, false);
+
+      var send = document.getElementById('modalSendOrder');
+      if (send) {
+        send.addEventListener('click', function(){
+          var qty = (document.getElementById('modalQty') && document.getElementById('modalQty').value.trim()) || '[ ]';
+          var color = (document.getElementById('modalColor') && document.getElementById('modalColor').value.trim()) || '[ ]';
+          var when = (document.getElementById('modalWhen') && document.getElementById('modalWhen').value.trim()) || '[ ]';
+          var obs = (document.getElementById('modalObs') && document.getElementById('modalObs').value.trim()) || '';
+          var base = (document.getElementById('modalBaseMsg') && document.getElementById('modalBaseMsg').value.trim()) || '';
+
+          var message = base ? base + ' ' : '';
+          if (prod) message += prod + ' — ';
+          message += 'Quantidade: ' + qty + ' | Cor/Design: ' + color + ' | Prazo: ' + when;
+          if (obs) message += ' | Observações: ' + obs;
+          var dest = (phone && phone.length >= 8) ? phone : '5532991657472';
+          var url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(message);
+          window.open(url, '_blank');
+          closeOrderModal();
+        }, false);
+      }
+
+      setTimeout(function(){ var el = document.getElementById('modalQty'); if (el) el.focus(); }, 80);
+    }
+
+    function closeOrderModal() {
+      var host = document.getElementById('orderModal');
+      if (!host) return;
+      host.innerHTML = '';
+      host.style.display = 'none';
+      host.setAttribute('aria-hidden', 'true');
+    }
+
+    function openContactModal(opts) {
+      opts = opts || {};
+      var contact = (opts.contact || 'marli').toLowerCase();
+      var phone = opts.phone || '';
+      var initial = '';
+      if (contact === 'marli') {
         initial = 'Prezada Marli, bom dia/tarde/noite. Gostaria de solicitar informações sobre produtos e pedidos. Segue a descrição:';
-      } else if(contact === 'daniel'){
+      } else if (contact === 'daniel') {
         initial = 'Prezado Daniel, bom dia/tarde/noite. Preciso de suporte/atendimento em manutenção de equipamento. Segue a descrição:';
       } else {
         initial = 'Olá, gostaria de mais informações. Segue a descrição:';
       }
 
-      const host = document.getElementById('contactModalHost');
-      host.innerHTML = `
-        <div class="modal-overlay" id="modalOverlayContact" role="dialog" aria-modal="true" aria-label="Contato via WhatsApp">
-          <div class="modal anim" style="animation-delay:.02s">
-            <h3>Contato: ${escapeHtml(contact === 'marli' ? 'Lima Calixto • Marli' : 'Lima Lima • Daniel')}</h3>
-            <div class="field contact-field">
-              <label>Mensagem</label>
-              <textarea id="contactMsg">${escapeHtml(initial + "\\n\\n- Descrição: [ ]")}</textarea>
-            </div>
-            <div class="contact-small">
-              <input id="contactName" placeholder="Seu nome (ex: Maria Silva) — opcional" />
-            </div>
-            <div class="field" style="margin-top:8px">
-              <label>Observações adicionais (opcional)</label>
-              <input id="contactExtra" placeholder="Ex: Melhor horário para contato, orçamento estimado etc." />
-            </div>
-            <div class="modal-actions">
-              <button class="btn-ghost" id="contactCancel">Fechar</button>
-              <button class="btn-primary" id="contactSend"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>
-            </div>
-          </div>
-        </div>
-      `;
-      host.style.display = 'block'; host.setAttribute('aria-hidden','false');
+      var host = document.getElementById('contactModalHost');
+      if (!host) return;
+      host.innerHTML = ''
+        + '<div class="modal-overlay" id="modalOverlayContact" role="dialog" aria-modal="true" aria-label="Contato via WhatsApp">'
+        + '  <div class="modal anim" style="animation-delay:.02s">'
+        + '    <h3>Contato: ' + escapeHtml(contact === 'marli' ? 'Lima Calixto • Marli' : 'Lima Lima • Daniel') + '</h3>'
+        + '    <div class="field contact-field"><label>Mensagem</label><textarea id="contactMsg">'
+        + escapeHtml(initial + "\n\n- Descrição: [ ]")
+        + '</textarea></div>'
+        + '    <div class="contact-small"><input id="contactName" placeholder="Seu nome (ex: Maria Silva) — opcional" /></div>'
+        + '    <div class="field" style="margin-top:8px"><label>Observações adicionais (opcional)</label><input id="contactExtra" placeholder="Ex: Melhor horário para contato, orçamento estimado etc." /></div>'
+        + '    <div class="modal-actions"><button class="btn-ghost" id="contactCancel" type="button">Fechar</button><button class="btn-primary" id="contactSend" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button></div>'
+        + '  </div>'
+        + '</div>';
+      host.style.display = 'block';
+      host.setAttribute('aria-hidden', 'false');
 
-      document.getElementById('contactCancel').addEventListener('click', closeContactModal);
-      document.getElementById('modalOverlayContact').addEventListener('click', (e)=>{ if(e.target.id === 'modalOverlayContact') closeContactModal(); });
-      document.getElementById('contactSend').addEventListener('click', ()=>{
-        const msg = document.getElementById('contactMsg').value.trim() || '';
-        const name = document.getElementById('contactName').value.trim();
-        const extra = document.getElementById('contactExtra').value.trim();
-        let final = msg;
-        if(name) final += ' | Nome: ' + name;
-        if(extra) final += ' | Observações: ' + extra;
+      var cancel = document.getElementById('contactCancel');
+      if (cancel) cancel.addEventListener('click', closeContactModal, false);
+      var overlay = document.getElementById('modalOverlayContact');
+      if (overlay) overlay.addEventListener('click', function(e){ if (e.target && e.target.id === 'modalOverlayContact') closeContactModal(); }, false);
 
-        const dest = phone && phone.length >= 8 ? phone : (contact === 'daniel' ? '5532991992905' : '5532991657472');
-        const url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(final);
-        window.open(url,'_blank');
+      var send = document.getElementById('contactSend');
+      if (send) send.addEventListener('click', function(){
+        var msg = (document.getElementById('contactMsg') && document.getElementById('contactMsg').value.trim()) || '';
+        var name = (document.getElementById('contactName') && document.getElementById('contactName').value.trim()) || '';
+        var extra = (document.getElementById('contactExtra') && document.getElementById('contactExtra').value.trim()) || '';
+        var final = msg;
+        if (name) final += ' | Nome: ' + name;
+        if (extra) final += ' | Observações: ' + extra;
+        var dest = (phone && phone.length >= 8) ? phone : (contact === 'daniel' ? '5532991992905' : '5532991657472');
+        var url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(final);
+        window.open(url, '_blank');
         closeContactModal();
-      });
-      setTimeout(()=> document.getElementById('contactMsg').focus(), 80);
-    }
-    function closeContactModal(){ const host = document.getElementById('contactModalHost'); host.innerHTML = ''; host.style.display='none'; host.setAttribute('aria-hidden','true'); }
+      }, false);
 
-    /* ---------- Service info & top WhatsApp links (unchanged) ---------- */
-    let selectedService = '';
-    function showInfo(service){
-      selectedService = service;
-      const info = document.getElementById('info');
-      let text = '';
-      if(service === 'sublimacao') text = 'Sublimação: canecas, camisetas e peças com impressão térmica de alta qualidade — ideal para presentes e vendas.';
-      else if(service === 'personalizados') text = 'Personalizados: brindes, lembrancinhas, tags e itens sob medida para seu evento ou empresa.';
-      else if(service === 'convites') text = 'Convites digitais: layouts prontos e personalizáveis para envio via WhatsApp e redes sociais.';
-      else if(service === 'manutencao') text = 'Manutenção: limpeza, formatação, upgrades e diagnósticos para computadores e notebooks.';
-      else text = service;
-      info.textContent = text;
-      updateTopWhatsAppLinks(service);
+      setTimeout(function(){ var el = document.getElementById('contactMsg'); if (el) el.focus(); }, 80);
     }
-    function updateTopWhatsAppLinks(service){
-      const phoneC = '5532991657472', phoneD = '5532991992905';
-      let mC = '', mD = '';
-      if(service === 'manutencao'){
+
+    function closeContactModal() {
+      var host = document.getElementById('contactModalHost');
+      if (!host) return;
+      host.innerHTML = '';
+      host.style.display = 'none';
+      host.setAttribute('aria-hidden', 'true');
+    }
+
+    /* ---------- Top-level helper for showInfo / whatsapp links ---------- */
+    var selectedService = '';
+    function updateTopWhatsAppLinks(service) {
+      var phoneC = '5532991657472', phoneD = '5532991992905';
+      var mC = '', mD = '';
+      if (service === 'manutencao') {
         mC = 'Olá Marli! Gostaria de saber se vocês também fazem manutenção. Tipo do problema: [ ] | Modelo/Marca: [ ] | Prazo: [ ]';
         mD = 'Olá Daniel! Preciso de assistência em manutenção de computador/notebook. Tipo do problema: [ ] | Modelo/Marca: [ ] | Prazo: [ ]';
       } else {
         mC = 'Olá Marli! Vim pelo mini site e tenho interesse nos serviços. Produto/serviço: [ ] | Quantidade: [ ] | Prazo: [ ]';
         mD = 'Olá Daniel! Vim pelo mini site e gostaria de saber sobre estes serviços. Produto/serviço: [ ] | Quantidade: [ ] | Prazo: [ ]';
       }
-      const elC = document.getElementById('whatsappBtnCalixto'); if(elC) elC.href = 'https://wa.me/' + phoneC + '?text=' + encodeURIComponent(mC);
-      const elD = document.getElementById('whatsappBtnLima'); if(elD) elD.href = 'https://wa.me/' + phoneD + '?text=' + encodeURIComponent(mD);
+      var elC = document.getElementById('whatsappBtnCalixto');
+      var elD = document.getElementById('whatsappBtnLima');
+      if (elC) elC.href = 'https://wa.me/' + phoneC + '?text=' + encodeURIComponent(mC);
+      if (elD) elD.href = 'https://wa.me/' + phoneD + '?text=' + encodeURIComponent(mD);
     }
 
-    // protect top whatsapp links when no service selected
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest && e.target.closest('.whatsapp-link')){
-        const el = e.target.closest('.whatsapp-link');
-        if(el && (el.getAttribute('href') === '#' || el.getAttribute('href') === null) && !selectedService){
-          e.preventDefault();
-          const w = document.getElementById('whatsappWarning');
-          if(w){ w.style.display = 'flex'; w.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp.'; setTimeout(()=> w.style.display='none',7000); }
-        }
-      }
-    });
+    function showInfo(service) {
+      selectedService = service || '';
+      var info = document.getElementById('info');
+      var text = '';
+      if (service === 'sublimacao') text = 'Sublimação: canecas, camisetas e peças com impressão térmica de alta qualidade — ideal para presentes e vendas.';
+      else if (service === 'personalizados') text = 'Personalizados: brindes, lembrancinhas, tags e itens sob medida para seu evento ou empresa.';
+      else if (service === 'convites') text = 'Convites digitais: layouts prontos e personalizáveis para envio via WhatsApp e redes sociais.';
+      else if (service === 'manutencao') text = 'Manutenção: limpeza, formatação, upgrades e diagnósticos para computadores e notebooks.';
+      else text = service || '';
+      if (info) info.textContent = text;
+      updateTopWhatsAppLinks(service);
+    }
 
-    // keyboard focus helper
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Tab') document.body.classList.add('show-focus');
-    });
+    /* ---------- DOMContentLoaded: bind events and initialize ---------- */
+    document.addEventListener('DOMContentLoaded', function(){
+      // stagger animation
+      var animEls = document.querySelectorAll('.anim');
+      for (var i=0;i<animEls.length;i++){
+        animEls[i].style.animationDelay = (0.06 + i*0.03) + 's';
+      }
+
+      // service buttons behavior (add click keyboard)
+      var serviceBtns = document.querySelectorAll('.service-btn');
+      Array.prototype.forEach.call(serviceBtns, function(s){
+        if (!s.classList.contains('anim')) s.classList.add('anim');
+        if (!s.classList.contains('hover-lift')) s.classList.add('hover-lift');
+        s.addEventListener('click', function(ev){
+          ev.preventDefault();
+          var service = s.getAttribute('data-service') || (s.textContent && s.textContent.trim().toLowerCase());
+          if (!service) return;
+          if (service.indexOf('sublim') !== -1) showInfo('sublimacao');
+          else if (service.indexOf('personaliz') !== -1) showInfo('personalizados');
+          else if (service.indexOf('convite') !== -1) showInfo('convites');
+          else if (service.indexOf('manuten') !== -1) showInfo('manutencao');
+          else showInfo(service);
+        }, false);
+        s.addEventListener('keydown', function(k){ if(k.key === 'Enter' || k.key === ' ') { k.preventDefault(); s.click(); } }, false);
+      });
+
+      // set initial top whatsapp placeholders to '#'
+      var topWaLinks = document.querySelectorAll('.whatsapp-link');
+      Array.prototype.forEach.call(topWaLinks, function(el){ el.setAttribute('href','#'); });
+
+      // init lightbox
+      initLightboxHandlers();
+
+      // card view buttons
+      var viewBtns = document.querySelectorAll('.card-view');
+      Array.prototype.forEach.call(viewBtns, function(btn){
+        btn.addEventListener('click', function(){
+          var idx = Number(btn.getAttribute('data-index'));
+          if (!isNaN(idx)) openLightbox(idx);
+        }, false);
+      });
+
+      // card "Solicitar" opens order modal
+      var wpBtns = document.querySelectorAll('.card-wp');
+      Array.prototype.forEach.call(wpBtns, function(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          var phone = btn.getAttribute('data-phone') || '';
+          var prod = btn.getAttribute('data-prod') || '';
+          var baseMsg = btn.getAttribute('data-msg') || '';
+          openOrderModal({ phone: phone, prod: prod, baseMsg: baseMsg });
+        }, false);
+      });
+
+      // footer whatsapp & top social whatsapp open contact modal
+      var contactTriggers = document.querySelectorAll('#footerWaMarli, #footerWaDaniel, .social-grid .whatsapp-link');
+      Array.prototype.forEach.call(contactTriggers, function(el){
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          var contact = el.getAttribute('data-contact') || el.dataset && el.dataset.contact || (el.id && el.id.toLowerCase().indexOf('marli') !== -1 ? 'marli' : 'daniel');
+          contact = (contact || '').toLowerCase();
+          var phone = el.getAttribute('data-phone') || el.dataset && el.dataset.phone || '';
+          openContactModal({ contact: contact, phone: phone });
+        }, false);
+      });
+
+      // share toggle
+      var shareToggle = document.getElementById('shareToggle');
+      if (shareToggle) shareToggle.addEventListener('click', function(){
+        var s = document.getElementById('shareOptions');
+        if (!s) return;
+        s.style.display = (s.style.display === 'flex') ? 'none' : 'flex';
+      }, false);
+
+      var shareText = encodeURIComponent('Olá! Confira nosso mini site — Sublimação, personalizados, convites digitais e manutenção.');
+      var shareUrl = encodeURIComponent(window.location.href);
+      var sw = document.getElementById('shareWhatsApp');
+      var st = document.getElementById('shareTelegram');
+      if (sw) sw.href = 'https://wa.me/?text=' + shareText + '%20' + shareUrl;
+      if (st) st.href = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareText;
+
+      // back-to-top (robusto)
+      var back = document.getElementById('backToTop');
+      if (back) {
+        var showThreshold = 300;
+        var toggleBackVisibility = function(){
+          back.style.display = (window.pageYOffset > showThreshold) ? 'block' : 'none';
+        };
+        toggleBackVisibility();
+        window.addEventListener('scroll', toggleBackVisibility, { passive: true });
+        window.addEventListener('resize', toggleBackVisibility);
+        back.addEventListener('click', function(e){
+          e.preventDefault();
+          try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(function(){ document.documentElement.scrollTop = 0; document.body.scrollTop = 0; }, 420);
+          } catch (err) {
+            document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
+          }
+        }, false);
+      }
+
+      // protect top whatsapp links when no service selected (global)
+      document.addEventListener('click', function(e){
+        if (!e.target) return;
+        var waEl = e.target.closest ? e.target.closest('.whatsapp-link') : null;
+        if (waEl) {
+          var href = waEl.getAttribute('href');
+          if ((href === '#' || href === '' || href === null) && !selectedService) {
+            e.preventDefault();
+            var w = document.getElementById('whatsappWarning');
+            if (w) { w.style.display = 'flex'; w.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Por favor, selecione um serviço antes de entrar em contato pelo WhatsApp.'; setTimeout(function(){ w.style.display = 'none'; },7000); }
+          }
+        }
+      }, false);
+
+      // keyboard focus helper
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Tab') document.body.classList.add('show-focus');
+      }, false);
+    }); // end DOMContentLoaded
   </script>
 </body>
 </html>
