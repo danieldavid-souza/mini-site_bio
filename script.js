@@ -103,9 +103,10 @@ function openOrderModal(opts) {
   var host = document.getElementById('orderModal');
   if (!host) return;
   host.innerHTML = ''
-    + '<div class="modal-overlay" id="modalOverlayOrder" role="dialog" aria-modal="true" aria-label="Formulário de pedido">'
-    + '  <div class="modal anim" style="animation-delay:.02s">'
-    + '    <h3>Solicitar: ' + escapeHtml(prod || 'Produto/Serviço') + '</h3>'
+    + '<div class="modal-overlay" id="modalOverlayOrder">'
+    + '  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">'
+    + '    <button class="modal-close" aria-label="Fechar modal">&times;</button>'
+    + '    <h3 id="orderModalTitle" style="margin-bottom: 1rem; color: var(--primary-color);">Solicitar: ' + escapeHtml(prod || 'Produto/Serviço') + '</h3>'
     + '    <div class="field"><label>Mensagem inicial</label><input type="text" id="modalBaseMsg" value="' + escapeAttr(baseMsg || '') + '" /></div>'
     + '    <div class="form-row">'
     + '      <div class="col field"><label>Quantidade</label><input id="modalQty" placeholder="Ex: 10" /></div>'
@@ -114,8 +115,8 @@ function openOrderModal(opts) {
     + '    <div class="field" style="margin-top:8px"><label>Prazo desejado</label><input id="modalWhen" placeholder="Ex: 7 dias / Urgente" /></div>'
     + '    <div class="field" style="margin-top:8px"><label>Observações</label><textarea id="modalObs" rows="3" placeholder="Ex: Enviar para ... (opcional)"></textarea></div>'
     + '    <div class="modal-actions">'
-    + '      <button class="btn-ghost" id="modalCancelOrder" type="button">Fechar</button>'
-    + '      <button class="btn-primary" id="modalSendOrder" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>'
+    + '      <button class="card-actions-btn" id="modalCancelOrder" type="button">Fechar</button>'
+    + '      <button class="card-actions-btn primary-small" id="modalSendOrder" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button>'
     + '    </div>'
     + '  </div>'
     + '</div>';
@@ -174,15 +175,16 @@ function openContactModal(opts) {
   var host = document.getElementById('contactModalHost');
   if (!host) return;
   host.innerHTML = ''
-    + '<div class="modal-overlay" id="modalOverlayContact" role="dialog" aria-modal="true" aria-label="Contato via WhatsApp">'
-    + '  <div class="modal anim" style="animation-delay:.02s">'
-    + '    <h3>Contato: ' + escapeHtml(contact === 'marli' ? 'Lima Calixto • Marli' : 'Lima Lima • Daniel') + '</h3>'
+    + '<div class="modal-overlay" id="modalOverlayContact">'
+    + '  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">'
+    + '    <button class="modal-close" aria-label="Fechar modal">&times;</button>'
+    + '    <h3 id="contactModalTitle" style="margin-bottom: 1rem; color: var(--primary-color);">Fale com ' + escapeHtml(contact === 'marli' ? 'Marli' : 'Daniel') + '</h3>'
     + '    <div class="field contact-field"><label>Mensagem</label><textarea id="contactMsg">'
     + escapeHtml(initial + "\n\n- Descrição: [ ]")
     + '</textarea></div>'
     + '    <div class="contact-small"><input id="contactName" placeholder="Seu nome (ex: Maria Silva) — opcional" /></div>'
     + '    <div class="field" style="margin-top:8px"><label>Observações adicionais (opcional)</label><input id="contactExtra" placeholder="Ex: Melhor horário para contato, orçamento estimado etc." /></div>'
-    + '    <div class="modal-actions"><button class="btn-ghost" id="contactCancel" type="button">Fechar</button><button class="btn-primary" id="contactSend" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button></div>'
+    + '    <div class="modal-actions"><button class="card-actions-btn" id="contactCancel" type="button">Fechar</button><button class="card-actions-btn primary-small" id="contactSend" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button></div>'
     + '  </div>'
     + '</div>';
   host.style.display = 'block';
@@ -251,22 +253,22 @@ function showInfo(service) {
 
 /* ---------- Theme Toggle (top-level functions) ---------- */
 function applyTheme(theme) {
-  document.body.classList.toggle('dark-mode', theme === 'dark');
+  document.body.classList.toggle('light-theme', theme === 'light');
   const themeToggleIcon = document.querySelector('#themeToggle i');
   if (themeToggleIcon) {
-    if (theme === 'dark') {
-      themeToggleIcon.classList.remove('fa-moon');
-      themeToggleIcon.classList.add('fa-sun');
-    } else {
+    if (theme === 'light') {
       themeToggleIcon.classList.remove('fa-sun');
       themeToggleIcon.classList.add('fa-moon');
+    } else {
+      themeToggleIcon.classList.remove('fa-moon');
+      themeToggleIcon.classList.add('fa-sun');
     }
   }
 }
 
 function toggleTheme() {
   const currentTheme = localStorage.getItem('theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
   localStorage.setItem('theme', newTheme);
   applyTheme(newTheme);
 }
@@ -282,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Initialize theme from localStorage
-  const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
+  const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
   applyTheme(savedTheme);
 
   // Theme toggle button event listener
