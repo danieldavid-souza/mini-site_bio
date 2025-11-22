@@ -390,60 +390,6 @@ nav.services {
     }
 }
 
-/* --- Estilos do Modal --- */
-.modal-overlay {
-    position: fixed; /* Fica fixo na tela */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semitransparente */
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    z-index: 1000; /* Garante que o modal fique na frente de tudo */
-    padding: 1rem;
-    animation: fadeIn 0.3s ease-out; /* Animação de surgimento */
-}
-
-.modal-content {
-    background-color: var(--bg-card);
-    color: var(--secondary-color);
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    max-width: 500px; /* Largura máxima do modal */
-    width: 100%;
-    text-align: center;
-    position: relative;
-    animation: slideIn 0.4s ease-out; /* Animação de entrada */
-}
-
-/* Animação para o conteúdo do modal deslizar para cima */
-@keyframes slideIn {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* O seu script.js provavelmente adiciona um botão de fechar com esta classe */
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: var(--secondary-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
 /* --- Estilos do Lightbox --- */
 .lightbox-overlay {
     position: fixed;

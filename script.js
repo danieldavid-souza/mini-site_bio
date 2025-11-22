@@ -175,39 +175,51 @@ function openContactModal(opts) {
   var host = document.getElementById('contactModalHost');
   if (!host) return;
   host.innerHTML = ''
-    + '<div class="modal-overlay" id="modalOverlayContact">'
+    + '<div class="modal-overlay" id="modalOverlayContact">' // Overlay
     + '  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">'
-    + '    <button class="modal-close" aria-label="Fechar modal">&times;</button>'
-    + '    <h3 id="contactModalTitle" style="margin-bottom: 1rem; color: var(--primary-color);">Fale com ' + escapeHtml(contact === 'marli' ? 'Marli' : 'Daniel') + '</h3>'
-    + '    <div class="field contact-field"><label>Mensagem</label><textarea id="contactMsg">'
-    + escapeHtml(initial + "\n\n- Descrição: [ ]")
-    + '</textarea></div>'
-    + '    <div class="contact-small"><input id="contactName" placeholder="Seu nome (ex: Maria Silva) — opcional" /></div>'
-    + '    <div class="field" style="margin-top:8px"><label>Observações adicionais (opcional)</label><input id="contactExtra" placeholder="Ex: Melhor horário para contato, orçamento estimado etc." /></div>'
-    + '    <div class="modal-actions"><button class="card-actions-btn" id="contactCancel" type="button">Fechar</button><button class="card-actions-btn primary-small" id="contactSend" type="button"><i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp</button></div>'
+    + '    <button class="modal-close" aria-label="Fechar modal">&times;</button>' // Botão de fechar
+    + '    <h2 id="contactModalTitle"><i class="fab fa-whatsapp"></i> Fale com ' + escapeHtml(contact === 'marli' ? 'Marli' : 'Daniel') + '</h2>'
+    + '    <p>Preencha a mensagem abaixo para iniciar a conversa no WhatsApp.</p>'
+    + '    <textarea id="contactMsg" class="whatsapp-message" placeholder="Escreva sua mensagem aqui...">' + escapeHtml(initial) + '</textarea>'
+    + '    <a id="contactSend" class="whatsapp-send-btn" href="#" target="_blank" rel="noopener noreferrer">'
+    + '      <i class="fab fa-whatsapp"></i> Enviar via WhatsApp'
+    + '    </a>'
     + '  </div>'
     + '</div>';
   host.style.display = 'block';
   host.setAttribute('aria-hidden', 'false');
 
-  var cancel = document.getElementById('contactCancel');
+  // Adiciona a classe 'active' para mostrar o modal com animação
+  setTimeout(function() {
+    var overlay = document.getElementById('modalOverlayContact');
+    if (overlay) overlay.classList.add('active');
+  }, 10);
+
+  var cancel = host.querySelector('.modal-close');
   if (cancel) cancel.addEventListener('click', closeContactModal, false);
   var overlay = document.getElementById('modalOverlayContact');
   if (overlay) overlay.addEventListener('click', function(e){ if (e.target && e.target.id === 'modalOverlayContact') closeContactModal(); }, false);
 
   var send = document.getElementById('contactSend');
-  if (send) send.addEventListener('click', function(){
+  if (send) {
+    // Atualiza o link dinamicamente em vez de usar um evento de clique para navegação
+    function updateWhatsAppLink() {
     var msg = (document.getElementById('contactMsg') && document.getElementById('contactMsg').value.trim()) || '';
-    var name = (document.getElementById('contactName') && document.getElementById('contactName').value.trim()) || '';
-    var extra = (document.getElementById('contactExtra') && document.getElementById('contactExtra').value.trim()) || '';
-    var final = msg;
-    if (name) final += ' | Nome: ' + name;
-    if (extra) final += ' | Observações: ' + extra;
-    var dest = (phone && phone.length >= 8) ? phone : (contact === 'daniel' ? '5532991992905' : '5532991657472');
-    var url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(final);
-    window.open(url, '_blank');
-    closeContactModal();
-  }, false);
+      var dest = (phone && phone.length >= 8) ? phone : (contact === 'daniel' ? '5532991992905' : '5532991657472');
+      var url = 'https://wa.me/' + dest + '?text=' + encodeURIComponent(msg);
+      send.href = url;
+    }
+
+    // Atualiza o link quando o texto muda e ao abrir
+    var textarea = document.getElementById('contactMsg');
+    if (textarea) textarea.addEventListener('input', updateWhatsAppLink);
+    updateWhatsAppLink(); // Define o link inicial
+
+    // Fecha o modal após o clique
+    send.addEventListener('click', function() {
+      setTimeout(closeContactModal, 300); // Pequeno delay para garantir que a navegação ocorra
+    });
+  }
 
   setTimeout(function(){ var el = document.getElementById('contactMsg'); if (el) el.focus(); }, 80);
 }
@@ -215,9 +227,16 @@ function openContactModal(opts) {
 function closeContactModal() {
   var host = document.getElementById('contactModalHost');
   if (!host) return;
-  host.innerHTML = '';
-  host.style.display = 'none';
-  host.setAttribute('aria-hidden', 'true');
+  var overlay = document.getElementById('modalOverlayContact');
+
+  if (overlay) {
+    overlay.classList.remove('active');
+    // Aguarda a animação de saída terminar antes de limpar o HTML
+    setTimeout(function() {
+      host.innerHTML = '';
+      host.style.display = 'none';
+    }, 300); // Deve corresponder ao tempo de transição no CSS
+  }
 }
 
 /* ---------- Top-level helper for showInfo / whatsapp links ---------- */
