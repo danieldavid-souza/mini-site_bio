@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Estilos para o Modal de Contato (WhatsApp)
+   ========================================================================== */
+
+/* Fundo escurecido (overlay) para o modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro e suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Animação de entrada do overlay */
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Conteúdo principal do modal */
+.modal-content {
+  background-color: var(--bg-color, #fff); /* Usa variáveis de cor do tema */
+  color: var(--text-color, #333);
+  padding: 28px 32px;
+  border-radius: 16px; /* Bordas mais arredondadas */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 480px; /* Modal um pouco maior */
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: left;
+}
+
+/* Animação de entrada do conteúdo do modal */
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+/* Botão para fechar o modal */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--text-color, #888);
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--primary-color, #e53e3e); /* Cor de destaque no hover */
+  transform: rotate(90deg);
+}
+
+/* Título do modal */
+.modal-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--title-color, #2d3748);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-content h2 .fab.fa-whatsapp {
+  color: #25D366; /* Cor oficial do WhatsApp */
+}
+
+/* Parágrafos dentro do modal */
+.modal-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+/* Área de texto para a mensagem */
+.whatsapp-message {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  resize: vertical;
+  margin-bottom: 12px;
+  background-color: var(--input-bg, #f7f7f7);
+  color: var(--text-color, #333);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-message:focus {
+  outline: none;
+  border-color: var(--primary-color, #3182ce);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.3);
+}
+
+/* Botão de envio para o WhatsApp */
+.whatsapp-send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 20px;
+  background-color: #25D366; /* Verde do WhatsApp */
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  gap: 10px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.whatsapp-send-btn:hover {
+  background-color: #1EAE54; /* Tom mais escuro no hover */
+  transform: translateY(-2px);
+}
