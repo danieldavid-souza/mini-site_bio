@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total do elemento */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transição suave para temas */
 }
 
 :root {

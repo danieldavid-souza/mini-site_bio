@@ -22,6 +22,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Funcionalidade dos Botões de WhatsApp do Rodapé ---
+  const footerWaMarli = document.getElementById('footerWaMarli');
+  const footerWaDaniel = document.getElementById('footerWaDaniel');
+
+  if (footerWaMarli) {
+    footerWaMarli.addEventListener('click', (event) => {
+      event.preventDefault(); // Previne o comportamento padrão do link '#'
+      const phone = footerWaMarli.dataset.phone;
+      const message = "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.";
+      openWhatsApp(phone, message);
+    });
+  }
+
+  if (footerWaDaniel) {
+    footerWaDaniel.addEventListener('click', (event) => {
+      event.preventDefault(); // Previne o comportamento padrão do link '#'
+      const phone = footerWaDaniel.dataset.phone;
+      const message = "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.";
+      openWhatsApp(phone, message);
+    });
+  }
+
   // --- Funcionalidade de Compartilhamento ---
   const shareToggle = document.getElementById('shareToggle');
   const shareOptions = document.getElementById('shareOptions');
@@ -57,4 +79,54 @@ document.addEventListener('DOMContentLoaded', () => {
       shareThanks.style.display = 'none';
     }, 3000); // A mensagem de agradecimento some após 3 segundos
   }));
+
+  // --- Funcionalidade do Botão Voltar ao Topo ---
+  const backToTopButton = document.getElementById('backToTop');
+
+  if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+      // Mostra o botão se o usuário rolar mais de 300px para baixo
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      // Rola suavemente para o topo da página
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // --- Funcionalidade de Alterar Tema ---
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+  const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
+
+  // Função para aplicar o tema e atualizar o ícone
+  const applyTheme = (theme) => {
+    if (theme === 'light') {
+      body.classList.add('light-theme');
+      themeIcon?.classList.replace('fa-moon', 'fa-sun');
+    } else {
+      body.classList.remove('light-theme');
+      themeIcon?.classList.replace('fa-sun', 'fa-moon');
+    }
+    localStorage.setItem('theme', theme);
+  };
+
+  // Verifica o tema salvo no carregamento da página
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const newTheme = body.classList.contains('light-theme') ? 'dark' : 'light';
+      applyTheme(newTheme);
+    });
+  }
 });
