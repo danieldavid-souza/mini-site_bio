@@ -21,4 +21,40 @@ document.addEventListener('DOMContentLoaded', () => {
       openWhatsApp(phone, message);
     });
   });
+
+  // --- Funcionalidade de Compartilhamento ---
+  const shareToggle = document.getElementById('shareToggle');
+  const shareOptions = document.getElementById('shareOptions');
+  const shareThanks = document.getElementById('shareThanks');
+  const shareWhatsApp = document.getElementById('shareWhatsApp');
+  const shareTelegram = document.getElementById('shareTelegram');
+
+  if (shareToggle) {
+    shareToggle.addEventListener('click', () => {
+      // Alterna a visibilidade das opções de compartilhamento
+      const isHidden = shareOptions.style.display === 'none' || shareOptions.style.display === '';
+      shareOptions.style.display = isHidden ? 'flex' : 'none';
+    });
+  }
+
+  // Define o conteúdo a ser compartilhado
+  const shareUrl = window.location.href;
+  const shareTitle = "Confira o mini site da Lima Calixto & Lima Lima! Encontre produtos personalizados e serviços de manutenção de computadores.";
+
+  // Configura os links de compartilhamento
+  if (shareWhatsApp) {
+    shareWhatsApp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+  }
+  if (shareTelegram) {
+    shareTelegram.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
+  }
+
+  // Exibe a mensagem de agradecimento após o clique
+  [shareWhatsApp, shareTelegram].forEach(button => button?.addEventListener('click', () => {
+    shareOptions.style.display = 'none';
+    shareThanks.style.display = 'block';
+    setTimeout(() => {
+      shareThanks.style.display = 'none';
+    }, 3000); // A mensagem de agradecimento some após 3 segundos
+  }));
 });
