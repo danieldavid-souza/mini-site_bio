@@ -129,4 +129,86 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTheme(newTheme);
     });
   }
+
+  // --- Funcionalidade do Lightbox ---
+  const lightboxLinks = document.querySelectorAll('a.lightbox');
+  const images = Array.from(lightboxLinks).map(link => ({
+    src: link.href,
+    alt: link.querySelector('img').alt
+  }));
+  let currentIndex = 0;
+  let lightboxElement = null;
+
+  const createLightbox = () => {
+    const lightboxHTML = `
+      <div class="lightbox-overlay">
+        <div class="lightbox-wrapper">
+          <button class="lightbox-close" title="Fechar (Esc)">&times;</button>
+          <img src="" alt="" class="lightbox-image">
+          <div class="lightbox-controls">
+            <button class="lightbox-prev" title="Anterior (←)">&lsaquo;</button>
+            <button class="lightbox-next" title="Próxima (→)">&rsaquo;</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    lightboxElement = document.querySelector('.lightbox-overlay');
+
+    // Adiciona eventos aos controles
+    lightboxElement.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightboxElement.querySelector('.lightbox-prev').addEventListener('click', showPrevImage);
+    lightboxElement.querySelector('.lightbox-next').addEventListener('click', showNextImage);
+    lightboxElement.addEventListener('click', (e) => {
+      if (e.target === lightboxElement) {
+        closeLightbox();
+      }
+    });
+  };
+
+  const openLightbox = (index) => {
+    if (!lightboxElement) {
+      createLightbox();
+    }
+    currentIndex = index;
+    updateImage();
+    lightboxElement.style.display = 'flex';
+    document.addEventListener('keydown', handleKeyboard);
+  };
+
+  const closeLightbox = () => {
+    if (lightboxElement) {
+      lightboxElement.style.display = 'none';
+      document.removeEventListener('keydown', handleKeyboard);
+    }
+  };
+
+  const updateImage = () => {
+    const img = lightboxElement.querySelector('.lightbox-image');
+    img.src = images[currentIndex].src;
+    img.alt = images[currentIndex].alt;
+  };
+
+  const showNextImage = () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateImage();
+  };
+
+  const showPrevImage = () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateImage();
+  };
+
+  const handleKeyboard = (e) => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') showNextImage();
+    if (e.key === 'ArrowLeft') showPrevImage();
+  };
+
+  lightboxLinks.forEach((link, index) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(index);
+    });
+  });
 });
