@@ -1,62 +1,43 @@
-<!doctype html>
-<html lang="pt-BR">
+<!doctype html> <!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-BR"> <!-- Define o idioma principal da página como Português do Brasil -->
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lima Calixto • Lima Lima — Mini Site</title>
-  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores.">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png" type="image/png">
-  <link rel="stylesheet" href="modal-style.css" />
+  <meta charset="UTF-8" /> <!-- Define o conjunto de caracteres como UTF-8 para suportar acentos e símbolos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Garante que a página seja responsiva em dispositivos móveis -->
+  <title>Lima Calixto • Lima Lima — Mini Site</title> <!-- Título que aparece na aba do navegador -->
+  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores."> <!-- Descrição para motores de busca (SEO) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Importa a fonte 'Roboto' do Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Importa a biblioteca de ícones Font Awesome -->
+  <link rel="stylesheet" href="style.css" /> <!-- Link para a folha de estilos principal -->
+  <link rel="icon" href="logo.png" type="image/png"> <!-- Define o ícone (favicon) da página -->
+  <link rel="stylesheet" href="modal-style.css" /> <!-- Link para a folha de estilos do modal (se houver) -->
 </head>
 <body>
   <!-- imagens esperadas na mesma pasta:
        caneca.jpg, camiseta.jpg, convite.jpg, calendario.jpg, Placa-de-Acrílico.jpg,
        manutencaopc.png, azulejo.jpg, caneca-jateada.jpg, logo.png, logo2.png
   -->
-  <div class="wrap">
-    <header>
-      <!-- <div class="logos anim" style="animation-delay:.06s">
-        <img src="logo.png" alt="Logo Lima Calixto Personalizados" />
-        <img src="logo2.png" alt="Lima Lima Manutenção" />
-      </div> -->
+  <div class="wrap"> <!-- Contêiner principal que centraliza o conteúdo -->
+    <header> <!-- Seção do cabeçalho da página -->
+      <!-- Imagens de perfil e logos. O atributo 'alt' descreve a imagem para acessibilidade e SEO -->
+      <img src="logo.png" alt="Logo Lima Calixto Personalizados" class="profile-picture">
+      <img src="logo2.png" alt="Logo Lima Lima Manutenção" class="profile-picture">
 
-      <img src="perfil-daniel.png" alt="Foto de Perfil" class="profile-picture">
-      <img src="perfil-marli.png" alt="Foto de Perfil" class="profile-picture">
-      <img src="logo.png" alt="Foto de logo" class="profile-picture">
-        <img src="logo2.png" alt="Foto de logo" class="profile-picture">
-        <!-- <h1>@limacalixtopersonaliado</h1>
-        <h1>@limalimamanutencaopc</h1> -->
-
-      <div class="brand-line anim" style="animation-delay:.12s">
+      <div class="brand-line anim" style="animation-delay:.12s"> <!-- Slogan ou descrição da marca -->
         Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
       </div>
+      <!-- Botão para alternar o tema. 'aria-label' descreve a função do botão para leitores de tela -->
       <button id="themeToggle" class="theme-toggle anim" style="animation-delay:.15s" aria-label="Alternar tema claro/escuro">
-        <i class="fas fa-moon"></i>
+        <i class="fas fa-moon"></i> <!-- Ícone inicial (lua para tema escuro) -->
       </button>
-
-      <!-- <nav class="services anim" aria-label="Serviços" style="animation-delay:.18s">
-        <a href="#sublimacao" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="sublimacao"><i class="fas fa-mug-hot"></i> Sublimação</a>
-        <a href="#personalizados" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="personalizados"><i class="fas fa-gift"></i> Personalizados</a>
-        <a href="#convites" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="convites"><i class="fas fa-envelope-open-text"></i> Convites Digitais</a>
-        <a href="#manutencao" class="service-btn anim hover-lift" role="button" tabindex="0" data-service="manutencao"><i class="fas fa-tools"></i> Manutenção</a>
-      </nav> -->
     </header>
 
-    <!-- <div id="info" class="info-box anim" style="animation-delay:.26s">Selecione um serviço para ver mais detalhes.</div> -->
-
-    <p id="whatsappWarning" class="warning-message" style="display:none"></p>
-
+    <!-- Grade de links para redes sociais e catálogos -->
     <div class="social-grid" role="navigation" aria-label="Redes sociais">
+      <!-- 'target="_blank"' abre o link em uma nova aba. 'rel="noopener"' é uma medida de segurança. -->
       <a class="social-link hover-lift anim insta-link" style="animation-delay:.32s" href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Calixto</a>
       <a class="social-link hover-lift anim face-link" style="animation-delay:.36s" href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Calixto</a>
       <a class="social-link hover-lift anim insta-link" style="animation-delay:.40s" href="https://www.instagram.com/limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Lima</a>
       <a class="social-link hover-lift anim face-link" style="animation-delay:.44s" href="https://www.facebook.com/Limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Lima</a>
-
-      <!-- <a id="whatsappBtnCalixto" class="social-link hover-lift anim whatsapp-link" style="animation-delay:.48s" href="#" data-contact="marli" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Marli</a>
-      <a id="whatsappBtnLima" class="social-link hover-lift anim whatsapp-link" style="animation-delay:.52s" href="#" data-contact="daniel" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Daniel</a> -->
 
       <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.56s" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-store"></i> Catálogo Online</a>
       <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.60s" href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" rel="noopener"><i class="fas fa-gift"></i> Campanha de Natal</a>
@@ -64,16 +45,17 @@
       <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.64s" href="https://catalogo-campanhas.netlify.app/campanhas/avulsa" target="_blank" rel="noopener"><i class="fas fa-font"></i> Campanha Alfabeto Delicado</a>
     </div>
 
+    <!-- Seção de compartilhamento do site -->
     <div class="share-card anim" style="animation-delay:1.20s">
       <button id="shareToggle" class="hover-lift"><i class="fas fa-share-alt"></i> Compartilhar Mini Site</button>
-      <div id="shareOptions" class="share-options" style="display:none">
+      <div id="shareOptions" class="share-options" style="display:none"> <!-- Opções de compartilhamento, inicialmente ocultas -->
         <a id="shareWhatsApp" href="#" target="_blank" class="hover-lift"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         <a id="shareTelegram" href="#" target="_blank" class="hover-lift"><i class="fab fa-telegram"></i> Telegram</a>
       </div>
-      <div id="shareThanks" class="share-thanks" style="display:none;text-align:center;margin-top:6px;color:#16a34a">✅ Obrigado por compartilhar!</div>
+      <div id="shareThanks" class="share-thanks" style="display:none;text-align:center;margin-top:6px;color:#16a34a">✅ Obrigado por compartilhar!</div> <!-- Mensagem de agradecimento, inicialmente oculta -->
     </div>
 
-    <!-- Seção Sobre Nós -->
+    <!-- Seção "Sobre Nós" -->
     <section id="sobre" class="about-section anim" style="animation-delay:.68s">
       <h2 class="section-title"><i class="fa-solid fa-users"></i> Sobre Nós</h2>
       <div class="about-content">
@@ -82,161 +64,139 @@
           <p>A <strong>Lima Lima Manutenção</strong>, sob o comando de Daniel, oferece suporte técnico ágil e confiável para computadores e notebooks. Combinamos conhecimento técnico com um atendimento focado em resolver seus problemas de tecnologia.</p>
           <p>Juntos, unimos a arte da personalização com a precisão da tecnologia para atender você da melhor forma.</p>
         </div>
-        <!-- <div class="about-logos">
-          <img src="logo.png" alt="Logo Lima Calixto" />
-          <img src="logo2.png" alt="Logo Lima Lima" />
-        </div> -->
       </div>
     </section>
 
+    <!-- Título da seção do catálogo -->
     <h2 id="catalog-title" class="catalog-title anim" style="animation-delay:.68s"><i class="fa-solid fa-box"></i> <strong>Mini Catálogo Online</strong></h2>
 
+    <!-- Seção do catálogo de produtos -->
     <section class="catalog" id="catalog" aria-labelledby="catalog-title">
-      <!-- Product 0 -->
+      <!-- Início de um cartão de produto -->
       <div class="product-card anim" data-prod-index="0" style="animation-delay:.72s">
-        <a href="caneca.jpg" class="lightbox" data-index="0"><img src="caneca.jpg" alt="Caneca personalizada" /></a>
-        <h3>Caneca Personalizada de Porcelana 325ml</h3>
-        <p class="prod-desc">Caneca sublimada com decoração natalina em alta resolução — perfeita para lembranças e presentes.</p>
-        <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="0"><i class="fa-solid fa-eye"></i> Ver</button> -->
+        <a href="caneca.jpg" class="lightbox" data-index="0"><img src="caneca.jpg" alt="Caneca personalizada" /></a> <!-- Imagem clicável que abre o lightbox -->
+        <h3>Caneca Personalizada de Porcelana 325ml</h3> <!-- Nome do produto -->
+        <p class="prod-desc">Caneca sublimada com decoração natalina em alta resolução — perfeita para lembranças e presentes.</p> <!-- Descrição do produto -->
+        <div class="card-actions"> <!-- Contêiner para os botões de ação -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
+          <!-- Botão para solicitar via WhatsApp. 'data-*' armazena informações que o JS usará -->
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Caneca 325ml" data-msg="Olá! Tenho interesse na Caneca Personalizada 325ml."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
+      <!-- Fim do cartão de produto -->
 
-      <!-- other products... (kept as in your version) -->
-      <!-- Product 1 -->
+      <!-- ... (outros cartões de produto seguem a mesma estrutura) ... -->
+
       <div class="product-card anim" data-prod-index="1" style="animation-delay:.78s">
         <a href="camiseta.jpg" class="lightbox" data-index="1"><img src="camiseta.jpg" alt="Camiseta estampada" /></a>
         <h3>Camiseta Branca Personalizada</h3>
         <p class="prod-desc">Camiseta 100% poliéster com impressão personalizada — ideal para eventos, brindes e uniformes.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="1"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse em Camisetas Personalizadas."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 9-->
       <div class="product-card anim" data-prod-index="9" style="animation-delay:1.14s" role="listitem">
         <a href="camiseta2.jpg" class="lightbox" data-index="9"><img src="camiseta2.jpg" alt="Camiseta personalizada"/></a>
         <h3>Camiseta Personalizada</h3>
         <p class="prod-desc">Camiseta cinza 100% poliéster com impressão de alta qualidade. Ideal para eventos, brindes e uso pessoal — conforto e estilo em uma só peça.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="7"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse na Camiseta Personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 2 -->
       <div class="product-card anim" data-prod-index="2" style="animation-delay:.84s" role="listitem">
         <a href="bolinha-natal.jpg" class="lightbox" data-index="2"><img src="bolinha-natal.jpg" alt="Bolinha de Natal Personalizada"/></a>
         <h3>Bolinha de Natal Personalizada</h3>
         <p class="prod-desc">Bolinha de Natal personalizável pronta para enfeitar sua árvore — um toque especial para as festas.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="2"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Bolinha de Natal Personalizada" data-msg="Olá! Tenho interesse em Bolinhas de Natal Personalizadas."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 3-->
       <div class="product-card anim" data-prod-index="3" style="animation-delay:.84s" role="listitem">
         <a href="convite.jpg" class="lightbox" data-index="3"><img src="convite.jpg" alt="Convite digital"/></a>
         <h3>Convite Digital</h3>
         <p class="prod-desc">Convite digital personalizável pronto para envio via WhatsApp e redes — rápido, prático e econômico.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="2"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Convite Digital" data-msg="Olá! Tenho interesse em Convites Digitais."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 4 -->
       <div class="product-card anim" data-prod-index="4" style="animation-delay:.90s" role="listitem">
         <a href="calendario.jpg" class="lightbox" data-index="4"><img src="calendario.jpg" alt="Calendário triangular de mesa"/></a>
         <h3>Calendário Triangular de Mesa</h3>
         <p class="prod-desc">Calendário triangular de mesa personalizado em papel fotográfico com acabamento brilhante. Versão 12 meses ou 6 meses promocional.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="3"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Calendário Triangular" data-msg="Olá! Tenho interesse no Calendário Triangular de Mesa."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 5 -->
       <div class="product-card anim" data-prod-index="5" style="animation-delay:.96s" role="listitem">
         <a href="Placa-de-Acrílico.jpg" class="lightbox" data-index="5"><img src="Placa-de-Acrílico.jpg" alt="Plaquinha acrílica 15x10"/></a>
         <h3>Plaquinha Acrílica 15×10 (Acrílico)</h3>
         <p class="prod-desc">Plaquinha acrílica 15×10 cm com impressão UV direta sobre acrílico cristal. Acabamento polido e cantos arredondados — ideal para brindes e sinalização elegante.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="4"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Plaquinha Acrílica 15x10" data-msg="Olá! Tenho interesse na Plaquinha Acrílica 15x10."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 6 -->
       <div class="product-card anim" data-prod-index="6" style="animation-delay:1.02s" role="listitem">
         <a href="manutencaopc.png" class="lightbox" data-index="6"><img src="manutencaopc.png" alt="Manutenção de computador e notebook"/></a>
         <h3>Manutenção de Computador e Notebook</h3>
         <p class="prod-desc">Limpeza, formatação, reparos, upgrade e recuperação de dados — suporte técnico especializado.</p>
         <div class="card-actions">
-          <!-- <button class="small-btn primary-small hover-lift" data-index="6"><i class="fa-solid fa-eye"></i> Ver</button>  -->
-          <!-- <button class="card-view hover-lift" data-index="6"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://site-servico-manutencao.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991992905" data-prod="Serviço de Manutenção" data-msg="Olá! Preciso de assistência em manutenção de computador/notebook."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 7 -->
       <div class="product-card anim" data-prod-index="7" style="animation-delay:1.08s" role="listitem">
         <a href="azulejo.jpg" class="lightbox" data-index="7"><img src="azulejo.jpg" alt="Azulejo decorativo personalizado"/></a>
         <h3>Azulejo Decorativo Personalizado</h3>
         <p class="prod-desc">Azulejo cerâmico 20×20 cm com impressão direta e esmaltação protetora. Ideal para lembranças, decoração de ambientes e presentes — acabamento resistente e fácil de limpar.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="6"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Azulejo 15x15" data-msg="Olá! Tenho interesse no Azulejo 15x15."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
 
-      <!-- Product 8 -->
       <div class="product-card anim" data-prod-index="8" style="animation-delay:1.14s" role="listitem">
         <a href="caneca-jateada.jpg" class="lightbox" data-index="8"><img src="caneca-jateada.jpg" alt="Caneca jateada personalizada"/></a>
         <h3>Caneca Jateada Personalizada</h3>
         <p class="prod-desc">Caneca jateada em vidro/cerâmica com acabamento acetinado (frosted). Impressão personalizada em alta definição — toque sofisticado e ideal para presentes corporativos e lembranças especiais.</p>
         <div class="card-actions">
-          <!-- <button class="card-view hover-lift" data-index="7"><i class="fa-solid fa-eye"></i> Ver</button> -->
            <a class="small-btn primary-small hover-lift" href="https://catalogo-onlineversao3.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Caneca Jateada" data-msg="Olá! Tenho interesse na Caneca Jateada personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
         </div>
       </div>
     </section>
 
-    <button id="backToTop" title="Voltar ao topo">⬆</button>
+    <!-- Botão "Voltar ao Topo", controlado via JavaScript -->
+    <button id="backToTop" title="Voltar ao topo" aria-label="Voltar ao topo">⬆</button>
 
-    <!-- footer -->
+    <!-- Seção do rodapé -->
     <footer class="footer-wrap anim" style="animation-delay:1.26s">
-      <div class="footer-grid">
-        <!-- Coluna 1: Marca e Logos -->
+      <div class="footer-grid"> <!-- Grade que organiza o conteúdo do rodapé em colunas -->
+        <!-- Coluna 1: Marca -->
         <div class="footer-col footer-brand">
           <h4>Lima Calixto • Lima Lima</h4>
           <div>Especialistas em personalização e manutenção</div>
-          <div style="margin-top:8px">
-            <img src="logo.png" alt="Lima Calixto" style="height:42px;vertical-align:middle;margin-right:10px"/>
-            <img src="logo2.png" alt="Lima Lima" style="height:42px;vertical-align:middle"/>
-          </div>
         </div>
 
         <!-- Coluna 2: Contatos -->
         <div class="footer-col footer-contacts">
           <h4>Contato</h4>
           <div><strong>Marli — Lima Calixto</strong></div>
-          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-contact="marli" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
           <div style="margin-top:12px"><strong>Daniel — Lima Lima</strong></div>
-          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-contact="daniel" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
           <div style="margin-top:12px;font-size:14px;">Atendimento: Seg–Sex 9h–18h</div>
         </div>
 
@@ -260,17 +220,15 @@
         </div>
       </div>
       
+      <!-- Informações de copyright no final do rodapé -->
       <div class="footer-bottom">
-        © 2025 <strong>Lima Calixto Personalizados</strong> &amp; <strong>Lima Lima Manutenção</strong> — Todos os direitos reservados.<br>
+        © 2025 <strong>Lima Calixto Personalizados</strong> &amp; <strong>Lima Lima Manutenção</strong> — Todos os direitos reservados.<br> <!-- '&amp;' é a entidade HTML para o caractere '&' -->
         Juiz de Fora, MG.
       </div>
     </footer>
   </div>
 
-  <!-- Hidden hosts for modals -->
-  <div id="orderModal" style="display:none" aria-hidden="true"></div>
-  <div id="contactModalHost" style="display:none" aria-hidden="true"></div>
-
+  <!-- 'defer' garante que o script só será executado após o HTML ser totalmente carregado -->
   <script src="script.js" defer></script>
 </body>
 </html>

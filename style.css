@@ -1,34 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap'); /* Importa a fonte Quicksand do Google Fonts */
 
-* {
-    margin: 0;
-    padding: 0;
+/* --- RESET E CONFIGURAÇÕES GLOBAIS --- */
+* { /* Seletor universal que aplica estilos a todos os elementos */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove preenchimentos padrão */
     box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total do elemento */
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transição suave para temas */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transição suave para a troca de temas */
 }
 
-:root {
-    --primary-color: #8a2be2; /* BlueViolet */
-    --secondary-color: #e8eaed;
-    --tertiary-color: #9aa0a6;
-    --bg-color: #202124;
-    --bg-card: #2a2b2f;
-    --border-color: #3c4043;
-    --link-color: #8ab4f8;
-    --success-color: #16a34a;
-    --insta-color: #e1306c;
-    --face-color: #1877f2;
-    --whatsapp-color: #25d366;
+/* --- VARIÁVEIS DE COR (TEMA ESCURO PADRÃO) --- */
+:root { /* Define variáveis CSS globais que podem ser reutilizadas */
+    --primary-color: #8a2be2; /* Cor principal (roxo) */
+    --secondary-color: #e8eaed; /* Cor de texto principal */
+    --tertiary-color: #9aa0a6; /* Cor de texto secundária (cinza) */
+    --bg-color: #202124; /* Cor de fundo principal */
+    --bg-card: #2a2b2f; /* Cor de fundo para cartões e seções */
+    --border-color: #3c4043; /* Cor das bordas */
+    --link-color: #8ab4f8; /* Cor para links */
+    --success-color: #16a34a; /* Cor para mensagens de sucesso */
+    --insta-color: #e1306c; /* Cor específica para Instagram */
+    --face-color: #1877f2; /* Cor específica para Facebook */
+    --whatsapp-color: #25d366; /* Cor específica para WhatsApp */
 }
 
+/* --- ESTILOS DO CORPO E TEMA CLARO --- */
 body {
     background: var(--bg-color); /* Define a cor de fundo usando uma variável */
     color: var(--secondary-color); /* Define a cor do texto padrão usando uma variável */
-    font-family: "Quicksand", sans-serif; /* Define a família da fonte */
-    line-height: 1.6;
+    font-family: "Quicksand", sans-serif; /* Define a família da fonte para todo o site */
+    line-height: 1.6; /* Define a altura da linha para melhor legibilidade */
 }
 
-body.light-theme {
+body.light-theme { /* Estilos aplicados quando o body tem a classe 'light-theme' */
+    /* Sobrescreve as variáveis de cor para o tema claro */
     --primary-color: #8a2be2;
     --secondary-color: #202124;
     --tertiary-color: #5f6368;
@@ -37,220 +41,178 @@ body.light-theme {
     --border-color: #dadce0;
 }
 
+/* --- LAYOUT PRINCIPAL --- */
 .wrap {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
+    max-width: 800px; /* Largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza o contêiner na página */
+    padding: 1rem; /* Espaçamento interno */
 }
 
+/* --- CABEÇALHO --- */
 header {
-    text-align: center;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 1.5rem;
+    text-align: center; /* Centraliza o texto e imagens */
+    padding: 1.5rem 0; /* Espaçamento interno vertical */
+    border-bottom: 1px solid var(--border-color); /* Linha divisória abaixo do cabeçalho */
+    margin-bottom: 1.5rem; /* Margem inferior para separar do conteúdo */
 }
-
-/* .logos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.logos img {
-    height: 60px; 
-}*/
 
 .profile-picture {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
+  width: 120px; /* Largura da imagem */
+  height: 120px; /* Altura da imagem */
+  border-radius: 50%; /* Torna a imagem redonda */
+  object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+  border: 4px solid #fff; /* Borda branca ao redor da imagem */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin-bottom: 15px; /* Margem inferior */
 }
 
 .brand-line {
-    color: var(--tertiary-color);
-    margin-bottom: 1rem;
+    color: var(--tertiary-color); /* Cor do slogan */
+    margin-bottom: 1rem; /* Margem inferior */
 }
 
-.theme-toggle {
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--secondary-color);
-    padding: 0.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+.theme-toggle { /* Estilo do botão de alternar tema */
+    background: none; /* Fundo transparente */
+    border: 1px solid var(--border-color); /* Borda sutil */
+    color: var(--secondary-color); /* Cor do ícone */
+    padding: 0.5rem; /* Espaçamento interno */
+    border-radius: 50%; /* Botão redondo */
+    cursor: pointer; /* Ícone de mão ao passar o mouse */
+    font-size: 1rem; /* Tamanho do ícone */
+    width: 40px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    position: absolute; /* Posicionamento absoluto em relação ao elemento pai mais próximo com 'position' definida */
+    top: 1.5rem; /* Distância do topo */
+    right: 1.5rem; /* Distância da direita */
 }
 
-nav.services {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.service-btn {
-    background-color: var(--bg-card);
-    color: var(--secondary-color);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.service-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.info-box {
-    background-color: var(--bg-card);
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: var(--tertiary-color);
-}
-
+/* --- LINKS DE NAVEGAÇÃO E SOCIAIS --- */
 .social-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 2rem;
+    display: grid; /* Usa o layout de grade */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Cria colunas responsivas */
+    gap: 0.75rem; /* Espaçamento entre os links */
+    margin-bottom: 2rem; /* Margem inferior */
 }
 
 .social-link {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--secondary-color);
-    text-decoration: none;
-    padding: 0.75rem;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.2s ease;
+    background-color: var(--bg-card); /* Cor de fundo */
+    border: 1px solid var(--border-color); /* Borda */
+    color: var(--secondary-color); /* Cor do texto */
+    text-decoration: none; /* Remove o sublinhado do link */
+    padding: 0.75rem; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    text-align: center; /* Centraliza o texto */
+    transition: all 0.2s ease; /* Transição suave para efeitos de hover */
 }
 
-.social-link i {
-    margin-right: 8px;
+.social-link i { /* Estilo para o ícone dentro do link */
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
 }
 
-.social-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.social-link:hover { /* Efeito ao passar o mouse */
+    transform: translateY(-3px); /* Move o link um pouco para cima */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra */
 }
 
+/* Cores específicas para cada tipo de link no hover */
 .insta-link:hover { border-color: var(--insta-color); color: var(--insta-color); }
 .face-link:hover { border-color: var(--face-color); color: var(--face-color); }
 .whatsapp-link:hover { border-color: var(--whatsapp-color); color: var(--whatsapp-color); }
 .catalogo-link:hover { border-color: var(--link-color); color: var(--link-color); }
 
+/* --- SEÇÃO "SOBRE NÓS" --- */
 .about-section {
-    background-color: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+    background-color: var(--bg-card); /* Cor de fundo da seção */
+    padding: 1.5rem; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    margin-bottom: 2rem; /* Margem inferior */
 }
 
-.section-title, .catalog-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    text-align: center;
+.section-title, .catalog-title { /* Estilo para títulos de seção */
+    font-size: 1.5rem; /* Tamanho da fonte */
+    font-weight: 600; /* Peso da fonte (semi-negrito) */
+    color: var(--primary-color); /* Cor do título */
+    margin-bottom: 1rem; /* Margem inferior */
+    text-align: center; /* Centraliza o texto */
 }
 
-.catalog-title {
-    margin-bottom: 1.5rem;
-}
-
+/* --- CATÁLOGO DE PRODUTOS --- */
 .catalog {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    display: grid; /* Usa layout de grade */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colunas responsivas */
+    gap: 1.5rem; /* Espaçamento entre os produtos */
+    margin-bottom: 2rem; /* Margem inferior */
 }
 
-.product-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.2s ease;
+.product-card { /* Estilo do cartão de produto */
+    background-color: var(--bg-card); /* Cor de fundo */
+    border: 1px solid var(--border-color); /* Borda */
+    border-radius: 8px; /* Bordas arredondadas */
+    overflow: hidden; /* Esconde qualquer conteúdo que transborde */
+    display: flex; /* Usa Flexbox para alinhar o conteúdo interno */
+    flex-direction: column; /* Organiza os itens em coluna */
+    transition: all 0.2s ease; /* Transição suave para o hover */
 }
 
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+.product-card:hover { /* Efeito ao passar o mouse no cartão */
+    transform: translateY(-5px); /* Move o cartão para cima */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Adiciona uma sombra mais forte */
 }
 
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+.product-card img { /* Estilo da imagem do produto */
+    width: 100%; /* Largura total do cartão */
+    height: 200px; /* Altura fixa */
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
 }
 
-.product-card h3 {
-    font-size: 1.1rem;
-    padding: 0.75rem 1rem 0.5rem;
+.product-card h3 { /* Título do produto */
+    font-size: 1.1rem; /* Tamanho da fonte */
+    padding: 0.75rem 1rem 0.5rem; /* Espaçamento interno */
 }
 
-.product-card .prod-desc {
-    font-size: 0.9rem;
-    color: var(--tertiary-color);
-    padding: 0 1rem;
-    flex-grow: 1;
+.product-card .prod-desc { /* Descrição do produto */
+    font-size: 0.9rem; /* Tamanho da fonte */
+    color: var(--tertiary-color); /* Cor do texto */
+    padding: 0 1rem; /* Espaçamento interno horizontal */
+    flex-grow: 1; /* Faz a descrição ocupar o espaço restante, alinhando os botões na base */
 }
 
-.card-actions {
-    display: flex;
-    gap: 0.5rem;
-    padding: 1rem;
-    margin-top: auto;
-    border-top: 1px solid var(--border-color);
+.card-actions { /* Contêiner dos botões de ação */
+    display: flex; /* Usa Flexbox */
+    gap: 0.5rem; /* Espaço entre os botões */
+    padding: 1rem; /* Espaçamento interno */
+    margin-top: auto; /* Empurra os botões para a base do cartão */
+    border-top: 1px solid var(--border-color); /* Linha divisória acima dos botões */
 }
 
-.card-actions button, .card-actions a {
-    flex: 1;
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: 1px solid var(--tertiary-color);
-    background: transparent;
-    color: var(--secondary-color);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.9rem;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.2s ease;
+.card-actions button, .card-actions a { /* Estilo comum para botões e links de ação */
+    flex: 1; /* Faz com que ocupem o mesmo espaço horizontalmente */
+    padding: 0.6rem; /* Espaçamento interno */
+    border-radius: 6px; /* Bordas arredondadas */
+    border: 1px solid var(--tertiary-color); /* Borda */
+    background: transparent; /* Fundo transparente */
+    color: var(--secondary-color); /* Cor do texto */
+    cursor: pointer; /* Ícone de mão */
+    font-family: inherit; /* Herda a fonte do body */
+    font-size: 0.9rem; /* Tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+    text-decoration: none; /* Remove sublinhado */
+    transition: all 0.2s ease; /* Transição suave */
 }
 
-.card-actions .card-wp:hover, .card-actions .primary-small:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
+.card-actions .card-wp:hover, .card-actions .primary-small:hover { /* Efeito hover nos botões de ação */
+    background-color: var(--primary-color); /* Muda a cor de fundo */
+    border-color: var(--primary-color); /* Muda a cor da borda */
+    color: white; /* Muda a cor do texto */
 }
 
+/* --- SEÇÃO DE COMPARTILHAMENTO E BOTÃO VOLTAR AO TOPO --- */
 .share-card, .share-thanks, #backToTop {
-    text-align: center;
-    margin-bottom: 2rem;
+    text-align: center; /* Centraliza o conteúdo */
+    margin-bottom: 2rem; /* Margem inferior */
 }
 
-#shareToggle {
+#shareToggle { /* Botão principal de compartilhamento */
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     color: var(--secondary-color);
@@ -260,11 +222,11 @@ nav.services {
     font-size: 1rem;
 }
 
-.share-options {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+.share-options { /* Contêiner das opções de compartilhamento */
+    display: flex; /* Usa Flexbox */
+    justify-content: center; /* Centraliza os itens */
+    gap: 1rem; /* Espaço entre eles */
+    margin-top: 1rem; /* Margem superior */
 }
 
 .share-options a {
@@ -272,27 +234,27 @@ nav.services {
     text-decoration: none;
 }
 
-#shareThanks {
-    color: var(--success-color);
+#shareThanks { /* Mensagem de agradecimento */
+    color: var(--success-color); /* Cor verde de sucesso */
 }
 
-#backToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: none; /* JS will handle visibility */
+#backToTop { /* Botão "Voltar ao Topo" */
+    position: fixed; /* Posição fixa na tela */
+    bottom: 20px; /* Distância da base */
+    right: 20px; /* Distância da direita */
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do ícone */
+    border: none; /* Sem borda */
+    border-radius: 50%; /* Botão redondo */
+    width: 50px; /* Largura */
+    height: 50px; /* Altura */
+    font-size: 1.5rem; /* Tamanho do ícone */
+    cursor: pointer; /* Ícone de mão */
+    display: none; /* Inicialmente oculto, controlado pelo JS */
 }
 
-/* --- FOOTER --- */
-.footer-wrap {
+/* --- RODAPÉ --- */
+.footer-wrap { /* Contêiner do rodapé */
     background-color: var(--bg-card);
     padding: 2rem 1.5rem;
     border-top: 1px solid var(--border-color);
@@ -300,43 +262,43 @@ nav.services {
     margin-top: 2rem;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+.footer-grid { /* Grade do rodapé */
+    display: grid; /* Usa layout de grade */
+    grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas de largura igual */
+    gap: 1.5rem; /* Espaço entre as colunas */
+    margin-bottom: 1.5rem; /* Margem inferior */
 }
 
-.footer-col h4 {
+.footer-col h4 { /* Título de cada coluna do rodapé */
     font-size: 1.1rem;
     color: var(--primary-color);
     margin-bottom: 0.75rem;
 }
 
-.footer-col, .footer-col div {
+.footer-col, .footer-col div { /* Estilo geral para o conteúdo da coluna */
     font-size: 0.9rem;
     color: var(--tertiary-color);
 }
 
-.footer-col a {
+.footer-col a { /* Links dentro do rodapé */
     color: var(--secondary-color);
     text-decoration: none;
-    display: block;
-    margin-top: 0.5rem;
-    transition: color 0.2s ease;
+    display: block; /* Faz o link ocupar a linha inteira */
+    margin-top: 0.5rem; /* Margem superior */
+    transition: color 0.2s ease; /* Transição suave da cor */
 }
 
-.footer-col a:hover {
+.footer-col a:hover { /* Efeito hover nos links */
     color: var(--primary-color);
 }
 
-.footer-follow {
+.footer-follow { /* Alinhamento específico para a coluna "Siga-nos" */
     text-align: center;
 }
 .footer-follow div {
-    justify-content: center;
+    justify-content: center; /* Centraliza os botões de redes sociais */
 }
-.footer-bottom {
+.footer-bottom { /* Seção final do rodapé com copyright */
     text-align: center;
     font-size: 0.8rem;
     color: var(--tertiary-color);
@@ -344,26 +306,26 @@ nav.services {
     padding-top: 1.5rem;
 }
 
-/* Animações */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+/* --- ANIMAÇÕES --- */
+@keyframes fadeIn { /* Define a animação de fade-in */
+    from { /* Estado inicial */
+        opacity: 0; /* Totalmente transparente */
+        transform: translateY(-20px); /* Levemente acima da posição final */
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    to { /* Estado final */
+        opacity: 1; /* Totalmente visível */
+        transform: translateY(0); /* Posição original */
     }
 }
 
-.anim {
-    animation-duration: 0.5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: both;
-    animation-name: fadeIn;
+.anim { /* Classe para aplicar a animação */
+    animation-duration: 0.5s; /* Duração da animação */
+    animation-timing-function: ease-out; /* Curva de velocidade */
+    animation-fill-mode: both; /* Mantém o estado final da animação */
+    animation-name: fadeIn; /* Nome da animação a ser usada */
 }
 
-.hover-lift {
+.hover-lift { /* Classe para efeito de "elevar" no hover */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
@@ -372,101 +334,83 @@ nav.services {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* --- MEDIA QUERIES --- */
-@media (max-width: 768px) {
+/* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
+@media (max-width: 768px) { /* Estilos para telas de até 768px (tablets) */
     .wrap {
-        padding: 0.5rem;
+        padding: 0.5rem; /* Reduz o espaçamento lateral */
     }
-
-    header {
-        padding: 1rem;
-    }
-
-    .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-    }
-
-    .social-grid, .catalog {
-        grid-template-columns: 1fr;
+    .social-grid, .catalog, .footer-grid {
+        grid-template-columns: 1fr; /* Faz as grades terem apenas uma coluna */
     }
 }
 
-@media (max-width: 480px) {
-    .logos img {
-        height: 50px;
-    }
+@media (max-width: 480px) { /* Estilos para telas de até 480px (celulares) */
     .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
+        text-align: center; /* Centraliza o texto no rodapé */
     }
-    .footer-col a {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 250px;
+
+    .footer-col div, .footer-col a {
+        justify-content: center; /* Centraliza itens flex (botões) */
+        margin-left: auto; /* Centraliza blocos */
+        margin-right: auto; /* Centraliza blocos */
     }
 }
 
-/* --- Estilos do Lightbox --- */
-.lightbox-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    display: flex;
+/* --- ESTILOS DO LIGHTBOX (GALERIA DE IMAGENS) --- */
+.lightbox-overlay { /* Fundo escuro que cobre a tela */
+    position: fixed; /* Posição fixa */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semitransparente */
+    display: flex; /* Usa Flexbox para centralizar */
     justify-content: center;
     align-items: center;
-    z-index: 2000;
-    padding: 1rem;
-    animation: fadeIn 0.3s ease-out;
+    z-index: 2000; /* Garante que fique acima de todo o conteúdo */
+    padding: 1rem; /* Espaçamento para não colar nas bordas */
+    animation: fadeIn 0.3s ease-out; /* Animação de entrada */
 }
 
-.lightbox-wrapper {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
+.lightbox-wrapper { /* Contêiner da imagem e controles */
+    position: relative; /* Para posicionar o botão de fechar */
+    max-width: 90vw; /* Largura máxima de 90% da tela */
+    max-height: 90vh; /* Altura máxima de 90% da tela */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.lightbox-image {
+.lightbox-image { /* A imagem ampliada */
     max-width: 100%;
-    max-height: calc(90vh - 60px); /* Deixa espaço para os controles */
-    object-fit: contain;
+    max-height: calc(90vh - 60px); /* Altura máxima, deixando espaço para os controles */
+    object-fit: contain; /* Garante que a imagem inteira seja visível sem distorção */
     border-radius: 4px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    transition: opacity 0.2s ease-in-out;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5); /* Sombra forte para destacar */
 }
-.lightbox-close {
-    position: absolute;
-    top: -10px;
-    right: -10px;
+.lightbox-close { /* Botão de fechar (X) */
+    position: absolute; /* Posição absoluta em relação ao .lightbox-wrapper */
+    top: -10px; right: -10px;
     background: white;
     color: #333;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     font-size: 2rem;
-    line-height: 38px;
+    line-height: 38px; /* Alinha o 'X' verticalmente */
     text-align: center;
     cursor: pointer;
-    z-index: 2010;
+    z-index: 2010; /* Garante que fique acima da imagem */
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-.lightbox-controls {
+.lightbox-controls { /* Contêiner dos botões "anterior" e "próximo" */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Coloca um botão em cada extremidade */
     width: 100%;
-    max-width: 400px;
-    margin-top: 1rem;
+    max-width: 400px; /* Largura máxima dos controles */
+    margin-top: 1rem; /* Espaço acima dos botões */
 }
 
-.lightbox-controls button {
+.lightbox-controls button { /* Estilo dos botões de navegação */
     background: rgba(40, 40, 40, 0.7);
     color: white;
     border: 1px solid #444;
@@ -480,4 +424,11 @@ nav.services {
 .lightbox-controls button:hover {
     background: var(--primary-color);
     border-color: var(--primary-color);
+}
+
+@media (max-width: 768px) { /* Ajuste para o botão de fechar em telas menores */
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+    }
 }

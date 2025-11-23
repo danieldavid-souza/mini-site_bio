@@ -1,100 +1,131 @@
+// Adiciona um ouvinte de evento que espera o conteúdo HTML da página ser totalmente carregado antes de executar o script.
 document.addEventListener('DOMContentLoaded', () => {
-  // Seleciona todos os botões "Solicitar" dentro dos cartões de produto
-  const productWhatsappButtons = document.querySelectorAll('.product-card .card-wp');
+
+  // --- FUNCIONALIDADE DOS BOTÕES DE WHATSAPP ---
 
   /**
-   * Abre o link do WhatsApp com uma mensagem personalizada.
+   * Função reutilizável para abrir o WhatsApp com uma mensagem.
    * @param {string} phone - O número de telefone do destinatário.
    * @param {string} message - A mensagem a ser enviada.
    */
   const openWhatsApp = (phone, message) => {
+    // Codifica a mensagem para ser usada em uma URL (ex: substitui espaços por '%20').
     const encodedMessage = encodeURIComponent(message);
+    // Monta a URL do WhatsApp.
     const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+    // Abre a URL em uma nova aba do navegador.
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
-  // Adiciona um evento de clique a cada botão "Solicitar"
+  // Seleciona todos os botões "Solicitar" dentro dos cartões de produto.
+  const productWhatsappButtons = document.querySelectorAll('.product-card .card-wp');
+
+  // Itera sobre cada botão de produto encontrado.
   productWhatsappButtons.forEach(button => {
+    // Adiciona um ouvinte de evento de clique a cada botão.
     button.addEventListener('click', () => {
+      // Pega o número de telefone do atributo 'data-phone' do botão.
       const phone = button.dataset.phone;
+      // Pega a mensagem do atributo 'data-msg' do botão.
       const message = button.dataset.msg;
+      // Chama a função para abrir o WhatsApp com as informações coletadas.
       openWhatsApp(phone, message);
     });
   });
 
-  // --- Funcionalidade dos Botões de WhatsApp do Rodapé ---
-  const footerWaMarli = document.getElementById('footerWaMarli');
-  const footerWaDaniel = document.getElementById('footerWaDaniel');
+  /**
+   * Função auxiliar para adicionar um ouvinte de clique a um elemento por ID e abrir o WhatsApp.
+   * @param {string} elementId - O ID do elemento do botão.
+   * @param {string} message - A mensagem personalizada a ser enviada.
+   */
+  const addWhatsappListener = (elementId, message) => {
+    // Encontra o elemento pelo ID fornecido.
+    const element = document.getElementById(elementId);
+    // Verifica se o elemento existe para evitar erros.
+    if (element) {
+      // Adiciona o ouvinte de clique.
+      element.addEventListener('click', (event) => {
+        // Previne o comportamento padrão do link (que seria navegar para '#').
+        event.preventDefault();
+        // Pega o número de telefone do atributo 'data-phone'.
+        const phone = element.dataset.phone;
+        // Chama a função para abrir o WhatsApp.
+        openWhatsApp(phone, message);
+      });
+    }
+  };
 
-  if (footerWaMarli) {
-    footerWaMarli.addEventListener('click', (event) => {
-      event.preventDefault(); // Previne o comportamento padrão do link '#'
-      const phone = footerWaMarli.dataset.phone;
-      const message = "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.";
-      openWhatsApp(phone, message);
-    });
-  }
+  // Configura os botões de WhatsApp do rodapé usando a função auxiliar.
+  addWhatsappListener('footerWaMarli', "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.");
+  addWhatsappListener('footerWaDaniel', "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.");
 
-  if (footerWaDaniel) {
-    footerWaDaniel.addEventListener('click', (event) => {
-      event.preventDefault(); // Previne o comportamento padrão do link '#'
-      const phone = footerWaDaniel.dataset.phone;
-      const message = "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.";
-      openWhatsApp(phone, message);
-    });
-  }
+  // --- FUNCIONALIDADE DE COMPARTILHAMENTO ---
 
-  // --- Funcionalidade de Compartilhamento ---
+  // Seleciona os elementos HTML necessários para a funcionalidade de compartilhamento.
   const shareToggle = document.getElementById('shareToggle');
   const shareOptions = document.getElementById('shareOptions');
   const shareThanks = document.getElementById('shareThanks');
   const shareWhatsApp = document.getElementById('shareWhatsApp');
   const shareTelegram = document.getElementById('shareTelegram');
 
+  // Verifica se o botão principal de compartilhamento existe.
   if (shareToggle) {
+    // Adiciona um ouvinte de clique a ele.
     shareToggle.addEventListener('click', () => {
-      // Alterna a visibilidade das opções de compartilhamento
+      // Verifica se as opções de compartilhamento estão ocultas.
       const isHidden = shareOptions.style.display === 'none' || shareOptions.style.display === '';
+      // Alterna a visibilidade das opções (mostra se estiver oculto, oculta se estiver visível).
       shareOptions.style.display = isHidden ? 'flex' : 'none';
     });
   }
 
-  // Define o conteúdo a ser compartilhado
-  const shareUrl = window.location.href;
-  const shareTitle = "Confira o mini site da Lima Calixto & Lima Lima! Encontre produtos personalizados e serviços de manutenção de computadores.";
+  // Define o conteúdo a ser compartilhado.
+  const shareUrl = window.location.href; // Pega a URL atual da página.
+  const shareTitle = "Confira o mini site da Lima Calixto & Lima Lima! Encontre produtos personalizados e serviços de manutenção de computadores."; // Título padrão.
 
-  // Configura os links de compartilhamento
+  // Configura o link de compartilhamento do WhatsApp.
   if (shareWhatsApp) {
     shareWhatsApp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
   }
+  // Configura o link de compartilhamento do Telegram.
   if (shareTelegram) {
     shareTelegram.href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
   }
 
-  // Exibe a mensagem de agradecimento após o clique
+  // Adiciona um ouvinte de clique aos botões de WhatsApp e Telegram.
   [shareWhatsApp, shareTelegram].forEach(button => button?.addEventListener('click', () => {
+    // Oculta as opções de compartilhamento.
     shareOptions.style.display = 'none';
+    // Mostra a mensagem de agradecimento.
     shareThanks.style.display = 'block';
+    // Define um temporizador para ocultar a mensagem de agradecimento após 3 segundos.
     setTimeout(() => {
       shareThanks.style.display = 'none';
-    }, 3000); // A mensagem de agradecimento some após 3 segundos
+    }, 3000);
   }));
 
-  // --- Funcionalidade do Botão Voltar ao Topo ---
+  // --- FUNCIONALIDADE DO BOTÃO "VOLTAR AO TOPO" ---
+
+  // Seleciona o botão "Voltar ao Topo".
   const backToTopButton = document.getElementById('backToTop');
 
+  // Verifica se o botão existe.
   if (backToTopButton) {
+    // Adiciona um ouvinte de evento de rolagem na janela.
     window.addEventListener('scroll', () => {
-      // Mostra o botão se o usuário rolar mais de 300px para baixo
+      // Se o usuário rolou mais de 300 pixels para baixo...
       if (window.scrollY > 300) {
+        // ...mostra o botão.
         backToTopButton.style.display = 'block';
       } else {
+        // ...senão, oculta o botão.
         backToTopButton.style.display = 'none';
       }
     });
 
+    // Adiciona um ouvinte de clique ao botão.
     backToTopButton.addEventListener('click', () => {
-      // Rola suavemente para o topo da página
+      // Rola a página suavemente para o topo.
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -102,44 +133,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Funcionalidade de Alterar Tema ---
+  // --- FUNCIONALIDADE DE ALTERAR TEMA (CLARO/ESCURO) ---
+
+  // Seleciona os elementos necessários para a troca de tema.
   const themeToggle = document.getElementById('themeToggle');
   const body = document.body;
   const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
 
-  // Função para aplicar o tema e atualizar o ícone
+  /**
+   * Função para aplicar um tema (claro ou escuro) e salvar a preferência.
+   * @param {string} theme - O nome do tema ('light' ou 'dark').
+   */
   const applyTheme = (theme) => {
     if (theme === 'light') {
+      // Adiciona a classe 'light-theme' ao body para aplicar os estilos do tema claro.
       body.classList.add('light-theme');
+      // Troca o ícone de lua por um de sol.
       themeIcon?.classList.replace('fa-moon', 'fa-sun');
     } else {
+      // Remove a classe 'light-theme' para voltar aos estilos do tema escuro (padrão).
       body.classList.remove('light-theme');
+      // Troca o ícone de sol por um de lua.
       themeIcon?.classList.replace('fa-sun', 'fa-moon');
     }
+    // Salva a preferência de tema no armazenamento local do navegador.
     localStorage.setItem('theme', theme);
   };
 
-  // Verifica o tema salvo no carregamento da página
+  // Verifica se há um tema salvo no armazenamento local; se não, usa 'dark' como padrão.
   const savedTheme = localStorage.getItem('theme') || 'dark';
+  // Aplica o tema salvo (ou o padrão) ao carregar a página.
   applyTheme(savedTheme);
 
+  // Adiciona um ouvinte de clique ao botão de alternar tema.
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
+      // Determina qual será o novo tema com base no tema atual.
       const newTheme = body.classList.contains('light-theme') ? 'dark' : 'light';
+      // Aplica o novo tema.
       applyTheme(newTheme);
     });
   }
 
-  // --- Funcionalidade do Lightbox ---
+  // --- FUNCIONALIDADE DO LIGHTBOX (GALERIA DE IMAGENS) ---
+
+  // Seleciona todos os links que devem abrir o lightbox.
   const lightboxLinks = document.querySelectorAll('a.lightbox');
+  // Cria um array de objetos com as informações (URL e alt text) de cada imagem.
   const images = Array.from(lightboxLinks).map(link => ({
     src: link.href,
     alt: link.querySelector('img').alt
   }));
-  let currentIndex = 0;
-  let lightboxElement = null;
+  let currentIndex = 0; // Variável para rastrear a imagem atual na galeria.
+  let lightboxElement = null; // Variável para armazenar o elemento do lightbox depois de criado.
 
+  /**
+   * Cria o HTML do lightbox e o insere na página.
+   */
   const createLightbox = () => {
+    // Define o HTML do lightbox usando template literals.
     const lightboxHTML = `
       <div class="lightbox-overlay">
         <div class="lightbox-wrapper">
@@ -152,13 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
+    // Insere o HTML no final do body.
     document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    // Armazena a referência ao elemento do lightbox recém-criado.
     lightboxElement = document.querySelector('.lightbox-overlay');
 
-    // Adiciona eventos aos controles
+    // Adiciona ouvintes de evento aos botões de controle do lightbox.
     lightboxElement.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     lightboxElement.querySelector('.lightbox-prev').addEventListener('click', showPrevImage);
     lightboxElement.querySelector('.lightbox-next').addEventListener('click', showNextImage);
+    // Adiciona um ouvinte para fechar o lightbox ao clicar no fundo escuro.
     lightboxElement.addEventListener('click', (e) => {
       if (e.target === lightboxElement) {
         closeLightbox();
@@ -166,48 +221,79 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  /**
+   * Abre o lightbox e exibe uma imagem específica.
+   * @param {number} index - O índice da imagem a ser exibida.
+   */
   const openLightbox = (index) => {
+    // Se o lightbox ainda não foi criado, cria-o.
     if (!lightboxElement) {
       createLightbox();
     }
+    // Define o índice da imagem atual.
     currentIndex = index;
+    // Atualiza a imagem exibida.
     updateImage();
+    // Mostra o lightbox.
     lightboxElement.style.display = 'flex';
+    // Adiciona o ouvinte de eventos do teclado (setas e Esc).
     document.addEventListener('keydown', handleKeyboard);
   };
 
+  /**
+   * Fecha o lightbox.
+   */
   const closeLightbox = () => {
     if (lightboxElement) {
+      // Oculta o lightbox.
       lightboxElement.style.display = 'none';
+      // Remove o ouvinte de eventos do teclado para não consumir recursos.
       document.removeEventListener('keydown', handleKeyboard);
     }
   };
 
+  /**
+   * Atualiza a imagem e o texto alternativo no lightbox.
+   */
   const updateImage = () => {
     const img = lightboxElement.querySelector('.lightbox-image');
     img.src = images[currentIndex].src;
     img.alt = images[currentIndex].alt;
   };
 
+  /**
+   * Navega para a próxima imagem na galeria.
+   */
   const showNextImage = () => {
+    // Usa o operador de módulo (%) para voltar ao início quando chegar ao fim da lista.
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
   };
 
+  /**
+   * Navega para a imagem anterior na galeria.
+   */
   const showPrevImage = () => {
+    // Lógica para voltar ao final da lista quando estiver na primeira imagem.
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     updateImage();
   };
 
+  /**
+   * Lida com a navegação por teclado (Esc, Seta Direita, Seta Esquerda).
+   */
   const handleKeyboard = (e) => {
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowRight') showNextImage();
     if (e.key === 'ArrowLeft') showPrevImage();
   };
 
+  // Itera sobre cada link do lightbox para adicionar o evento de clique.
   lightboxLinks.forEach((link, index) => {
     link.addEventListener('click', (e) => {
+      // Previne o comportamento padrão do link (que seria abrir a imagem em uma nova página).
       e.preventDefault();
+      // Abre o lightbox com o índice da imagem clicada.
       openLightbox(index);
     });
   });
