@@ -1,63 +1,81 @@
 // Adiciona um ouvinte de evento que espera o conteúdo HTML da página ser totalmente carregado antes de executar o script.
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- FUNCIONALIDADE DOS BOTÕES DE WHATSAPP ---
+  // --- FUNCIONALIDADE DO MODAL DE CONTATO E WHATSAPP ---
+
+  // Seleciona os elementos do modal
+  const contactModal = document.getElementById('contactModal');
+  const modalClose = document.getElementById('modalClose');
+  const whatsappMessage = document.getElementById('whatsappMessage');
+  const whatsappSendBtn = document.getElementById('whatsappSendBtn');
+  const modalContactName = document.getElementById('modalContactName');
 
   /**
-   * Função reutilizável para abrir o WhatsApp com uma mensagem.
+   * Abre o modal de contato e o configura com as informações necessárias.
    * @param {string} phone - O número de telefone do destinatário.
-   * @param {string} message - A mensagem a ser enviada.
+   * @param {string} message - A mensagem pré-definida.
+   * @param {string} contactName - O nome do contato para exibição no modal.
    */
-  const openWhatsApp = (phone, message) => {
-    // Codifica a mensagem para ser usada em uma URL (ex: substitui espaços por '%20').
-    const encodedMessage = encodeURIComponent(message);
-    // Monta a URL do WhatsApp.
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-    // Abre a URL em uma nova aba do navegador.
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  const openContactModal = (phone, message, contactName) => {
+    if (!contactModal) return;
+
+    // Preenche as informações no modal
+    modalContactName.textContent = contactName;
+    whatsappMessage.value = message;
+
+    // Atualiza o link do botão de envio
+    whatsappSendBtn.onclick = (e) => {
+      e.preventDefault();
+      const encodedMessage = encodeURIComponent(whatsappMessage.value);
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      closeContactModal(); // Fecha o modal após clicar em enviar
+    };
+
+    // Exibe o modal
+    contactModal.classList.add('active');
   };
 
-  // Seleciona todos os botões "Solicitar" dentro dos cartões de produto.
-  const productWhatsappButtons = document.querySelectorAll('.product-card .card-wp');
+  /**
+   * Fecha o modal de contato.
+   */
+  const closeContactModal = () => {
+    contactModal?.classList.remove('active');
+  };
 
-  // Itera sobre cada botão de produto encontrado.
-  productWhatsappButtons.forEach(button => {
-    // Adiciona um ouvinte de evento de clique a cada botão.
+  // Ouvintes de evento para fechar o modal
+  modalClose?.addEventListener('click', closeContactModal);
+  contactModal?.addEventListener('click', (e) => {
+    if (e.target === contactModal) { // Fecha se clicar no overlay
+      closeContactModal();
+    }
+  });
+
+  // Configura os botões "Solicitar" dos produtos para abrir o modal
+  document.querySelectorAll('.product-card .card-wp').forEach(button => {
     button.addEventListener('click', () => {
-      // Pega o número de telefone do atributo 'data-phone' do botão.
       const phone = button.dataset.phone;
-      // Pega a mensagem do atributo 'data-msg' do botão.
       const message = button.dataset.msg;
-      // Chama a função para abrir o WhatsApp com as informações coletadas.
-      openWhatsApp(phone, message);
+      const contactName = phone === '5532991657472' ? 'Lima Calixto' : 'Lima Lima';
+      openContactModal(phone, message, contactName);
     });
   });
 
-  /**
-   * Função auxiliar para adicionar um ouvinte de clique a um elemento por ID e abrir o WhatsApp.
-   * @param {string} elementId - O ID do elemento do botão.
-   * @param {string} message - A mensagem personalizada a ser enviada.
-   */
-  const addWhatsappListener = (elementId, message) => {
-    // Encontra o elemento pelo ID fornecido.
+  // Função auxiliar para configurar os links de contato do rodapé
+  const setupFooterContact = (elementId, message, contactName) => {
     const element = document.getElementById(elementId);
-    // Verifica se o elemento existe para evitar erros.
     if (element) {
-      // Adiciona o ouvinte de clique.
       element.addEventListener('click', (event) => {
-        // Previne o comportamento padrão do link (que seria navegar para '#').
         event.preventDefault();
-        // Pega o número de telefone do atributo 'data-phone'.
         const phone = element.dataset.phone;
-        // Chama a função para abrir o WhatsApp.
-        openWhatsApp(phone, message);
+        openContactModal(phone, message, contactName);
       });
     }
   };
 
-  // Configura os botões de WhatsApp do rodapé usando a função auxiliar.
-  addWhatsappListener('footerWaMarli', "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.");
-  addWhatsappListener('footerWaDaniel', "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.");
+  // Configura os contatos do rodapé para abrir o modal
+  setupFooterContact('footerWaMarli', "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.", "Marli (Lima Calixto)");
+  setupFooterContact('footerWaDaniel', "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.", "Daniel (Lima Lima)");
 
   // --- FUNCIONALIDADE DE COMPARTILHAMENTO ---
 

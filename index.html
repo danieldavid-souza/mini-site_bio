@@ -4,8 +4,8 @@
   <meta charset="UTF-8" /> <!-- Define o conjunto de caracteres como UTF-8 para suportar acentos e símbolos -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Garante que a página seja responsiva em dispositivos móveis -->
   <title>Lima Calixto • Lima Lima — Mini Site</title> <!-- Título que aparece na aba do navegador -->
-  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores."> <!-- Descrição para motores de busca (SEO) -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Importa a fonte 'Roboto' do Google Fonts -->
+  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores."> <!-- Descrição para motores de busca (SEO) -->  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"> <!-- Importa a fonte 'Quicksand' do Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Importa a biblioteca de ícones Font Awesome -->
   <link rel="stylesheet" href="style.css" /> <!-- Link para a folha de estilos principal -->
   <link rel="icon" href="logo.png" type="image/png"> <!-- Define o ícone (favicon) da página -->
@@ -88,23 +88,33 @@
 
       <!-- ... (outros cartões de produto seguem a mesma estrutura) ... -->
 
-      <div class="product-card anim" data-prod-index="1" style="animation-delay:.78s">
+      <div class="product-card anim" data-prod-index="1" style="animation-delay:.78s" data-stock="out">
         <a href="camiseta.jpg" class="lightbox" data-index="1"><img src="camiseta.jpg" alt="Camiseta estampada" /></a>
         <h3>Camiseta Branca Personalizada</h3>
         <p class="prod-desc">Camiseta 100% poliéster com impressão personalizada — ideal para eventos, brindes e uniformes.</p>
         <div class="card-actions">
            <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
-          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse em Camisetas Personalizadas."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse em Camisetas Personalizadas." disabled><i class="fa-brands fa-whatsapp"></i> Esgotado</button>
         </div>
       </div>
 
-      <div class="product-card anim" data-prod-index="9" style="animation-delay:1.14s" role="listitem">
+      <div class="product-card anim" data-prod-index="9" style="animation-delay:1.14s" role="listitem" data-stock="out">
         <a href="camiseta2.jpg" class="lightbox" data-index="9"><img src="camiseta2.jpg" alt="Camiseta personalizada"/></a>
         <h3>Camiseta Personalizada</h3>
         <p class="prod-desc">Camiseta cinza 100% poliéster com impressão de alta qualidade. Ideal para eventos, brindes e uso pessoal — conforto e estilo em uma só peça.</p>
         <div class="card-actions">
            <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
-          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse na Camiseta Personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Camiseta Personalizada" data-msg="Olá! Tenho interesse na Camiseta Personalizada." disabled><i class="fa-brands fa-whatsapp"></i> Esgotado</button>
+        </div>
+      </div>
+
+      <div class="product-card anim" data-prod-index="2" style="animation-delay:.84s" role="listitem" data-stock="out">
+        <a href="bolinha-natal.jpg" class="lightbox" data-index="2"><img src="bolinha-natal.jpg" alt="Bolinha de Natal Personalizada"/></a>
+        <h3>Bolinha de Natal Personalizada</h3>
+        <p class="prod-desc">Bolinha de Natal personalizável pronta para enfeitar sua árvore — um toque especial para as festas.</p>
+        <div class="card-actions">
+           <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Bolinha de Natal Personalizada" data-msg="Olá! Tenho interesse em Bolinhas de Natal Personalizadas." disabled><i class="fa-brands fa-whatsapp"></i> Esgotado</button>
         </div>
       </div>
 
@@ -174,7 +184,7 @@
         <p class="prod-desc">Caneca jateada em vidro/cerâmica com acabamento acetinado (frosted). Impressão personalizada em alta definição — toque sofisticado e ideal para presentes corporativos e lembranças especiais.</p>
         <div class="card-actions">
            <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
-          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Caneca Jateada" data-msg="Olá! Tenho interesse na Caneca Jateada personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+          <button class="card-wp" data-phone="5532991657472" data-prod="Caneca Jateada" data-msg="Olá! Tenho interesse na Caneca Jateada personalizada."><i class="fa-solid fa-box-open"></i> Solicitar</button> 
         </div>
       </div>
     </section>
@@ -227,6 +237,19 @@
         Juiz de Fora, MG.
       </div>
     </footer>
+  </div>
+
+  <!-- Estrutura do Modal de Contato -->
+  <div id="contactModal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="modalClose" class="modal-close" title="Fechar">&times;</button>
+      <h2><i class="fab fa-whatsapp"></i> Contato via WhatsApp</h2>
+      <p>Sua mensagem será enviada para <strong id="modalContactName"></strong>. Você pode ajustar o texto abaixo antes de enviar.</p>
+      <textarea id="whatsappMessage" class="whatsapp-message" rows="5"></textarea>
+      <a id="whatsappSendBtn" href="#" target="_blank" rel="noopener noreferrer" class="whatsapp-send-btn">
+        <i class="fab fa-whatsapp"></i> Enviar no WhatsApp
+      </a>
+    </div>
   </div>
 
   <!-- 'defer' garante que o script só será executado após o HTML ser totalmente carregado -->

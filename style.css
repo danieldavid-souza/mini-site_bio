@@ -159,6 +159,10 @@ header {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Adiciona uma sombra mais forte */
 }
 
+.product-card a.lightbox {
+    cursor: pointer; /* Indica que a imagem é clicável */
+}
+
 .product-card img { /* Estilo da imagem do produto */
     width: 100%; /* Largura total do cartão */
     height: 200px; /* Altura fixa */
@@ -206,6 +210,21 @@ header {
     color: white; /* Muda a cor do texto */
 }
 
+/* --- ESTILOS PARA PRODUTOS ESGOTADOS --- */
+
+/* Aplica um filtro cinza e opacidade na imagem do produto esgotado */
+.product-card[data-stock="out"] img {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+/* Estiliza o botão desabilitado para produtos esgotados */
+.card-actions .card-wp:disabled {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    color: var(--tertiary-color);
+    cursor: not-allowed;
+}
 /* --- SEÇÃO DE COMPARTILHAMENTO E BOTÃO VOLTAR AO TOPO --- */
 .share-card, .share-thanks, #backToTop {
     text-align: center; /* Centraliza o conteúdo */
