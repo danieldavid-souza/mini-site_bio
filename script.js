@@ -26,10 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Atualiza o link do botão de envio
     whatsappSendBtn.onclick = (e) => {
       e.preventDefault();
+
+      // Feedback visual para o usuário
+      whatsappSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecionando...';
+      whatsappSendBtn.disabled = true;
+
       const encodedMessage = encodeURIComponent(whatsappMessage.value);
       const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      closeContactModal(); // Fecha o modal após clicar em enviar
+      
+      // Abre o WhatsApp e fecha o modal após um pequeno atraso
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        closeContactModal();
+      }, 500); // 500ms de atraso para o usuário ver o feedback
     };
 
     // Exibe o modal
@@ -41,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const closeContactModal = () => {
     contactModal?.classList.remove('active');
+    // Restaura o botão do modal para o estado original ao fechar
+    if(whatsappSendBtn) {
+      whatsappSendBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar no WhatsApp';
+      whatsappSendBtn.disabled = false;
+    }
   };
 
   // Ouvintes de evento para fechar o modal
@@ -51,15 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Configura os botões "Solicitar" dos produtos para abrir o modal
-  document.querySelectorAll('.product-card .card-wp').forEach(button => {
-    button.addEventListener('click', () => {
-      const phone = button.dataset.phone;
-      const message = button.dataset.msg;
-      const contactName = phone === '5532991657472' ? 'Lima Calixto' : 'Lima Lima';
-      openContactModal(phone, message, contactName);
+  // --- DELEGAÇÃO DE EVENTOS PARA OS PRODUTOS ---
+  const catalog = document.getElementById('catalog');
+  if (catalog) {
+    catalog.addEventListener('click', (e) => {
+      // Procura pelo botão mais próximo que foi clicado
+      const button = e.target.closest('.card-wp');
+      if (button && !button.disabled) {
+        const phone = button.dataset.phone;
+        const message = button.dataset.msg;
+        const contactName = phone === '5532991657472' ? 'Lima Calixto' : 'Lima Lima';
+        openContactModal(phone, message, contactName);
+      }
     });
-  });
+  }
 
   // Função auxiliar para configurar os links de contato do rodapé
   const setupFooterContact = (elementId, message, contactName) => {
@@ -111,16 +130,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Adiciona um ouvinte de clique aos botões de WhatsApp e Telegram.
-  [shareWhatsApp, shareTelegram].forEach(button => button?.addEventListener('click', () => {
-    // Oculta as opções de compartilhamento.
-    shareOptions.style.display = 'none';
-    // Mostra a mensagem de agradecimento.
-    shareThanks.style.display = 'block';
-    // Define um temporizador para ocultar a mensagem de agradecimento após 3 segundos.
-    setTimeout(() => {
-      shareThanks.style.display = 'none';
-    }, 3000);
-  }));
+  [shareWhatsApp, shareTelegram].forEach(button => {
+    if (button) {
+      button.addEventListener('click', () => {
+        if (shareOptions) shareOptions.style.display = 'none';
+        if (shareThanks) {
+          shareThanks.style.display = 'block';
+          setTimeout(() => {
+            shareThanks.style.display = 'none';
+          }, 3000);
+        }
+      });
+    }
+  });
 
   // --- FUNCIONALIDADE DO BOTÃO "VOLTAR AO TOPO" ---
 

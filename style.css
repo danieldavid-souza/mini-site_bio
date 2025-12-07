@@ -56,6 +56,14 @@ header {
     margin-bottom: 1.5rem; /* Margem inferior para separar do conteúdo */
 }
 
+.header-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
 .profile-picture {
   width: 120px; /* Largura da imagem */
   height: 120px; /* Altura da imagem */
@@ -63,7 +71,6 @@ header {
   object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
   border: 4px solid #fff; /* Borda branca ao redor da imagem */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin-bottom: 15px; /* Margem inferior */
 }
 
 .brand-line {
@@ -214,8 +221,8 @@ header {
 
 /* Aplica um filtro cinza e opacidade na imagem do produto esgotado */
 .product-card[data-stock="out"] img {
-    filter: grayscale(100%);
-    opacity: 0.6;
+    filter: grayscale(80%);
+    opacity: 0.7;
 }
 
 /* Estiliza o botão desabilitado para produtos esgotados */
@@ -224,6 +231,22 @@ header {
     border-color: var(--border-color);
     color: var(--tertiary-color);
     cursor: not-allowed;
+    position: relative; /* Para o tooltip */
+}
+
+.card-actions .card-wp:disabled:hover::after {
+    content: 'Sob encomenda';
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 /* --- SEÇÃO DE COMPARTILHAMENTO E BOTÃO VOLTAR AO TOPO --- */
 .share-card, .share-thanks, #backToTop {
@@ -343,6 +366,32 @@ header {
     animation-fill-mode: both; /* Mantém o estado final da animação */
     animation-name: fadeIn; /* Nome da animação a ser usada */
 }
+
+/* 
+  Aplica um delay escalonado para cada elemento com a classe .anim dentro de um mesmo pai.
+  Isso torna a animação de entrada mais limpa e fácil de manter.
+*/
+.social-grid > .anim,
+.product-card.anim {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  animation-name: fadeIn;
+}
+
+/* Adicione mais seletores :nth-child() se tiver mais de 12 produtos */
+.product-card.anim:nth-child(1) { animation-delay: 0.1s; }
+.product-card.anim:nth-child(2) { animation-delay: 0.2s; }
+.product-card.anim:nth-child(3) { animation-delay: 0.3s; }
+.product-card.anim:nth-child(4) { animation-delay: 0.4s; }
+.product-card.anim:nth-child(5) { animation-delay: 0.5s; }
+.product-card.anim:nth-child(6) { animation-delay: 0.6s; }
+.product-card.anim:nth-child(7) { animation-delay: 0.7s; }
+.product-card.anim:nth-child(8) { animation-delay: 0.8s; }
+.product-card.anim:nth-child(9) { animation-delay: 0.9s; }
+.product-card.anim:nth-child(10) { animation-delay: 1.0s; }
+.product-card.anim:nth-child(11) { animation-delay: 1.1s; }
+.product-card.anim:nth-child(12) { animation-delay: 1.2s; }
 
 .hover-lift { /* Classe para efeito de "elevar" no hover */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
