@@ -275,7 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Atualiza a imagem exibida.
     updateImage();
     // Mostra o lightbox.
-    lightboxElement.style.display = 'flex';
+    lightboxElement.style.display = 'flex'; // Garante que o elemento seja visível
+    lightboxElement.classList.add('active'); // Adiciona a classe para controle de estado
     // Adiciona o ouvinte de eventos do teclado (setas e Esc).
     document.addEventListener('keydown', handleKeyboard);
   };
@@ -284,10 +285,18 @@ document.addEventListener('DOMContentLoaded', () => {
    * Fecha o lightbox.
    */
   const closeLightbox = () => {
-    if (lightboxElement) {
-      // Oculta o lightbox.
+    if (lightboxElement && lightboxElement.classList.contains('active')) {
+      // Adiciona uma classe para a animação de saída
+      lightboxElement.classList.add('closing');
+      lightboxElement.classList.remove('active');
+      document.removeEventListener('keydown', handleKeyboard);
+      // Espera a animação terminar para ocultar o elemento
+      setTimeout(() => {
+        lightboxElement.style.display = 'none';
+        lightboxElement.classList.remove('closing'); // Limpa a classe
+      }, 300); // Deve ser igual à duração da animação
+    } else if (lightboxElement) { // Fallback para fechar caso a classe 'active' não esteja presente
       lightboxElement.style.display = 'none';
-      // Remove o ouvinte de eventos do teclado para não consumir recursos.
       document.removeEventListener('keydown', handleKeyboard);
     }
   };
@@ -296,9 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
    * Atualiza a imagem e o texto alternativo no lightbox.
    */
   const updateImage = () => {
-    const img = lightboxElement.querySelector('.lightbox-image');
-    img.src = images[currentIndex].src;
-    img.alt = images[currentIndex].alt;
+    if (lightboxElement) {
+      const img = lightboxElement.querySelector('.lightbox-image');
+      img.src = images[currentIndex].src;
+      img.alt = images[currentIndex].alt;
+    }
   };
 
   /**

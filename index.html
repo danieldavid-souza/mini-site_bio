@@ -18,11 +18,13 @@
   -->
   <div class="wrap"> <!-- Contêiner principal que centraliza o conteúdo -->
     <header> <!-- Seção do cabeçalho da página -->
-      <!-- Imagens de perfil e logos. O atributo 'alt' descreve a imagem para acessibilidade e SEO -->
-      <img src="perfil-daniel.png" alt="Foto Perfil Daniel" class="profile-picture">
-      <img src="perfil-marli.png" alt="Foto Perfil Marli" class="profile-picture">
-      <img src="logo.png" alt="Logo Lima Calixto Personalizados" class="profile-picture">
-      <img src="logo2.png" alt="Logo Lima Lima Manutenção" class="profile-picture">
+      <div class="header-content">
+        <!-- Imagens de perfil e logos. O atributo 'alt' descreve a imagem para acessibilidade e SEO -->
+        <img src="perfil-daniel.png" alt="Foto Perfil Daniel" class="profile-picture">
+        <img src="perfil-marli.png" alt="Foto Perfil Marli" class="profile-picture">
+        <img src="logo.png" alt="Logo Lima Calixto Personalizados" class="profile-picture">
+        <img src="logo2.png" alt="Logo Lima Lima Manutenção" class="profile-picture">
+      </div>
       <div class="brand-line anim" style="animation-delay:.12s"> <!-- Slogan ou descrição da marca -->
         Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
       </div>
@@ -151,7 +153,7 @@
       <div class="product-card anim" data-prod-index="6" style="animation-delay:.96s" role="listitem">
         <a href="Placa-de-Acrílico.jpg" class="lightbox" data-index="6"><img src="Placa-de-Acrílico.jpg" alt="Plaquinha acrílica 15x10" loading="lazy"/></a>
         <h3>Plaquinha Acrílica 15×10 (Acrílico)</h3>
-        <p class="prod-desc">Plaquinha acrílica 15×10 cm com impressão UV direta sobre acrílico cristal. Acabamento polido e cantos arredondados — ideal para brindes e sinalização elegante.</p>
+        <p class="prod-desc">Plaquinha acrílica 15×10 cm com impressão em alta qualidade. Acabamento polido e cantos arredondados — ideal para brindes e sinalização elegante.</p>
         <div class="card-actions">
            <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
           <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Plaquinha Acrílica 15x10" data-msg="Olá! Tenho interesse na Plaquinha Acrílica 15x10."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
@@ -188,7 +190,7 @@
         </div>
       </div>
 
-      <div class="product-card anim" data-prod-index="1" style="animation-delay:1.14s" role="listitem">
+      <div class="product-card anim" data-prod-index="11" style="animation-delay:1.14s" role="listitem">
         <a href="necessaire.jpg" class="lightbox" data-index="11"><img src="necessaire.jpg" alt="Nécessaire personalizada" loading="lazy"/></a>
         <h3>Nécessaire Personalizada</h3>
         <p class="prod-desc">Nécessaire personalizada com diversos tamanhos e materiais. Ideal para organização pessoal, brindes corporativos e presentes exclusivos.</p>
@@ -197,6 +199,15 @@
           <button class="card-wp" data-phone="5532991657472" data-prod="Caneca Jateada" data-msg="Olá! Tenho interesse na Nécessaire personalizada."><i class="fa-brands fa-whatsapp"></i> Solicitar</button> 
         </div>
       </div>
+
+      <div class="product-card anim" data-prod-index="12" style="animation-delay:.96s" role="listitem">
+        <a href="natal-verde.jpg" class="lightbox" data-index="12"><img src="natal-verde.jpg" alt="Plaquinha acrílica 15x10" loading="lazy"/></a>
+        <h3>Plaquinha Acrílica 15×10 (Acrílico)</h3>
+        <p class="prod-desc">Plaquinha acrílica 15×10 cm com impressão em alta qualidade. Acabamento polido e cantos arredondados — ideal para brindes e sinalização elegante.</p>
+        <div class="card-actions">
+           <a class="small-btn primary-small hover-lift" href="https://catalogolimacalixto.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-eye"></i> Ver</a>
+          <button class="card-wp hover-lift" data-phone="5532991657472" data-prod="Plaquinha Acrílica 15x10" data-msg="Olá! Tenho interesse na Plaquinha Acrílica 15x10."><i class="fa-brands fa-whatsapp"></i> Solicitar</button>
+        </div>
     </section>
 
     <!-- Botão "Voltar ao Topo", controlado via JavaScript -->
@@ -215,9 +226,9 @@
         <div class="footer-col footer-contacts">
           <h4>Contato</h4>
           <div><strong>Marli — Lima Calixto</strong></div>
-          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-phone="5532991657472" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-phone="5532991657472" rel="noopener" role="button"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
           <div style="margin-top:12px"><strong>Daniel — Lima Lima</strong></div>
-          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-phone="5532991992905" rel="noopener"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
+          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-phone="5532991992905" rel="noopener" role="button"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
           <div style="margin-top:12px;font-size:14px;">Atendimento: Seg–Sex 9h–18h</div>
         </div>
 

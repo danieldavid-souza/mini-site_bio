@@ -435,7 +435,6 @@ header {
     align-items: center;
     z-index: 2000; /* Garante que fique acima de todo o conteúdo */
     padding: 1rem; /* Espaçamento para não colar nas bordas */
-    animation: fadeIn 0.3s ease-out; /* Animação de entrada */
 }
 
 .lightbox-wrapper { /* Contêiner da imagem e controles */
