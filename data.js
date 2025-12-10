@@ -155,4 +155,41 @@ const produtos = [
     "phone": "5532991657472",
     "message": "Olá! Tenho interesse na Plaquinha Acrílica 15x10."
   }
+  ,
+  {
+    "nome": "Caneca de Polímero com Interior Azul Royal – Estampa Geek/Robôs",
+    "descricao": "Adicione mais cor e personalidade ao seu dia a dia com esta caneca de polímero de alta qualidade, perfeita para café, chá ou sua bebida preferida. Com acabamento brilhante e interior na sofisticada cor azul royal, ela se destaca pela leveza, resistência e durabilidade.\n\nA estampa vibrante com temática de robôs estilo geek traz um visual moderno e divertido, ideal para fãs de tecnologia, games e colecionáveis. A impressão apresenta cores intensas e detalhes impecáveis, proporcionando um produto visualmente marcante.",
+    "categoria": "Sublimação",
+    "preco": 35,
+    "imagem": "Polimero-azul.jpg",
+    "campanhas": [
+      "dia-das-criancas"
+    ],
+    "estoque": 10,
+    "googleDriveLink": "https://drive.google.com/drive/folders/1yUD6C2g6Fo7YGRktLKXB-TQctylNyycQ?usp=sharing"
+  },
+  {
+    "nome": "Caneca de Polímero com Interior Rosa Chiclete – Tema Infantil Floral Personalizado",
+    "descricao": "Encante seus clientes com esta delicada caneca de polímero, perfeita para presentear em ocasiões especiais. O interior na charmosa cor rosa chiclete traz um toque suave e acolhedor, enquanto a estampa em estilo infantil floral cria um visual encantador e sofisticado.\n\nCom design romântico que combina flores, tons pastéis e detalhes suaves, esta caneca é ideal para personalizações com nome e foto — tornando-se uma lembrança afetiva para aniversários, batizados, maternidade e datas comemorativas.",
+    "categoria": "Sublimação",
+    "preco": 35,
+    "imagem": "Polimero-chiclete.jpg",
+    "campanhas": [
+      "dia-das-criancas"
+    ],
+    "estoque": 10,
+    "googleDriveLink": "https://drive.google.com/drive/folders/1yUD6C2g6Fo7YGRktLKXB-TQctylNyycQ?usp=sharing"
+  },
+  {
+    "nome": "Caneca de Polímero com Interior Preto – Tema Mickey Clássico",
+    "descricao": "Traga mais diversão e nostalgia para o dia a dia com esta caneca de polímero premium, estampada com um dos personagens mais queridos do mundo: o icônico Mickey. Leve, resistente e com acabamento impecável, ela conta com interior na elegante cor preto, que cria um contraste moderno e sofisticado com a estampa vibrante.\n\nO design apresenta o personagem em estilo clássico, com cores intensas e excelente definição — perfeita para fãs, colecionadores e para quem ama produtos temáticos com personalidade.",
+    "categoria": "Sublimação",
+    "preco": 35,
+    "imagem": "polimero-preto2.jpg",
+    "campanhas": [
+      "dia-das-criancas"
+    ],
+    "estoque": 10,
+    "googleDriveLink": "https://drive.google.com/drive/folders/1yUD6C2g6Fo7YGRktLKXB-TQctylNyycQ?usp=sharing"
+  }
 ]
