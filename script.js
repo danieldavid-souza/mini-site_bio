@@ -1,6 +1,88 @@
 // Adiciona um ouvinte de evento que espera o conteúdo HTML da página ser totalmente carregado antes de executar o script.
 document.addEventListener('DOMContentLoaded', () => {
 
+  // --- RENDERIZAÇÃO DINÂMICA DE PRODUTOS ---
+  const catalogContainer = document.getElementById('catalog');
+
+  const createProductCard = (product, index) => {
+    const card = document.createElement('div');
+    card.className = 'product-card anim';
+    card.style.animationDelay = `${0.72 + index * 0.06}s`;
+
+    if (product.estoque === 0) {
+      card.dataset.stock = 'out';
+    }
+
+    const isOutOfStock = product.estoque === 0;
+    const buttonText = isOutOfStock ? 'Esgotado Sob Encomenda' : 'Solicitar';
+    const buttonDisabled = isOutOfStock ? 'disabled' : '';
+
+    // Lógica para o status do estoque (cor e texto)
+    let stockStatus = '';
+    if (product.estoque > 10) {
+      stockStatus = `<div class="product-stock stock-green">Em estoque</div>`;
+    } else if (product.estoque > 0) {
+      stockStatus = `<div class="product-stock stock-orange">Últimas unidades (${product.estoque})</div>`;
+    } else {
+      stockStatus = `<div class="product-stock stock-red">Esgotado</div>`;
+    }
+
+    // Lógica para exibir o preço apenas se for maior que zero
+    const priceDisplay = product.preco > 0 
+      ? `<div class="product-price">R$ ${product.preco.toFixed(2).replace('.', ',')}</div>` 
+      : '';
+
+    // Define o conteúdo da imagem (link clicável ou apenas imagem)
+    const imageContent = isOutOfStock
+      ? `<div class="product-image-wrapper"><img src="${product.imagem}" alt="${product.nome}" loading="lazy" /></div>`
+      : `<a href="${product.imagem}" class="lightbox" data-index="${index}">
+           <img src="${product.imagem}" alt="${product.nome}" loading="lazy" />
+         </a>`;
+
+    // Define o botão de mockup (link ou botão desabilitado)
+    const mockupButton = isOutOfStock
+      ? `<button class="card-action-btn mockup-btn" disabled><i class="fa-solid fa-image"></i> Mockup</button>`
+      : `<a class="card-action-btn mockup-btn hover-lift" href="${product.googleDriveLink}" target="_blank" rel="noopener">
+           <i class="fa-solid fa-image"></i> Mockup
+         </a>`;
+
+    card.innerHTML = `
+      ${imageContent}
+      <h3>${product.nome}</h3>
+      <p class="prod-desc">${product.descricao}</p>
+      
+      <div class="product-details">
+        ${priceDisplay}
+        ${stockStatus}
+      </div>
+
+      <div class="card-actions">
+        ${mockupButton}
+        <button 
+          class="card-wp hover-lift" 
+          data-phone="${product.phone}" 
+          data-msg="${product.message}" 
+          ${buttonDisabled}>
+          <i class="fa-brands fa-whatsapp"></i> ${buttonText}
+        </button>
+      </div>
+    `;
+    return card;
+  };
+
+  const renderProducts = () => {
+    // A variável `produtos` vem do arquivo `data.js`
+    if (catalogContainer && typeof produtos !== 'undefined') {
+      catalogContainer.innerHTML = ''; // Limpa o container
+      produtos.forEach((product, index) => {
+        const card = createProductCard(product, index);
+        catalogContainer.appendChild(card);
+      });
+      // Re-inicializa o lightbox após renderizar os produtos
+      initializeLightbox();
+    }
+  };
+
   // --- FUNCIONALIDADE DO MODAL DE CONTATO E WHATSAPP ---
 
   // Seleciona os elementos do modal
@@ -217,15 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- FUNCIONALIDADE DO LIGHTBOX (GALERIA DE IMAGENS) ---
 
-  // Seleciona todos os links que devem abrir o lightbox.
-  const lightboxLinks = document.querySelectorAll('a.lightbox');
-  // Cria um array de objetos com as informações (URL e alt text) de cada imagem.
-  const images = Array.from(lightboxLinks).map(link => ({
-    src: link.href,
-    alt: link.querySelector('img').alt
-  }));
+  let images = [];
   let currentIndex = 0; // Variável para rastrear a imagem atual na galeria.
   let lightboxElement = null; // Variável para armazenar o elemento do lightbox depois de criado.
+
 
   /**
    * Cria o HTML do lightbox e o insere na página.
@@ -339,13 +416,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowLeft') showPrevImage();
   };
 
-  // Itera sobre cada link do lightbox para adicionar o evento de clique.
-  lightboxLinks.forEach((link, index) => {
-    link.addEventListener('click', (e) => {
-      // Previne o comportamento padrão do link (que seria abrir a imagem em uma nova página).
-      e.preventDefault();
-      // Abre o lightbox com o índice da imagem clicada.
-      openLightbox(index);
+  /**
+   * Inicializa o lightbox, selecionando os links e adicionando os eventos.
+   * Deve ser chamada após os produtos serem renderizados dinamicamente.
+   */
+  const initializeLightbox = () => {
+    const lightboxLinks = document.querySelectorAll('a.lightbox');
+    images = Array.from(lightboxLinks).map(link => ({
+      src: link.href,
+      alt: link.querySelector('img').alt
+    }));
+
+    lightboxLinks.forEach((link, index) => {
+      // Remove listener antigo para evitar duplicação
+      link.replaceWith(link.cloneNode(true));
     });
-  });
+
+    document.querySelectorAll('a.lightbox').forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openLightbox(index);
+      });
+    });
+  };
+
+  // --- INICIALIZAÇÃO ---
+  renderProducts();
 });

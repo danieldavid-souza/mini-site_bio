@@ -166,7 +166,8 @@ header {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Adiciona uma sombra mais forte */
 }
 
-.product-card a.lightbox {
+.product-card a.lightbox,
+.product-image-wrapper {
     cursor: pointer; /* Indica que a imagem é clicável */
 }
 
@@ -188,6 +189,38 @@ header {
     flex-grow: 1; /* Faz a descrição ocupar o espaço restante, alinhando os botões na base */
 }
 
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 10px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.product-stock {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.stock-green {
+    background-color: #16a34a; /* Verde */
+}
+.stock-orange {
+    background-color: #f97316; /* Laranja */
+}
+.stock-red {
+    background-color: #dc2626; /* Vermelho */
+}
+
 .card-actions { /* Contêiner dos botões de ação */
     display: flex; /* Usa Flexbox */
     gap: 0.5rem; /* Espaço entre os botões */
@@ -196,7 +229,7 @@ header {
     border-top: 1px solid var(--border-color); /* Linha divisória acima dos botões */
 }
 
-.card-actions button, .card-actions a { /* Estilo comum para botões e links de ação */
+.card-actions button, .card-actions a.card-action-btn { /* Estilo comum para botões e links de ação */
     flex: 1; /* Faz com que ocupem o mesmo espaço horizontalmente */
     padding: 0.6rem; /* Espaçamento interno */
     border-radius: 6px; /* Bordas arredondadas */
@@ -211,7 +244,7 @@ header {
     transition: all 0.2s ease; /* Transição suave */
 }
 
-.card-actions .card-wp:hover, .card-actions .primary-small:hover { /* Efeito hover nos botões de ação */
+.card-actions .card-wp:hover, .card-actions a.card-action-btn:hover { /* Efeito hover nos botões de ação */
     background-color: var(--primary-color); /* Muda a cor de fundo */
     border-color: var(--primary-color); /* Muda a cor da borda */
     color: white; /* Muda a cor do texto */
@@ -219,19 +252,31 @@ header {
 
 /* --- ESTILOS PARA PRODUTOS ESGOTADOS --- */
 
-/* Aplica um filtro cinza e opacidade na imagem do produto esgotado */
+/* Estilo geral para o card esgotado */
+.product-card[data-stock="out"] {
+    opacity: 0.7;
+    pointer-events: none; /* Desabilita todos os eventos de clique no card */
+}
+
+/* Remove os efeitos de hover do card esgotado */
+.product-card[data-stock="out"]:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Aplica um filtro cinza na imagem do produto esgotado */
 .product-card[data-stock="out"] img {
     filter: grayscale(80%);
-    opacity: 0.7;
 }
 
 /* Estiliza o botão desabilitado para produtos esgotados */
-.card-actions .card-wp:disabled {
+.card-actions button:disabled {
     background-color: var(--bg-card);
     border-color: var(--border-color);
     color: var(--tertiary-color);
     cursor: not-allowed;
     position: relative; /* Para o tooltip */
+    pointer-events: auto; /* Permite que o hover funcione para o tooltip */
 }
 
 .card-actions .card-wp:disabled:hover::after {
@@ -498,4 +543,11 @@ header {
         top: 10px;
         right: 10px;
     }
+}
+
+/* Ajuste para o botão de mockup */
+.card-actions .mockup-btn {
+    background-color: transparent;
+    border: 1px solid var(--tertiary-color);
+    color: var(--secondary-color);
 }

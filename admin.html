@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Mini Site</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Painel Administrativo</h1>
+            <p>Gerencie os produtos do seu mini site. Após editar, exporte o arquivo <code>data.js</code> e substitua o antigo no seu projeto.</p>
+        </header>
+
+        <div class="actions">
+            <button id="addProductBtn">Adicionar Produto</button>
+            <button id="saveChangesBtn">Salvar Alterações</button>
+            <div class="file-actions">
+                <label for="importJsonInput" class="file-label">Importar JSON</label>
+                <input type="file" id="importJsonInput" accept=".json,.js">
+                <button id="exportJsonBtn">Exportar para data.js</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Campanhas</th>
+                        <th>Estoque</th>
+                        <th>Google Drive Link</th>
+                        <th>Telefone</th>
+                        <th>Mensagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- As linhas de produtos serão inseridas aqui pelo admin.js -->
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p><strong>Instruções:</strong></p>
+            <ol>
+                <li>Use os campos para editar os produtos. As alterações são salvas localmente no navegador.</li>
+                <li>Clique em "Adicionar Produto" para criar um novo item.</li>
+                <li>Clique em "Salvar Alterações" para confirmar as mudanças na tabela.</li>
+                <li>Quando terminar, clique em "Exportar para data.js".</li>
+                <li>Salve o arquivo baixado com o nome <code>data.js</code> dentro da pasta do seu projeto, substituindo o antigo.</li>
+                <li>Para carregar dados de outro catálogo, use o botão "Importar JSON".</li>
+            </ol>
+        </footer>
+    </div>
+
+    <!-- Importa os dados e o script do admin -->
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+</html>
