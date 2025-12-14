@@ -54,7 +54,7 @@ const produtos = [
     "preco": 0,
     "imagem": "bolinha-natal3.jpg",
     "campanhas": [],
-    "estoque": 1,
+    "estoque": 83,
     "googleDriveLink": "https://drive.google.com/drive/folders/1d-efuSuP3aDRHBACY222oa-o7Lx43JfX?usp=sharing",
     "phone": "5532991657472",
     "message": "Olá! Tenho interesse em Bolinhas de Natal Personalizadas."
@@ -126,7 +126,7 @@ const produtos = [
     "preco": 0,
     "imagem": "caneca-jateada.jpg",
     "campanhas": [],
-    "estoque": 1,
+    "estoque": 0,
     "googleDriveLink": "https://drive.google.com/drive/folders/1Ht3eppk8bnNr3u9Ze7rBGUoBhIAXNCei?usp=sharing",
     "phone": "5532991657472",
     "message": "Olá! Tenho interesse na Caneca Jateada personalizada."
