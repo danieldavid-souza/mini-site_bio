@@ -142,7 +142,7 @@
   </div>
 
   <!-- 'defer' garante que o script só será executado após o HTML ser totalmente carregado -->
-  <script src="data.js" defer></script>
+  <script src="data.js" defer onerror="console.error('Erro ao carregar data.js. Verifique se o arquivo existe e se o nome está em minúsculo.'); alert('Erro: O arquivo de produtos (data.js) não foi carregado. Verifique se ele foi enviado ao Netlify e se o nome está em minúsculo.');"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
