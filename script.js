@@ -1,88 +1,6 @@
 // Adiciona um ouvinte de evento que espera o conteúdo HTML da página ser totalmente carregado antes de executar o script.
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- RENDERIZAÇÃO DINÂMICA DE PRODUTOS ---
-  const catalogContainer = document.getElementById('catalog');
-
-  const createProductCard = (product, index) => {
-    const card = document.createElement('div');
-    card.className = 'product-card anim';
-    card.style.animationDelay = `${0.72 + index * 0.06}s`;
-
-    if (product.estoque === 0) {
-      card.dataset.stock = 'out';
-    }
-
-    const isOutOfStock = product.estoque === 0;
-    const buttonText = isOutOfStock ? 'Esgotado Sob Encomenda' : 'Solicitar';
-    const buttonDisabled = isOutOfStock ? 'disabled' : '';
-
-    // Lógica para o status do estoque (cor e texto)
-    let stockStatus = '';
-    if (product.estoque > 10) {
-      stockStatus = `<div class="product-stock stock-green">Em estoque</div>`;
-    } else if (product.estoque > 0) {
-      stockStatus = `<div class="product-stock stock-orange">Últimas unidades (${product.estoque})</div>`;
-    } else {
-      stockStatus = `<div class="product-stock stock-red">Esgotado</div>`;
-    }
-
-    // Lógica para exibir o preço apenas se for maior que zero
-    const priceDisplay = product.preco > 0 
-      ? `<div class="product-price">R$ ${product.preco.toFixed(2).replace('.', ',')}</div>` 
-      : '';
-
-    // Define o conteúdo da imagem (link clicável ou apenas imagem)
-    const imageContent = isOutOfStock
-      ? `<div class="product-image-wrapper"><img src="${product.imagem}" alt="${product.nome}" loading="lazy" /></div>`
-      : `<a href="${product.imagem}" class="lightbox" data-index="${index}">
-           <img src="${product.imagem}" alt="${product.nome}" loading="lazy" />
-         </a>`;
-
-    // Define o botão de mockup (link ou botão desabilitado)
-    const mockupButton = isOutOfStock
-      ? `<button class="card-action-btn mockup-btn" disabled><i class="fa-solid fa-image"></i> Mockup</button>`
-      : `<a class="card-action-btn mockup-btn hover-lift" href="${product.googleDriveLink}" target="_blank" rel="noopener">
-           <i class="fa-solid fa-image"></i> Mockup
-         </a>`;
-
-    card.innerHTML = `
-      ${imageContent}
-      <h3>${product.nome}</h3>
-      <p class="prod-desc">${product.descricao}</p>
-      
-      <div class="product-details">
-        ${priceDisplay}
-        ${stockStatus}
-      </div>
-
-      <div class="card-actions">
-        ${mockupButton}
-        <button 
-          class="card-wp hover-lift" 
-          data-phone="${product.phone}" 
-          data-msg="${product.message}" 
-          ${buttonDisabled}>
-          <i class="fa-brands fa-whatsapp"></i> ${buttonText}
-        </button>
-      </div>
-    `;
-    return card;
-  };
-
-  const renderProducts = () => {
-    // A variável `produtos` vem do arquivo `data.js`
-    if (catalogContainer && typeof produtos !== 'undefined') {
-      catalogContainer.innerHTML = ''; // Limpa o container
-      produtos.forEach((product, index) => {
-        const card = createProductCard(product, index);
-        catalogContainer.appendChild(card);
-      });
-      // Re-inicializa o lightbox após renderizar os produtos
-      initializeLightbox();
-    }
-  };
-
   // --- FUNCIONALIDADE DO MODAL DE CONTATO E WHATSAPP ---
 
   // Seleciona os elementos do modal
@@ -104,39 +22,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preenche as informações no modal
     modalContactName.textContent = contactName;
     whatsappMessage.value = message;
-
-    // Atualiza o link do botão de envio
-    whatsappSendBtn.onclick = (e) => {
-      e.preventDefault();
-
-      // Feedback visual para o usuário
-      whatsappSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecionando...';
-      whatsappSendBtn.disabled = true;
-
-      const encodedMessage = encodeURIComponent(whatsappMessage.value);
-      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-      
-      // Abre o WhatsApp e fecha o modal após um pequeno atraso
-      setTimeout(() => {
-        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        closeContactModal();
-      }, 500); // 500ms de atraso para o usuário ver o feedback
-    };
+    
+    // Armazena o telefone no botão para uso no evento de clique
+    whatsappSendBtn.dataset.phone = phone;
 
     // Exibe o modal
     contactModal.classList.add('active');
   };
+
+  // Adiciona o ouvinte de clique ao botão de enviar (apenas uma vez)
+  if (whatsappSendBtn) {
+    whatsappSendBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      const phone = whatsappSendBtn.dataset.phone;
+      if (!phone) return;
+
+      // Feedback visual
+      whatsappSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecionando...';
+      whatsappSendBtn.style.pointerEvents = 'none'; // Desabilita cliques
+
+      const encodedMessage = encodeURIComponent(whatsappMessage.value);
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+
+      setTimeout(() => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        closeContactModal();
+        // Restaura o botão
+        whatsappSendBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar mensagem';
+        whatsappSendBtn.style.pointerEvents = 'auto';
+      }, 500);
+    });
+  }
 
   /**
    * Fecha o modal de contato.
    */
   const closeContactModal = () => {
     contactModal?.classList.remove('active');
-    // Restaura o botão do modal para o estado original ao fechar
-    if(whatsappSendBtn) {
-      whatsappSendBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Enviar no WhatsApp';
-      whatsappSendBtn.disabled = false;
-    }
   };
 
   // Ouvintes de evento para fechar o modal
@@ -146,21 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
       closeContactModal();
     }
   });
-
-  // --- DELEGAÇÃO DE EVENTOS PARA OS PRODUTOS ---
-  const catalog = document.getElementById('catalog');
-  if (catalog) {
-    catalog.addEventListener('click', (e) => {
-      // Procura pelo botão mais próximo que foi clicado
-      const button = e.target.closest('.card-wp');
-      if (button && !button.disabled) {
-        const phone = button.dataset.phone;
-        const message = button.dataset.msg;
-        const contactName = phone === '5532991657472' ? 'Lima Calixto' : 'Lima Lima';
-        openContactModal(phone, message, contactName);
-      }
-    });
-  }
 
   // Função auxiliar para configurar os links de contato do rodapé
   const setupFooterContact = (elementId, message, contactName) => {
@@ -175,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Configura os contatos do rodapé para abrir o modal
-  setupFooterContact('footerWaMarli', "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Lima Calixto.", "Marli (Lima Calixto)");
-  setupFooterContact('footerWaDaniel', "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.", "Daniel (Lima Lima)");
+  setupFooterContact('footerWaMarli', "Olá, Marli! Vi o contato no mini site e gostaria de mais informações sobre os produtos personalizados da Foto ART Personalizados.", "Marli (Foto ART )");
+  // setupFooterContact('footerWaDaniel', "Olá, Daniel! Vi o contato no mini site e gostaria de mais informações sobre os serviços de manutenção da Lima Lima.", "Daniel (Lima Lima)");
 
   // --- FUNCIONALIDADE DE COMPARTILHAMENTO ---
 
@@ -297,149 +205,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- FUNCIONALIDADE DO LIGHTBOX (GALERIA DE IMAGENS) ---
-
-  let images = [];
-  let currentIndex = 0; // Variável para rastrear a imagem atual na galeria.
-  let lightboxElement = null; // Variável para armazenar o elemento do lightbox depois de criado.
-
-
-  /**
-   * Cria o HTML do lightbox e o insere na página.
-   */
-  const createLightbox = () => {
-    // Define o HTML do lightbox usando template literals.
-    const lightboxHTML = `
-      <div class="lightbox-overlay">
-        <div class="lightbox-wrapper">
-          <button class="lightbox-close" title="Fechar (Esc)">&times;</button>
-          <img src="" alt="" class="lightbox-image">
-          <div class="lightbox-controls">
-            <button class="lightbox-prev" title="Anterior (←)">&lsaquo;</button>
-            <button class="lightbox-next" title="Próxima (→)">&rsaquo;</button>
-          </div>
-        </div>
-      </div>
-    `;
-    // Insere o HTML no final do body.
-    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
-    // Armazena a referência ao elemento do lightbox recém-criado.
-    lightboxElement = document.querySelector('.lightbox-overlay');
-
-    // Adiciona ouvintes de evento aos botões de controle do lightbox.
-    lightboxElement.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-    lightboxElement.querySelector('.lightbox-prev').addEventListener('click', showPrevImage);
-    lightboxElement.querySelector('.lightbox-next').addEventListener('click', showNextImage);
-    // Adiciona um ouvinte para fechar o lightbox ao clicar no fundo escuro.
-    lightboxElement.addEventListener('click', (e) => {
-      if (e.target === lightboxElement) {
-        closeLightbox();
-      }
-    });
-  };
-
-  /**
-   * Abre o lightbox e exibe uma imagem específica.
-   * @param {number} index - O índice da imagem a ser exibida.
-   */
-  const openLightbox = (index) => {
-    // Se o lightbox ainda não foi criado, cria-o.
-    if (!lightboxElement) {
-      createLightbox();
-    }
-    // Define o índice da imagem atual.
-    currentIndex = index;
-    // Atualiza a imagem exibida.
-    updateImage();
-    // Mostra o lightbox.
-    lightboxElement.style.display = 'flex'; // Garante que o elemento seja visível
-    lightboxElement.classList.add('active'); // Adiciona a classe para controle de estado
-    // Adiciona o ouvinte de eventos do teclado (setas e Esc).
-    document.addEventListener('keydown', handleKeyboard);
-  };
-
-  /**
-   * Fecha o lightbox.
-   */
-  const closeLightbox = () => {
-    if (lightboxElement && lightboxElement.classList.contains('active')) {
-      // Adiciona uma classe para a animação de saída
-      lightboxElement.classList.add('closing');
-      lightboxElement.classList.remove('active');
-      document.removeEventListener('keydown', handleKeyboard);
-      // Espera a animação terminar para ocultar o elemento
-      setTimeout(() => {
-        lightboxElement.style.display = 'none';
-        lightboxElement.classList.remove('closing'); // Limpa a classe
-      }, 300); // Deve ser igual à duração da animação
-    } else if (lightboxElement) { // Fallback para fechar caso a classe 'active' não esteja presente
-      lightboxElement.style.display = 'none';
-      document.removeEventListener('keydown', handleKeyboard);
-    }
-  };
-
-  /**
-   * Atualiza a imagem e o texto alternativo no lightbox.
-   */
-  const updateImage = () => {
-    if (lightboxElement) {
-      const img = lightboxElement.querySelector('.lightbox-image');
-      img.src = images[currentIndex].src;
-      img.alt = images[currentIndex].alt;
-    }
-  };
-
-  /**
-   * Navega para a próxima imagem na galeria.
-   */
-  const showNextImage = () => {
-    // Usa o operador de módulo (%) para voltar ao início quando chegar ao fim da lista.
-    currentIndex = (currentIndex + 1) % images.length;
-    updateImage();
-  };
-
-  /**
-   * Navega para a imagem anterior na galeria.
-   */
-  const showPrevImage = () => {
-    // Lógica para voltar ao final da lista quando estiver na primeira imagem.
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateImage();
-  };
-
-  /**
-   * Lida com a navegação por teclado (Esc, Seta Direita, Seta Esquerda).
-   */
-  const handleKeyboard = (e) => {
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') showNextImage();
-    if (e.key === 'ArrowLeft') showPrevImage();
-  };
-
-  /**
-   * Inicializa o lightbox, selecionando os links e adicionando os eventos.
-   * Deve ser chamada após os produtos serem renderizados dinamicamente.
-   */
-  const initializeLightbox = () => {
-    const lightboxLinks = document.querySelectorAll('a.lightbox');
-    images = Array.from(lightboxLinks).map(link => ({
-      src: link.href,
-      alt: link.querySelector('img').alt
-    }));
-
-    lightboxLinks.forEach((link, index) => {
-      // Remove listener antigo para evitar duplicação
-      link.replaceWith(link.cloneNode(true));
-    });
-
-    document.querySelectorAll('a.lightbox').forEach((link, index) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        openLightbox(index);
-      });
-    });
-  };
-
-  // --- INICIALIZAÇÃO ---
-  renderProducts();
 });

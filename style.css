@@ -78,6 +78,12 @@ header {
     margin-bottom: 1rem; /* Margem inferior */
 }
 
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--tertiary-color);
+    margin-bottom: 1.5rem;
+}
+
 .theme-toggle { /* Estilo do botão de alternar tema */
     background: none; /* Fundo transparente */
     border: 1px solid var(--border-color); /* Borda sutil */
@@ -102,6 +108,9 @@ header {
 }
 
 .social-link {
+    display: flex; /* Corrige a sobreposição e alinha ícones */
+    justify-content: center;
+    align-items: center;
     background-color: var(--bg-card); /* Cor de fundo */
     border: 1px solid var(--border-color); /* Borda */
     color: var(--secondary-color); /* Cor do texto */
@@ -124,8 +133,28 @@ header {
 /* Cores específicas para cada tipo de link no hover */
 .insta-link:hover { border-color: var(--insta-color); color: var(--insta-color); }
 .face-link:hover { border-color: var(--face-color); color: var(--face-color); }
-.whatsapp-link:hover { border-color: var(--whatsapp-color); color: var(--whatsapp-color); }
 .catalogo-link:hover { border-color: var(--link-color); color: var(--link-color); }
+
+/* --- BOTÕES ESPECÍFICOS (CORREÇÃO: Classes wa-btn e main-cta adicionadas) --- */
+.wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--whatsapp-color);
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--whatsapp-color);
+    cursor: pointer;
+    width: 100%;
+}
+.wa-btn:hover { background-color: #1ebc57; border-color: #1ebc57; color: #fff; }
+
+.main-cta { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+.main-cta:hover { background-color: var(--bg-card); color: var(--primary-color); }
 
 /* --- SEÇÃO "SOBRE NÓS" --- */
 .about-section {
@@ -135,7 +164,7 @@ header {
     margin-bottom: 2rem; /* Margem inferior */
 }
 
-.section-title, .catalog-title { /* Estilo para títulos de seção */
+.section-title { /* Estilo para títulos de seção */
     font-size: 1.5rem; /* Tamanho da fonte */
     font-weight: 600; /* Peso da fonte (semi-negrito) */
     color: var(--primary-color); /* Cor do título */
@@ -143,156 +172,6 @@ header {
     text-align: center; /* Centraliza o texto */
 }
 
-/* --- CATÁLOGO DE PRODUTOS --- */
-.catalog {
-    display: grid; /* Usa layout de grade */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Colunas responsivas */
-    gap: 1.5rem; /* Espaçamento entre os produtos */
-    margin-bottom: 2rem; /* Margem inferior */
-}
-
-.product-card { /* Estilo do cartão de produto */
-    background-color: var(--bg-card); /* Cor de fundo */
-    border: 1px solid var(--border-color); /* Borda */
-    border-radius: 8px; /* Bordas arredondadas */
-    overflow: hidden; /* Esconde qualquer conteúdo que transborde */
-    display: flex; /* Usa Flexbox para alinhar o conteúdo interno */
-    flex-direction: column; /* Organiza os itens em coluna */
-    transition: all 0.2s ease; /* Transição suave para o hover */
-}
-
-.product-card:hover { /* Efeito ao passar o mouse no cartão */
-    transform: translateY(-5px); /* Move o cartão para cima */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* Adiciona uma sombra mais forte */
-}
-
-.product-card a.lightbox,
-.product-image-wrapper {
-    cursor: pointer; /* Indica que a imagem é clicável */
-}
-
-.product-card img { /* Estilo da imagem do produto */
-    width: 100%; /* Largura total do cartão */
-    height: 200px; /* Altura fixa */
-    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
-}
-
-.product-card h3 { /* Título do produto */
-    font-size: 1.1rem; /* Tamanho da fonte */
-    padding: 0.75rem 1rem 0.5rem; /* Espaçamento interno */
-}
-
-.product-card .prod-desc { /* Descrição do produto */
-    font-size: 0.9rem; /* Tamanho da fonte */
-    color: var(--tertiary-color); /* Cor do texto */
-    padding: 0 1rem; /* Espaçamento interno horizontal */
-    flex-grow: 1; /* Faz a descrição ocupar o espaço restante, alinhando os botões na base */
-}
-
-.product-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    gap: 10px;
-}
-
-.product-price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.product-stock {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    color: #fff;
-}
-
-.stock-green {
-    background-color: #16a34a; /* Verde */
-}
-.stock-orange {
-    background-color: #f97316; /* Laranja */
-}
-.stock-red {
-    background-color: #dc2626; /* Vermelho */
-}
-
-.card-actions { /* Contêiner dos botões de ação */
-    display: flex; /* Usa Flexbox */
-    gap: 0.5rem; /* Espaço entre os botões */
-    padding: 1rem; /* Espaçamento interno */
-    margin-top: auto; /* Empurra os botões para a base do cartão */
-    border-top: 1px solid var(--border-color); /* Linha divisória acima dos botões */
-}
-
-.card-actions button, .card-actions a.card-action-btn { /* Estilo comum para botões e links de ação */
-    flex: 1; /* Faz com que ocupem o mesmo espaço horizontalmente */
-    padding: 0.6rem; /* Espaçamento interno */
-    border-radius: 6px; /* Bordas arredondadas */
-    border: 1px solid var(--tertiary-color); /* Borda */
-    background: transparent; /* Fundo transparente */
-    color: var(--secondary-color); /* Cor do texto */
-    cursor: pointer; /* Ícone de mão */
-    font-family: inherit; /* Herda a fonte do body */
-    font-size: 0.9rem; /* Tamanho da fonte */
-    text-align: center; /* Centraliza o texto */
-    text-decoration: none; /* Remove sublinhado */
-    transition: all 0.2s ease; /* Transição suave */
-}
-
-.card-actions .card-wp:hover, .card-actions a.card-action-btn:hover { /* Efeito hover nos botões de ação */
-    background-color: var(--primary-color); /* Muda a cor de fundo */
-    border-color: var(--primary-color); /* Muda a cor da borda */
-    color: white; /* Muda a cor do texto */
-}
-
-/* --- ESTILOS PARA PRODUTOS ESGOTADOS --- */
-
-/* Estilo geral para o card esgotado */
-.product-card[data-stock="out"] {
-    opacity: 0.7;
-    pointer-events: none; /* Desabilita todos os eventos de clique no card */
-}
-
-/* Remove os efeitos de hover do card esgotado */
-.product-card[data-stock="out"]:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Aplica um filtro cinza na imagem do produto esgotado */
-.product-card[data-stock="out"] img {
-    filter: grayscale(80%);
-}
-
-/* Estiliza o botão desabilitado para produtos esgotados */
-.card-actions button:disabled {
-    background-color: var(--bg-card);
-    border-color: var(--border-color);
-    color: var(--tertiary-color);
-    cursor: not-allowed;
-    position: relative; /* Para o tooltip */
-    pointer-events: auto; /* Permite que o hover funcione para o tooltip */
-}
-
-.card-actions .card-wp:disabled:hover::after {
-    content: 'Sob encomenda';
-    position: absolute;
-    bottom: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--bg-color);
-    color: var(--secondary-color);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
 /* --- SEÇÃO DE COMPARTILHAMENTO E BOTÃO VOLTAR AO TOPO --- */
 .share-card, .share-thanks, #backToTop {
     text-align: center; /* Centraliza o conteúdo */
@@ -383,6 +262,7 @@ header {
     text-align: center;
 }
 .footer-follow div {
+    display: flex; /* CORREÇÃO: Necessário para justify-content funcionar */
     justify-content: center; /* Centraliza os botões de redes sociais */
 }
 .footer-bottom { /* Seção final do rodapé com copyright */
@@ -416,27 +296,6 @@ header {
   Aplica um delay escalonado para cada elemento com a classe .anim dentro de um mesmo pai.
   Isso torna a animação de entrada mais limpa e fácil de manter.
 */
-.social-grid > .anim,
-.product-card.anim {
-  animation-duration: 0.5s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: both;
-  animation-name: fadeIn;
-}
-
-/* Adicione mais seletores :nth-child() se tiver mais de 12 produtos */
-.product-card.anim:nth-child(1) { animation-delay: 0.1s; }
-.product-card.anim:nth-child(2) { animation-delay: 0.2s; }
-.product-card.anim:nth-child(3) { animation-delay: 0.3s; }
-.product-card.anim:nth-child(4) { animation-delay: 0.4s; }
-.product-card.anim:nth-child(5) { animation-delay: 0.5s; }
-.product-card.anim:nth-child(6) { animation-delay: 0.6s; }
-.product-card.anim:nth-child(7) { animation-delay: 0.7s; }
-.product-card.anim:nth-child(8) { animation-delay: 0.8s; }
-.product-card.anim:nth-child(9) { animation-delay: 0.9s; }
-.product-card.anim:nth-child(10) { animation-delay: 1.0s; }
-.product-card.anim:nth-child(11) { animation-delay: 1.1s; }
-.product-card.anim:nth-child(12) { animation-delay: 1.2s; }
 
 .hover-lift { /* Classe para efeito de "elevar" no hover */
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
@@ -452,7 +311,7 @@ header {
     .wrap {
         padding: 0.5rem; /* Reduz o espaçamento lateral */
     }
-    .social-grid, .catalog, .footer-grid {
+    .social-grid, .footer-grid {
         grid-template-columns: 1fr; /* Faz as grades terem apenas uma coluna */
     }
 }
@@ -463,91 +322,9 @@ header {
     }
 
     .footer-col div, .footer-col a {
+        display: flex; /* CORREÇÃO: Necessário para justify-content funcionar */
         justify-content: center; /* Centraliza itens flex (botões) */
         margin-left: auto; /* Centraliza blocos */
         margin-right: auto; /* Centraliza blocos */
     }
-}
-
-/* --- ESTILOS DO LIGHTBOX (GALERIA DE IMAGENS) --- */
-.lightbox-overlay { /* Fundo escuro que cobre a tela */
-    position: fixed; /* Posição fixa */
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semitransparente */
-    display: flex; /* Usa Flexbox para centralizar */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000; /* Garante que fique acima de todo o conteúdo */
-    padding: 1rem; /* Espaçamento para não colar nas bordas */
-}
-
-.lightbox-wrapper { /* Contêiner da imagem e controles */
-    position: relative; /* Para posicionar o botão de fechar */
-    max-width: 90vw; /* Largura máxima de 90% da tela */
-    max-height: 90vh; /* Altura máxima de 90% da tela */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.lightbox-image { /* A imagem ampliada */
-    max-width: 100%;
-    max-height: calc(90vh - 60px); /* Altura máxima, deixando espaço para os controles */
-    object-fit: contain; /* Garante que a imagem inteira seja visível sem distorção */
-    border-radius: 4px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5); /* Sombra forte para destacar */
-}
-.lightbox-close { /* Botão de fechar (X) */
-    position: absolute; /* Posição absoluta em relação ao .lightbox-wrapper */
-    top: -10px; right: -10px;
-    background: white;
-    color: #333;
-    border: none;
-    border-radius: 50%;
-    width: 40px; height: 40px;
-    font-size: 2rem;
-    line-height: 38px; /* Alinha o 'X' verticalmente */
-    text-align: center;
-    cursor: pointer;
-    z-index: 2010; /* Garante que fique acima da imagem */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-.lightbox-controls { /* Contêiner dos botões "anterior" e "próximo" */
-    display: flex;
-    justify-content: space-between; /* Coloca um botão em cada extremidade */
-    width: 100%;
-    max-width: 400px; /* Largura máxima dos controles */
-    margin-top: 1rem; /* Espaço acima dos botões */
-}
-
-.lightbox-controls button { /* Estilo dos botões de navegação */
-    background: rgba(40, 40, 40, 0.7);
-    color: white;
-    border: 1px solid #444;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background-color 0.2s ease;
-}
-
-.lightbox-controls button:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-@media (max-width: 768px) { /* Ajuste para o botão de fechar em telas menores */
-    .lightbox-close {
-        top: 10px;
-        right: 10px;
-    }
-}
-
-/* Ajuste para o botão de mockup */
-.card-actions .mockup-btn {
-    background-color: transparent;
-    border: 1px solid var(--tertiary-color);
-    color: var(--secondary-color);
 }

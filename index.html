@@ -1,148 +1,161 @@
-<!doctype html> <!-- Define o tipo de documento como HTML5 -->
-<html lang="pt-BR"> <!-- Define o idioma principal da página como Português do Brasil -->
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" /> <!-- Define o conjunto de caracteres como UTF-8 para suportar acentos e símbolos -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Garante que a página seja responsiva em dispositivos móveis -->
-  <title>Lima Calixto • Lima Lima — Mini Site</title> <!-- Título que aparece na aba do navegador -->
-  <meta name="description" content="Sublimação, personalizados, convites digitais e manutenção de computadores."> <!-- Descrição para motores de busca (SEO) -->  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"> <!-- Importa a fonte 'Quicksand' do Google Fonts -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Importa a biblioteca de ícones Font Awesome -->
-  <link rel="stylesheet" href="style.css" /> <!-- Link para a folha de estilos principal -->
-  <link rel="icon" href="logo.png" type="image/png"> <!-- Define o ícone (favicon) da página -->
-  <link rel="stylesheet" href="modal-style.css" /> <!-- Link para a folha de estilos do modal (se houver) -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Foto Art Personalizados • Sublimação & Convites Digitais</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Sublimação, personalizados e convites digitais sob medida. Presentes criativos para todas as ocasiões. Orçamento rápido no WhatsApp.">
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="modal-style.css" />
+  <link rel="icon" href="logo.png" type="image/png">
 </head>
+
 <body>
-  <!-- imagens esperadas na mesma pasta:
-       caneca.jpg, camiseta.jpg, convite.jpg, calendario.jpg, Placa-de-Acrílico.jpg,
-       manutencaopc.png, azulejo.jpg, caneca-jateada.jpg, logo.png, logo2.png
-  -->
-  <div class="wrap"> <!-- Contêiner principal que centraliza o conteúdo -->
-    <header> <!-- Seção do cabeçalho da página -->
-      <div class="header-content">
-        <!-- Imagens de perfil e logos. O atributo 'alt' descreve a imagem para acessibilidade e SEO -->
-        <img src="perfil-daniel.png" alt="Foto Perfil Daniel" class="profile-picture">
-        <img src="perfil-marli.png" alt="Foto Perfil Marli" class="profile-picture">
-        <img src="logo.png" alt="Logo Lima Calixto Personalizados" class="profile-picture">
-        <img src="logo2.png" alt="Logo Lima Lima Manutenção" class="profile-picture">
-      </div>
-      <div class="brand-line anim" style="animation-delay:.12s"> <!-- Slogan ou descrição da marca -->
-        Sublimação, personalizados, convites digitais e manutenção de computador e notebook.
-      </div>
-      <!-- Botão para alternar o tema. 'aria-label' descreve a função do botão para leitores de tela -->
-      <button id="themeToggle" class="theme-toggle anim" style="animation-delay:.15s" aria-label="Alternar tema claro/escuro">
-        <i class="fas fa-moon"></i> <!-- Ícone inicial (lua para tema escuro) -->
-      </button>
-    </header>
+<div class="wrap">
 
-    <!-- Grade de links para redes sociais e catálogos -->
-    <div class="social-grid" role="navigation" aria-label="Redes sociais">
-      <!-- 'target="_blank"' abre o link em uma nova aba. 'rel="noopener"' é uma medida de segurança. -->
-      <a class="social-link hover-lift anim insta-link" style="animation-delay:.32s" href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Calixto</a>
-      <a class="social-link hover-lift anim face-link" style="animation-delay:.36s" href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Calixto</a>
-      <a class="social-link hover-lift anim insta-link" style="animation-delay:.40s" href="https://www.instagram.com/limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram Lima Lima</a>
-      <a class="social-link hover-lift anim face-link" style="animation-delay:.44s" href="https://www.facebook.com/Limalimamanutencaopc" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook Lima Lima</a>
-
-      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.56s" href="https://foto-art.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-store"></i> Catálogo Online</a>
-      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.60s" href="https://site-servico-manutencao.netlify.app/" target="_blank" rel="noopener"><i class="fa-solid fa-screwdriver-wrench"></i> Site de Manutenção</a> 
-      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.64s" href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" rel="noopener"><i class="fas fa-heart"></i> Campanha Gratidão</a>
-      <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.64s" href="https://catalogo-campanhas.netlify.app/campanhas/avulsa" target="_blank" rel="noopener"><i class="fas fa-font"></i> Campanha Alfabeto Delicado</a>
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <img src="perfil-marli.png" alt="Foto Marli" class="profile-picture">
+      <img src="logo.png" alt="Logo Foto Art Personalizados" class="profile-picture">
     </div>
 
-    <!-- Seção de compartilhamento do site -->
-    <div class="share-card anim" style="animation-delay:1.20s">
-      <button id="shareToggle" class="hover-lift"><i class="fas fa-share-alt"></i> Compartilhar Mini Site</button>
-      <div id="shareOptions" class="share-options" style="display:none"> <!-- Opções de compartilhamento, inicialmente ocultas -->
-        <a id="shareWhatsApp" href="#" target="_blank" class="hover-lift"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        <a id="shareTelegram" href="#" target="_blank" class="hover-lift"><i class="fab fa-telegram"></i> Telegram</a>
-      </div>
-      <div id="shareThanks" class="share-thanks" style="display:none;text-align:center;margin-top:6px;color:#16a34a">✅ Obrigado por compartilhar!</div> <!-- Mensagem de agradecimento, inicialmente oculta -->
+    <!-- <div class="brand-line anim" style="animation-delay:.1s">
+      🎨 Sublimação & Personalizados que encantam 
+    </div> -->
+
+    <p class="subtitle anim" style="animation-delay:.15s">
+      🎁 Presentes criativos • 💌 Convites digitais sob medida
+    </p>
+
+    <!-- CTA PRINCIPAL -->
+    <a class="social-link hover-lift anim catalogo-link main-cta"
+       style="animation-delay:.2s"
+       href="#contato">
+      <i class="fab fa-whatsapp"></i> Peça seu orçamento agora
+    </a>
+
+    <button id="themeToggle" class="theme-toggle anim" style="animation-delay:.25s" aria-label="Alternar tema">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <!-- LINKS PRINCIPAIS -->
+  <section class="social-grid" aria-label="Links principais">
+
+    <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.3s"
+       href="https://foto-art.netlify.app/" target="_blank" rel="noopener">
+      <i class="fas fa-store"></i> Ver Catálogo de Personalizados
+    </a>
+
+    <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.35s"
+       href="https://foto-art.netlify.app/?mode=vitrine&categoria=Convites%20Digitais&ids=1768429731847" target="_blank" rel="noopener">
+      <i class="fas fa-envelope-open-text"></i> Convites Digitais Personalizados
+    </a>
+
+    <a class="social-link hover-lift anim catalogo-link" style="animation-delay:.4s"
+       href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" rel="noopener">
+      <i class="fas fa-heart"></i> Campanhas Especiais
+    </a>
+
+    <a class="social-link hover-lift anim insta-link" style="animation-delay:.45s"
+       href="https://www.instagram.com/fotoartpersonalizados/" target="_blank" rel="noopener">
+      <i class="fab fa-instagram"></i> Veja nossos trabalhos no Instagram
+    </a>
+
+    <a class="social-link hover-lift anim face-link" style="animation-delay:.5s"
+       href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener">
+      <i class="fab fa-facebook"></i> Facebook Foto Art
+    </a>
+
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="about-section anim" style="animation-delay:.55s">
+    <h2 class="section-title"><i class="fa-solid fa-users"></i> Sobre Nós</h2>
+
+    <div class="about-text">
+      <p>
+        A <strong>Foto Art Personalizados</strong> transforma ideias em presentes e lembranças únicas.
+        Trabalhamos com <strong>sublimação, personalizados e convites digitais</strong>,
+        sempre com carinho, criatividade e atenção aos detalhes.
+      </p>
+
+      <p>
+        Nosso objetivo é tornar cada momento especial ainda mais marcante,
+        seja em aniversários, datas comemorativas, eventos ou presentes personalizados.
+      </p>
     </div>
+  </section>
 
-    <!-- Seção "Sobre Nós" -->
-    <section id="sobre" class="about-section anim" style="animation-delay:.68s">
-      <h2 class="section-title"><i class="fa-solid fa-users"></i> Sobre Nós</h2>
-      <div class="about-content">
-        <div class="about-text">
-          <p>A <strong>Lima Calixto Personalizados</strong>, liderada por Marli, transforma ideias em presentes e lembranças únicas. Com dedicação e criatividade, oferecemos produtos de sublimação e personalizados que marcam momentos especiais.</p>
-          <p>A <strong>Lima Lima Manutenção</strong>, sob o comando de Daniel, oferece suporte técnico ágil e confiável para computadores e notebooks. Combinamos conhecimento técnico com um atendimento focado em resolver seus problemas de tecnologia.</p>
-          <p>Juntos, unimos a arte da personalização com a precisão da tecnologia para atender você da melhor forma.</p>
-        </div>
-      </div>
-    </section>
+  <!-- CONTATO -->
+  <section id="contato" class="contact-section anim" style="animation-delay:.6s">
+    <h2 class="section-title"><i class="fab fa-whatsapp"></i> Fale Conosco</h2>
 
-    <!-- Título da seção do catálogo -->
-    <!-- <h2 id="catalog-title" class="catalog-title anim" style="animation-delay:.68s"><i class="fa-solid fa-box"></i> <strong>Mini Catálogo Online</strong></h2> -->
+    <a id="footerWaMarli"
+       class="wa-btn hover-lift main-cta"
+       data-phone="5532991657472">
+      <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+    </a>
 
-    <!-- Seção do catálogo de produtos -->
-    <!-- <section class="catalog" id="catalog" aria-labelledby="catalog-title">
-      <!-- Os cartões de produto serão inseridos aqui dinamicamente pelo script.js 
-    </section> -->
+    <p class="contact-note">
+      Atendimento de segunda a sexta • 9h às 18h
+    </p>
+  </section>
 
-    <!-- Botão "Voltar ao Topo", controlado via JavaScript -->
-    <button id="backToTop" title="Voltar ao topo" aria-label="Voltar ao topo">⬆</button>
-
-    <!-- Seção do rodapé -->
-    <footer class="footer-wrap anim" style="animation-delay:1.26s">
-      <div class="footer-grid"> <!-- Grade que organiza o conteúdo do rodapé em colunas -->
-        <!-- Coluna 1: Marca -->
-        <div class="footer-col footer-brand">
-          <h4>Lima Calixto • Lima Lima</h4>
-          <div>Especialistas em personalização e manutenção</div>
-        </div>
-
-        <!-- Coluna 2: Contatos -->
-        <div class="footer-col footer-contacts">
-          <h4>Contato</h4>
-          <div><strong>Marli — Lima Calixto</strong></div>
-          <a id="footerWaMarli" class="wa-btn hover-lift" href="#" data-phone="5532991657472" rel="noopener" role="button"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
-          <div style="margin-top:12px"><strong>Daniel — Lima Lima</strong></div>
-          <a id="footerWaDaniel" class="wa-btn hover-lift" href="#" data-phone="5532991992905" rel="noopener" role="button"><i class="fab fa-whatsapp"></i>Fale no WhatsApp</a>
-          <div style="margin-top:12px;font-size:14px;">Atendimento: Seg–Sex 9h–18h</div>
-        </div>
-
-        <!-- Coluna 3: Links Úteis -->
-        <div class="footer-col footer-links">
-          <h4>Links Úteis</h4>
-          <div class="footer-links">
-            <a class="btn-cat catalog hover-lift" href="https://foto-art.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-box-open"></i> Catálogo Online</a>
-            <a class="btn-cat natal hover-lift" href="https://catalogo-campanhas.netlify.app/campanhas/natal" target="_blank" rel="noopener"><i class="fas fa-gift"></i> Campanha de Natal</a>
-            <a class="btn-cat gratidao hover-lift" href="https://catalogo-campanhas.netlify.app/campanhas/gratidao" target="_blank" rel="noopener"><i class="fas fa-heart"></i> Campanha Gratidão</a>
-          </div>
-        </div>
-        
-        <!-- Coluna 4: Redes Sociais -->
-        <div class="footer-col footer-follow">
-          <h4>Siga-nos</h4>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-            <a class="btn insta hover-lift" href="https://www.instagram.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram</a>
-            <a class="btn fb hover-lift" href="https://www.facebook.com/limacalixtopersonalizados" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook</a>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Informações de copyright no final do rodapé -->
-      <div class="footer-bottom">
-        © 2025 <strong>Lima Calixto Personalizados</strong> &amp; <strong>Lima Lima Manutenção</strong> — Todos os direitos reservados.<br> <!-- '&amp;' é a entidade HTML para o caractere '&' -->
-        Juiz de Fora, MG.
-      </div>
-    </footer>
-  </div>
-
-  <!-- Estrutura do Modal de Contato -->
-  <div id="contactModal" class="modal-overlay">
-    <div class="modal-content">
-      <button id="modalClose" class="modal-close" title="Fechar">&times;</button>
-      <h2><i class="fab fa-whatsapp"></i> Contato via WhatsApp</h2>
-      <p>Sua mensagem será enviada para <strong id="modalContactName"></strong>. Você pode ajustar o texto abaixo antes de enviar.</p>
-      <textarea id="whatsappMessage" class="whatsapp-message" rows="5"></textarea>
-      <a id="whatsappSendBtn" href="#" target="_blank" rel="noopener noreferrer" class="whatsapp-send-btn">
-        <i class="fab fa-whatsapp"></i> Enviar no WhatsApp
+  <!-- COMPARTILHAR -->
+  <div class="share-card anim" style="animation-delay:.65s">
+    <button id="shareToggle" class="hover-lift">
+      <i class="fas fa-share-alt"></i> Compartilhar Cartão
+    </button>
+    <div id="shareOptions" class="share-options" style="display: none;">
+      <a id="shareWhatsApp" href="#" target="_blank" class="hover-lift" aria-label="Compartilhar no WhatsApp">
+        <i class="fab fa-whatsapp fa-2x"></i>
+      </a>
+      <a id="shareTelegram" href="#" target="_blank" class="hover-lift" aria-label="Compartilhar no Telegram">
+        <i class="fab fa-telegram fa-2x"></i>
       </a>
     </div>
+    <p id="shareThanks" style="display: none; margin-top: 10px;">Obrigado por compartilhar! ❤️</p>
   </div>
 
-  <!-- 'defer' garante que o script só será executado após o HTML ser totalmente carregado -->
-  <script src="data.js" defer onerror="console.error('Erro ao carregar data.js. Verifique se o arquivo existe e se o nome está em minúsculo.'); alert('Erro: O arquivo de produtos (data.js) não foi carregado. Verifique se ele foi enviado ao Netlify e se o nome está em minúsculo.');"></script>
-  <script src="script.js" defer></script>
+  <!-- FOOTER -->
+  <footer class="footer-wrap anim" style="animation-delay:.7s">
+    <div class="footer-bottom">
+      © 2025 <strong>Foto Art Personalizados</strong><br>
+      Sublimação • Personalizados • Convites Digitais<br>
+      Juiz de Fora, MG
+    </div>
+  </footer>
+
+</div>
+
+<!-- BOTÃO VOLTAR AO TOPO -->
+<button id="backToTop" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
+
+<!-- MODAL WHATSAPP -->
+<div id="contactModal" class="modal-overlay">
+  <div class="modal-content">
+    <button id="modalClose" class="modal-close">&times;</button>
+    <h2><i class="fab fa-whatsapp"></i> Falar com <span id="modalContactName">Atendente</span></h2>
+    <p>Descreva o que você deseja e clique em enviar.</p>
+    <textarea id="whatsappMessage" class="whatsapp-message" rows="5"
+      placeholder="Olá! Gostaria de um orçamento para..."></textarea>
+    <a id="whatsappSendBtn" target="_blank" class="whatsapp-send-btn">
+      <i class="fab fa-whatsapp"></i> Enviar mensagem
+    </a>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>

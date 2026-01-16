@@ -10,19 +10,18 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro e suave */
-  display: flex;
+  display: none; /* Oculto por padrão para evitar bugs de layout */
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 0; /* Mantém para transição */
+  transition: opacity 0.3s ease;
 }
 
 /* Animação de entrada do overlay */
 .modal-overlay.active {
+  display: flex; /* Exibe quando ativo */
   opacity: 1;
-  visibility: visible;
 }
 
 /* Conteúdo principal do modal */
